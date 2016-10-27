@@ -38,7 +38,7 @@ public class LoginController extends HttpServlet {
             	// Create a session and send to landing page
          	System.out.println("Authentication succeessful...");
              HttpSession session = request.getSession(true);
-             session.setAttribute("loggedInUser", user);
+             session.setAttribute("loggedInUser", user.getUser());
              request.getRequestDispatcher("homePage.jsp").forward(request, response); 
          } 
          else {
