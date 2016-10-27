@@ -23,7 +23,8 @@ public class WatchListDAO {
 		ResultSet rs = null;
 //		ResultSet rs2 = null;
 //		final String retrieveStockSymbolSQL = "Select symbol from watchlist_stocks where w_id=?";
-		final String retrieveWatchlistSQL = "Select w_id from userswatchlist where user_id=?";
+//		final String retrieveWatchlistSQL = "Select w_id from userswatchlist where user_id=?";
+		final String retrieveWatchlistSQL = "select userswatchlist.user_id,userswatchlist.w_id,watchlist.watchlist_name from userswatchlist right join watchlist on watchlist.w_id=userswatchlist.w_id where userswatchlist.user_id=? order by watchlist_name";
 
 		
 		try{
@@ -35,7 +36,7 @@ public class WatchListDAO {
 			List<String> watchlistforuserid = new ArrayList<>();
 			
 			while(rs.next()){
-				watchlistforuserid.add(rs.getString("w_id"));
+				watchlistforuserid.add(rs.getString("watchlist_name"));
 			}
 		
 //			ps2 = con.prepareStatement(retrieveStockSymbolSQL);
@@ -83,7 +84,7 @@ public class WatchListDAO {
 	
 	public static void main(String[] args) throws Exception{
 
-		List<String> list = WatchListDAO.retrieveStockSymbol(5);
+		List<String> list = WatchListDAO.retrieveStockSymbol(4);
 		System.out.println(list);
 		List<String> list2 = WatchListDAO.retrieveWatchlistName("w1");
 		System.out.println(list2);
