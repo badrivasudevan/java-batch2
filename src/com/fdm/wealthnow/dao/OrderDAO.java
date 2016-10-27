@@ -63,7 +63,7 @@ public class OrderDAO {
 	public static void main(String[] args) throws SQLException {
 		
 		Orders order = new Orders(12, TransactionType.Buy, 100, "GOOG", Term.GoodForDay, PriceType.Market, 100.00, OrderStatus.Pending);
-		System.out.println(order.);
+
 		boolean insert = storeOrder(order);
 		
 		//System.out.println(new java.sql.Date(System.currentTimeMillis()));
