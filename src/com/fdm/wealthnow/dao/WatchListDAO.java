@@ -19,11 +19,12 @@ public class WatchListDAO {
 	public static List<String> retrieveStockSymbol(int userId) throws SQLException{
 		Connection con = null;
 		PreparedStatement ps = null;
-		PreparedStatement ps2 = null;
+//		PreparedStatement ps2 = null;
 		ResultSet rs = null;
-		ResultSet rs2 = null;
-		final String retrieveStockSymbolSQL = "Select symbol from watchlist_stocks where w_id=?";
+//		ResultSet rs2 = null;
+//		final String retrieveStockSymbolSQL = "Select symbol from watchlist_stocks where w_id=?";
 		final String retrieveWatchlistSQL = "Select w_id from userswatchlist where user_id=?";
+
 		
 		try{
 			con = DBUtil.getConnection();
@@ -54,9 +55,37 @@ public class WatchListDAO {
 		
 	}
 	
+	public static List<String> retrieveWatchlistName(String w_id) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;		
+		final String retrieveWatchlistSQL = "Select watchlist_name from watchlist where w_id=?";
+
+		try{
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(retrieveWatchlistSQL);
+			ps.setString(1, w_id);
+			rs = ps.executeQuery();
+			
+			List<String> watchlistname = new ArrayList<>();
+			
+			while(rs.next()){
+				watchlistname.add(rs.getString("watchlist_name"));
+			}
+		
+			return watchlistname;
+		}
+		finally{
+			DBUtil.closeConnection(rs, ps, con);
+		}		
+	
+	}
+	
 	public static void main(String[] args) throws Exception{
 
 		List<String> list = WatchListDAO.retrieveStockSymbol(5);
 		System.out.println(list);
+		List<String> list2 = WatchListDAO.retrieveWatchlistName("w1");
+		System.out.println(list2);
 	}
 }
