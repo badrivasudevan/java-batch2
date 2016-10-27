@@ -6,6 +6,6 @@
 		</head>
 		<body>
 		 	<% UserAuth currentUser = (UserAuth) (session.getAttribute("loggedInUser"));%>
-			<H1> Welcome <%= currentUser.getFullName() %></H1>
+			<H1> Welcome <%= currentUser.getUser().getFullName() %></H1>
 		</body>
 </html>
