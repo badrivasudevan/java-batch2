@@ -16,7 +16,7 @@ public class WatchListDAO {
 	//extract information and update the information based on the method being called in java
 	//
 	
-	public static List<String> retrieveStockSymbol(int userId, String watchlist) throws SQLException{
+	public static List<String> retrieveStockSymbol(int userId) throws SQLException{
 		Connection con = null;
 		PreparedStatement ps = null;
 		PreparedStatement ps2 = null;
@@ -54,7 +54,7 @@ public class WatchListDAO {
 	
 	public static void main(String[] args) throws Exception{
 
-		List<String> list = WatchListDAO.retrieveStockSymbol(5,"w1");
+		List<String> list = WatchListDAO.retrieveStockSymbol(5);
 		System.out.println(list);
 	}
 }
