@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 package com.fdm.wealthnow.common;
-=======
-package src.com.fdm.wealthnow.common;
->>>>>>> branch 'master' of https://github.com/badrivasudevan/java-batch2.git
 
 import java.sql.Connection;
 import java.sql.DriverManager;
