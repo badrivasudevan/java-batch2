@@ -16,8 +16,6 @@ public class Orders {
 	private OrderStatus orderStatus;
 
 
-	
-
 	public Orders(long userID, TransactionType transacType, int orderQuantity, String stockSymbol, Term term,
 			PriceType priceType, double priceExecuted, OrderStatus orderStatus) {
 		super();
@@ -30,7 +28,6 @@ public class Orders {
 		this.priceExecuted = priceExecuted;
 		this.orderStatus = orderStatus;
 	}
-
 
 
 	public Orders(long orderID, long userID, Date orderDate, TransactionType transacType, int orderQuantity,

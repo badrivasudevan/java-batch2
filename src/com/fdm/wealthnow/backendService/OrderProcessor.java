@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.text.DateFormatter;
 
 import com.fdm.wealthnow.common.OrderStatus;
@@ -52,18 +53,19 @@ public class OrderProcessor extends HttpServlet {
 	
 	private long createOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		long orderID = Long.parseLong(request.getParameter("orderID"));
+//		HttpSession session = request.getSession(true);
+//        session.setAttribute("loggedInUser", user);
+		
 		long userID =  Long.parseLong(request.getParameter("userID"));
-		Date orderDate = Formatter.formatDate(request.getParameter("date"));
 		TransactionType transacType = Formatter.formatTransacType(request.getParameter("transacType"));
 		int orderQuantity = Integer.parseInt(request.getParameter("quantity"));
 		String stockSymbol = request.getParameter("symbol");
 		Term term = Formatter.formatTerm(request.getParameter("term")); 
 		PriceType priceType = Formatter.formatPriceType(request.getParameter("priceType")); 
 		double priceExecuted = Double.parseDouble(request.getParameter("priceExecuted"));
-		OrderStatus orderStatus = Formatter.formatOrderStatus(request.getParameter("status"));
+		OrderStatus orderStatus = OrderStatus.Pending;
 		
-		Orders newOrder = new Orders(orderID, userID, orderDate, transacType, orderQuantity, stockSymbol, term, priceType, priceExecuted, orderStatus);
+		Orders newOrder = new Orders(userID, transacType, orderQuantity, stockSymbol, term, priceType, priceExecuted, orderStatus);
 		
 		return newOrder.getOrderID();
 	}
