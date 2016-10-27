@@ -1,8 +1,8 @@
-package src.com.fdm.wealthnow.common;
+package com.fdm.wealthnow.common;
 
 import src.com.fdm.wealthnow.common.Logger;
 import src.com.fdm.wealthnow.common.Order;
-import src.com.fdm.wealthnow.common.OrderStatus;
+import com.fdm.wealthnow.common.OrderStatus;
 
 public class OrderResultProcessor {
 	private final Logger logger;
