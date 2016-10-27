@@ -3,7 +3,6 @@ package com.fdm.wealthnow.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class HoldingDAO {
 		Holdings holding = null;
 		List<Holdings> holdingList = new ArrayList<>();
 		final String retrieveHoldingSQL = "Select holding_id_sequence, stock_symbol, remaining_quantity, price_paid, currency from " +
-				STOCK_HOLDING + " where user_id = ?";
+										   STOCK_HOLDING + " where user_id = ?";
 
 		try{
 			con = DBUtil.getConnection();
@@ -29,11 +28,11 @@ public class HoldingDAO {
 			rs = ps.executeQuery();
 			while(rs.next()){
 				holding = new Holdings(rs.getLong("holding_id_sequence"),
-						userId,
-						rs.getString("stock_symbol"),
-						rs.getInt("remaining_quantity"),
-						rs.getDouble("price_paid"),
-						rs.getString("currency"));
+									   userId,
+									   rs.getString("stock_symbol"),
+									   rs.getInt("remaining_quantity"),
+									   rs.getDouble("price_paid"),
+									   rs.getString("currency"));
 				holdingList.add(holding);
 			}
 			return holdingList;
