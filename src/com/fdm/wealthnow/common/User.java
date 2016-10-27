@@ -3,14 +3,12 @@ package com.fdm.wealthnow.common;
 public class User {
 	int userId;
 	String userName;
-	String firstName;
-	String lastName;
+	String fullName;
 	
-	public User(int userId, String userName, String firstName, String lastName) {
+	public User(int userId, String userName, String fullName) {
 		this.userId = userId;
 		this.userName = userName;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.fullName = fullName;
 	}
 	
 	public int getUserId() {
@@ -25,23 +23,17 @@ public class User {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public String getFirstName() {
-		return firstName;
+	public String getFullName() {
+		return fullName;
 	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+
 	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "userId:" + userId + " userName:"+ userName +
-				"firstName"+firstName + " lastName:" + lastName;
+		return "userId:" + userId + " userName:"+ userName +" fullName:"+fullName;
 	}
 }
