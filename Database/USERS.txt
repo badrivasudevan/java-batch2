@@ -1,0 +1,7 @@
+CREATE TABLE USERS
+(USER_ID number primary key, 
+USER_NAME varchar2(128)not null, 
+FULL_NAME varchar(128) not null, 
+USER_PASSWORD varchar2(128) not null, 
+BALANCE number(38,0) not null
+)

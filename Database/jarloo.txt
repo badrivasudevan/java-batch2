@@ -1,0 +1,4 @@
+finance.yahoo.com/d/quotes.csv?s=AAPL+GOOG+MSFT&f=nsbal1b6a5d1t1
+finance.yahoo.com/d/quotes.csv?s=s51.si&f=nsbal1b6a5d1t1
+finance.yahoo.com/d/quotes.csv?s=s51.si&f=nsbal1b6a5d1t1
+finance.yahoo.com/d/quotes.csv?s=s51.si&f=nsbal1b6a5d1t1

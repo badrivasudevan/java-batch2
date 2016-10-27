@@ -1,4 +1,4 @@
-package com.fdm.wealthnow.common;
+package src.com.fdm.wealthnow.common;
 
 public class UserAuth {
 	boolean authenticationSuccess = false;

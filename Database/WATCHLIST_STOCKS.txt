@@ -1,0 +1,4 @@
+CREATE TABLE WATCHLIST_STOCKS
+(W_ID number primary key, 
+SYMBOL varchar2(128)not null
+)
