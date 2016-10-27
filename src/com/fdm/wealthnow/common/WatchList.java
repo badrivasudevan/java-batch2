@@ -3,6 +3,7 @@ package com.fdm.wealthnow.common;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class WatchList {
 	private int userId;
 	private String watchlist_name;
@@ -41,8 +42,9 @@ public class WatchList {
 	
 	}
 	
+//	public List<Stock> WatchlistDetails(int userId, String watchlist) {
 	
-	public List<Stock> WatchlistDetails(int userId, String watchlist) {
+	public List<Stock> WatchlistDetails(String watchlist) {
 		//check all the stock under the given watchlist for that particular userId
 		//Create an empty arraylist and add all the stock details in
 		//Return that list
