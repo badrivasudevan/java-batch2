@@ -1,0 +1,6 @@
+insert into stock_Holding values(holding_id_sequence.nextVal, 1, 'AAPL', 100, 119.37, 'SGD');
+insert into stock_Holding values(holding_id_sequence.nextVal, 1, 'GOOG', 200, 829.556, 'SGD');
+insert into stock_Holding values(holding_id_sequence.nextVal, 2, 'AAPL', 100, 119.372, 'SGD');
+insert into stock_Holding values(holding_id_sequence.nextVal, 2, 'GOOG', 200, 829.55, 'SGD');
+insert into stock_Holding values(holding_id_sequence.nextVal, 3, 'AAPL', 50, 119.37, 'SGD');
+insert into stock_Holding values(holding_id_sequence.nextVal, 4, 'AAPL', 100, 119.37, 'SGD');
