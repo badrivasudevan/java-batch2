@@ -42,10 +42,10 @@ public class HoldingDAO {
 		}		
 	}
 
-	public static void main(String[] args) throws Exception{
+/*	public static void main(String[] args) throws Exception{
 
 		List<Holdings> holding = HoldingDAO.retrieveHolding(1L);
 		System.out.println(holding);
-	}
+	}*/
 
 }
