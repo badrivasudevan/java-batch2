@@ -22,7 +22,7 @@ public class WatchListDAO {
 		PreparedStatement ps2 = null;
 		ResultSet rs = null;
 		ResultSet rs2 = null;
-		final String retrieveStockSymbolSQL = "Select symbol from watchlist_stocks where w_id in (?)";
+		final String retrieveStockSymbolSQL = "Select symbol from watchlist_stocks where w_id=?";
 		final String retrieveWatchlistSQL = "Select w_id from userswatchlist where user_id=?";
 		
 		try{
@@ -31,16 +31,20 @@ public class WatchListDAO {
 			ps.setInt(1, userId);
 			rs = ps.executeQuery();
 			rs.next();
+			
+			List<String> watchlistforuserid = new ArrayList<>();
+			watchlistforuserid.add(rs.getString("w_id"));
 		
-			ps2 = con.prepareStatement(retrieveStockSymbolSQL);
-			ps2.setString(1, rs.getString("w_id"));
-			rs2 = ps2.executeQuery();
-			rs2.next();
-			
-			List<String> list = new ArrayList<>();
-			list.add(rs2.getString("symbol"));
-			
-			return list;
+//			ps2 = con.prepareStatement(retrieveStockSymbolSQL);
+//			ps2.setString(1, rs.getString("w_id"));
+//			rs2 = ps2.executeQuery();
+//			rs2.next();
+//			
+//			List<String> list = new ArrayList<>();
+//			list.add(rs2.getString("symbol"));
+//			
+//			return list;
+			return watchlistforuserid;
 		}
 		finally{
 			DBUtil.closeConnection(rs, ps, con);
