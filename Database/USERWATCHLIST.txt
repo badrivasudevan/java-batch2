@@ -1,0 +1,7 @@
+CREATE TABLE USERSWATCHLIST
+(W_ID number primary key, 
+USER_ID number,
+CONSTRAINT fk_userId
+FOREIGN KEY(user_id)
+REFERENCES users(user_id)
+)

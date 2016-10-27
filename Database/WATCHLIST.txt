@@ -1,0 +1,5 @@
+CREATE TABLE WATCHLIST
+(W_ID number primary key, 
+watchlist_name varchar2(128)not null unique,
+date_created date not null
+)
