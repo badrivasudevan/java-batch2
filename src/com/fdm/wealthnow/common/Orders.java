@@ -11,12 +11,13 @@ public class Orders {
 	private int orderQuantity;
 	private String stockSymbol;
 	private Term term;
+	private PriceType priceType;
 	private double priceExecuted;
 	private OrderStatus orderStatus;
 
 	public Orders(long orderID, long userID, Date orderDate, TransactionType transacType, int orderQuantity,
 
-		String stockSymbol, Term term, double priceExecuted, OrderStatus orderStatus) {
+		String stockSymbol, Term term, PriceType priceType, double priceExecuted, OrderStatus orderStatus) {
 		
 		this.orderID = orderID;
 		this.userID = userID;
@@ -25,8 +26,13 @@ public class Orders {
 		this.orderQuantity = orderQuantity;
 		this.stockSymbol = stockSymbol;
 		this.term = term;
+		this.priceType = priceType;
 		this.priceExecuted = priceExecuted;
 		this.orderStatus = orderStatus;
+	}
+
+	public long getOrderID() {
+		return orderID;
 	}
 
 }

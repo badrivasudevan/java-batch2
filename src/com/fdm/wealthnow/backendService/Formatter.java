@@ -46,6 +46,17 @@ public class Formatter {
 		}
 	}
 	
+	public static PriceType formatPriceType (String priceType){
+		if (priceType == "Market"){
+			return PriceType.Market;
+		}
+		else if (priceType == "Limit"){
+			return PriceType.Limit;
+		}
+		return PriceType.StopLoss;
+
+	}
+	
 	public static OrderStatus formatOrderStatus (String orderStatus){ 
 
 		if (orderStatus == "Pending")
@@ -60,14 +71,5 @@ public class Formatter {
 		}
 	}
 	
-	public static PriceType formatPriceType (String priceType){
-		if (priceType == "Market"){
-			return PriceType.Market;
-		}
-		else if (priceType == "Limit"){
-			return PriceType.Limit;
-		}
-		return PriceType.StopLoss;
 
-	}
 }
