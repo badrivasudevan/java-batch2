@@ -15,6 +15,7 @@ import javax.swing.text.DateFormatter;
 
 import com.fdm.wealthnow.common.OrderStatus;
 import com.fdm.wealthnow.common.Orders;
+import com.fdm.wealthnow.common.PriceType;
 import com.fdm.wealthnow.common.Term;
 import com.fdm.wealthnow.common.TransactionType;
 
@@ -53,14 +54,14 @@ public class OrderProcessor extends HttpServlet {
 		
 		long orderID = Long.parseLong(request.getParameter("orderID"));
 		long userID =  Long.parseLong(request.getParameter("userID"));
-		Date orderDate = formatDate(request.getParameter("date"));
-		String transacType = request.getParameter("transacType");
+		Date orderDate = Formatter.formatDate(request.getParameter("date"));
+		TransactionType transacType = Formatter.formatTransacType(request.getParameter("transacType"));
 		int orderQuantity = Integer.parseInt(request.getParameter("quantity"));
 		String stockSymbol = request.getParameter("symbol");
-		String term = request.getParameter("term"); 
-		String priceType = request.getParameter("priceType"); 
+		Term term = Formatter.formatTerm(request.getParameter("term")); 
+		PriceType priceType = Formatter.formatPriceType(request.getParameter("priceType")); 
 		double priceExecuted = Double.parseDouble(request.getParameter("priceExecuted"));
-		String orderStatus = request.getParameter("status");
+		OrderStatus orderStatus = Formatter.formatOrderStatus(request.getParameter("status"));
 		
 		Orders newOrder = new Orders(orderID, userID, orderDate, transacType, orderQuantity, stockSymbol, term, priceType, priceExecuted, orderStatus);
 		
