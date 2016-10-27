@@ -1,0 +1,21 @@
+create table stock_Holding
+(holding_Id_Sequence number primary key,
+user_Id number not null,
+stock_Symbol varchar2(128) not null,
+remaining_Quantity number not null,
+price_Paid numeric(9,2) not null,
+Currency varchar2(128) not null
+);
+
+create table stock_Order
+(order_Id_Sequence number primary key,
+user_Id number not null,
+stock_Symbol varchar2(128) not null,
+order_Date date not null,
+transaction_Type varchar2(128) not null,
+purchased_Quantity number not null,
+term varchar2(128) not null,
+price_Type varchar2(128) not null,
+price_Executed numeric(9,2) not null,
+order_Status varchar2(128) not null
+);
