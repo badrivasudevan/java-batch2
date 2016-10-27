@@ -1,17 +1,17 @@
-package src.com.fdm.wealthnow.common;
+package com.fdm.wealthnow.common;
 
 public class UserAuth {
-	boolean authenticationSuccess = false;
+	boolean authenticationSuccessfull = false;
 	User user;
 	String errorMsg;
 	
 	public UserAuth(User user) {
 		this.user = user;
-		this.authenticationSuccess = true;
+		this.authenticationSuccessfull = true;
 	}
 	
 	public UserAuth(String errorMsg) {
-		this.authenticationSuccess = false;
+		this.authenticationSuccessfull = false;
 		this.errorMsg = errorMsg;
 	}
 	
@@ -30,11 +30,11 @@ public class UserAuth {
 		this.errorMsg = errorMsg;
 	}
 	public void setAuthenticationSuccess(boolean authenticationSuccess) {
-		this.authenticationSuccess = authenticationSuccess;
+		this.authenticationSuccessfull = authenticationSuccessfull;
 	}
 
-	public boolean isAuthenticationSuccess() {
-		return authenticationSuccess;
+	public boolean isAuthenticationSuccessfull() {
+		return authenticationSuccessfull;
 	}
 
 }
