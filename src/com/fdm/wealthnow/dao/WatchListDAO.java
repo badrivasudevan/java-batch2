@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fdm.wealthnow.common.DBUtil;
+import com.fdm.wealthnow.common.Holdings;
 
 public class WatchListDAO {
 
@@ -45,5 +46,11 @@ public class WatchListDAO {
 			DBUtil.closeConnection(rs, ps, con);
 		}		
 		
+	}
+	
+	public static void main(String[] args) throws Exception{
+
+		List<String> list = WatchListDAO.retrieveStockSymbol(5,"w1");
+		System.out.println(list);
 	}
 }
