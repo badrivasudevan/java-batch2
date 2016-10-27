@@ -48,6 +48,15 @@ public class Holdings {
 	public String getCurrency() {
 		return currency;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Holdings [holdingsId=" + holdingsId + ", userId=" + userId + ", stockSymbol=" + stockSymbol
+				+ ", remainingQuantity=" + remainingQuantity + ", pricePaid=" + pricePaid + ", currency=" + currency
+				+ "]";
+	}
+	
 	
 	
 
