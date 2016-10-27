@@ -17,8 +17,8 @@ public class DBConnectionFactory {
     private static OracleConnector oracleConnector =
             new OracleConnector(
                     "jdbc:oracle:thin:@159.100.176.123:1521:XE",
-                    "fdm10",
-                    "fdm10");
+                    "fdm02",
+                    "fdm02");
 
     static {
         connectors.put(ConnectionType.ORACLE, oracleConnector);
