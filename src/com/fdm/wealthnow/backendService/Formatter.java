@@ -60,7 +60,7 @@ public class Formatter {
 		}
 	}
 	
-	public static PriceType formatTransactionType (String priceType){
+	public static PriceType formatPriceType (String priceType){
 		if (priceType == "Market"){
 			return PriceType.Market;
 		}
