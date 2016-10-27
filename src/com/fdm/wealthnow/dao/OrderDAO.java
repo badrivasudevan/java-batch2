@@ -21,32 +21,24 @@ public class OrderDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
-//		final String insertOrder = "INSERT INTO stock_order (order_Id_Sequence, user_Id, stock_Symbol, order_Date,"
-//									+ "transaction_Type, purchased_Quantity, term, price_Type, price_Executed, order_Status)"
-//									+ "values(order_id_sequence.nextVal, ?, ?, to_date('20161026','YYYYMMDD') , ?, ?, ?, ?, ?, ?);";
+		final String insertOrder = "INSERT INTO stock_order (order_Id_Sequence, user_Id, stock_Symbol, order_Date,"
+									+ " transaction_Type, purchased_Quantity, term, price_Type, price_Executed, order_Status)"
+									+ " values (order_id_sequence.nextVal, ?, ?, to_char(to_date(?,'DD-MM-YYYY'), 'DD/MM/YYYY'), ?, ?, ?, ?, ?, ?)";
 		
-		final String insertOrder = "INSERT INTO stock_order values(order_id_sequence.nextVal, ?, ?, to_date('20161026','YYYYMMDD') , ?, ?, ?, ?, ?, ?);";
-		
-		System.out.println(insertOrder);
-
-
-
 		try {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(insertOrder);
+
 			ps.setLong(1, order.getUserID());
 			ps.setString(2, order.getStockSymbol());
-//			ps.setDate(3, DATE.toDate("26-OCT-16"));
-//			
-			ps.setString(3, order.getTransacType().toString());
-			ps.setLong(4, order.getOrderQuantity());
-			ps.setString(5, order.getTerm().toString());
-			ps.setString(6, order.getPriceType().toString());
-			ps.setDouble(7, order.getPriceExecuted());
-			ps.setString(8, order.getOrderStatus().toString());
-			
-			System.out.println(insertOrder);
-			
+			ps.setDate(3,new java.sql.Date(System.currentTimeMillis()));
+			ps.setString(4, order.getTransacType().toString());
+			ps.setLong(5, order.getOrderQuantity());
+			ps.setString(6, order.getTerm().toString());
+			ps.setString(7, order.getPriceType().toString());
+			ps.setDouble(8, order.getPriceExecuted());
+			ps.setString(9, order.getOrderStatus().toString());
+						
 			ps.executeUpdate();
 			
 			con.commit();
@@ -63,9 +55,7 @@ public class OrderDAO {
 	public static void main(String[] args) throws SQLException {
 		
 		Orders order = new Orders(12, TransactionType.Buy, 100, "GOOG", Term.GoodForDay, PriceType.Market, 100.00, OrderStatus.Pending);
-
-		boolean insert = storeOrder(order);
-		
+		storeOrder(order);
 		//System.out.println(new java.sql.Date(System.currentTimeMillis()));
 		
 	}
