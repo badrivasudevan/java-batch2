@@ -5,22 +5,16 @@ public class UserAuth {
 	User user;
 	String errorMsg;
 	
-	public UserAuth() {
-		
-	}
-	public UserAuth(boolean authenticationStatus) {
-		this.authenticationSuccess = authenticationStatus;
-	}
-	public UserAuth(User user, boolean authenticationStatus) {
+	public UserAuth(User user) {
 		this.user = user;
-		this.authenticationSuccess = authenticationStatus;
+		this.authenticationSuccess = true;
 	}
 	
-	public UserAuth(boolean authenticationSuccess, User user, String errorMsg) {
-		this.authenticationSuccess = authenticationSuccess;
-		this.user = user;
+	public UserAuth(String errorMsg) {
+		this.authenticationSuccess = false;
 		this.errorMsg = errorMsg;
 	}
+	
 	public User getUser() {
 		return user;
 	}
@@ -28,7 +22,6 @@ public class UserAuth {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
 	
 	public String getErrorMsg() {
 		return errorMsg;
