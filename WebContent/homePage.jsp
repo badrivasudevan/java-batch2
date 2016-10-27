@@ -3,9 +3,9 @@
 <html>
 	<head>
 			<title>Home Page</title>
-		</head>
-		<body>
+	</head>
+	<body>
 		 	<% UserAuth currentUser = (UserAuth) (session.getAttribute("loggedInUser"));%>
 			<H1> Welcome <%= currentUser.getUser().getFullName() %></H1>
-		</body>
+	</body>
 </html>
