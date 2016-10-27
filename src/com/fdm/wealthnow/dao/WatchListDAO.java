@@ -30,10 +30,12 @@ public class WatchListDAO {
 			ps = con.prepareStatement(retrieveWatchlistSQL);
 			ps.setInt(1, userId);
 			rs = ps.executeQuery();
-			rs.next();
 			
 			List<String> watchlistforuserid = new ArrayList<>();
-			watchlistforuserid.add(rs.getString("w_id"));
+			
+			while(rs.next()){
+				watchlistforuserid.add(rs.getString("w_id"));
+			}
 		
 //			ps2 = con.prepareStatement(retrieveStockSymbolSQL);
 //			ps2.setString(1, rs.getString("w_id"));
