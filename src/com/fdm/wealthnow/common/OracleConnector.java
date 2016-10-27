@@ -1,4 +1,4 @@
-package com.fdm;
+package src.com.fdm.wealthnow.common;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
