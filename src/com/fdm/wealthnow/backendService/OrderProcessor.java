@@ -58,28 +58,15 @@ public class OrderProcessor extends HttpServlet {
 		int orderQuantity = Integer.parseInt(request.getParameter("quantity"));
 		String stockSymbol = request.getParameter("symbol");
 		String term = request.getParameter("term"); 
+		String priceType = request.getParameter("priceType"); 
 		double priceExecuted = Double.parseDouble(request.getParameter("priceExecuted"));
 		String orderStatus = request.getParameter("status");
 		
-		Orders newOrder = new Orders(orderID, userID, orderDate, transacType, orderQuantity, stockSymbol, term, priceExecuted, orderStatus);
+		Orders newOrder = new Orders(orderID, userID, orderDate, transacType, orderQuantity, stockSymbol, term, priceType, priceExecuted, orderStatus);
 		
 		return newOrder.getOrderID();
 	}
 	
-	public Date formatDate(String orderDate){ //Change date format from String to Date
-		
-		Date date = null;
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yy");
-		
-		try {
-			date = formatter.parse(orderDate);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return date;
-		
-	}
+	
 
 }
