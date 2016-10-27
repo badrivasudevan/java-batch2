@@ -1,4 +1,4 @@
-package src.com.fdm.wealthnow.common;
+package com.fdm.wealthnow.common;
 
 public enum PriceType {
 
