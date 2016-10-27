@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import com.fdm.wealthnow.common.UserAuth;
 import com.fdm.wealthnow.dao.UserDAO;
 
-
 @WebServlet("/LoginController")
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -38,7 +37,7 @@ public class LoginController extends HttpServlet {
             	// Create a session and send to landing page
          	System.out.println("Authentication succeessful...");
              HttpSession session = request.getSession(true);
-             session.setAttribute("loggedInUser", user);
+             session.setAttribute("loggedInUser", user.getUser());
              request.getRequestDispatcher("homePage.jsp").forward(request, response); 
          } 
          else {
