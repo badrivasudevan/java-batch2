@@ -63,6 +63,27 @@ public class UserDAO {
 		finally {
 			DBUtil.closeConnection(rs,  ps, connection);
 		}
+	} 
+	
+	public static float getBalance(long user_id) throws Exception {
+		Connection connection = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		final String connectSQL = "SELECT balance FROM users WHERE user_id= ?";
+		
+		try {
+			connection = DBUtil.getConnection();
+			ps = connection.prepareStatement(connectSQL);
+			ps.setLong(1, user_id);
+			rs = ps.executeQuery();
+			rs.next();
+	
+			return rs.getFloat("balance");
+		}
+		finally {
+			DBUtil.closeConnection(rs,  ps, connection);
+		}
 	}
+	
 
 }
