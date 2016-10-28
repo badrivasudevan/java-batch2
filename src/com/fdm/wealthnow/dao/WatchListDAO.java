@@ -17,12 +17,10 @@ public class WatchListDAO {
 	//extract information and update the information based on the method being called in java
 	//
 	
-	public static List<String> retrieveStockSymbol(int userId) throws SQLException{
+	public static HashMap<String, String> retrieveWatchlist(int userId) throws SQLException{
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-//		final String retrieveStockSymbolSQL = "Select symbol from watchlist_stocks where w_id=?";
-//		final String retrieveWatchlistSQL = "Select w_id from userswatchlist where user_id=?";
 		final String retrieveWatchlistSQL = "select userswatchlist.user_id,userswatchlist.w_id,watchlist.watchlist_name from userswatchlist right join watchlist on watchlist.w_id=userswatchlist.w_id where userswatchlist.user_id=? order by watchlist_name";
 
 		
@@ -39,10 +37,11 @@ public class WatchListDAO {
 			}
 			
 			//for user's viewing purpose of all watchlists he or she possess
-			List<String> list = new ArrayList<>();
-			list.addAll(watchlistforuserid.values());
+			//List<String> list = new ArrayList<>();
+			//list.addAll(watchlistforuserid.values());
 		
-			return list;
+			//return list;
+			return watchlistforuserid;
 		}
 		finally{
 			DBUtil.closeConnection(rs, ps, con);
@@ -50,15 +49,17 @@ public class WatchListDAO {
 		
 	}
 	
-	public static List<String> retrieveWatchlistName(String w_name) throws SQLException {
+	public static List<String> retrieveStockSymbol(String w_id) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;		
-		final String retrieveWatchlistSQL = "Select watchlist_name from watchlist where w_id=?";
+		
+		//Get the key from the hashmap which is w_id based on the w_name the user chooses
+		final String retrieveStockSymbolSQL = "Select symbol from watchlist_stocks where w_id=?";
 
 		try{
 			con = DBUtil.getConnection();
-			ps = con.prepareStatement(retrieveWatchlistSQL);
+			ps = con.prepareStatement(retrieveStockSymbolSQL);
 			ps.setString(1, w_id);
 			rs = ps.executeQuery();
 			
@@ -78,9 +79,9 @@ public class WatchListDAO {
 	
 	public static void main(String[] args) throws Exception{
 
-		List<String> list = WatchListDAO.retrieveStockSymbol(4);
-		System.out.println(list);
-//		List<String> list2 = WatchListDAO.retrieveWatchlistName("w1");
-//		System.out.println(list2);
+		HashMap<String,String> watchlist = WatchListDAO.retrieveWatchlist(4);
+		System.out.println(watchlist);
+		List<String> list2 = WatchListDAO.retrieveStockSymbol("w1");
+		System.out.println(list2);
 	}
 }
