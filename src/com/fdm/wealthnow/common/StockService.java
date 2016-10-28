@@ -122,10 +122,11 @@ public class StockService {
 		hashmap = s1.createHashMap(s1.stockStorage(s1.getStockFromWeb(list)));
 		//System.out.println(hashmap);
 		//System.out.println(s1.createHashMap(s1.stockStorage(s1.getStockFromWeb(list))));
-//		System.out.println(hashmap.keySet());
-//		System.out.println(hashmap.values());
-//		System.out.println(hashmap);
-//		System.out.println(hashmap.get("S51.si"));
+		System.out.println(hashmap.keySet());
+		System.out.println(hashmap.values());
+		System.out.println(hashmap);
+		System.out.println(hashmap.get("\"N03.si\""));
+		System.out.println(hashmap.get("\"S51.si\"").getAskprice());
 		
 		System.out.println("**************************");
 		Iterator iter = hashmap.keySet().iterator();
@@ -135,6 +136,8 @@ public class StockService {
 		}
 		
 		System.out.println("fdsfsdfsd:" + hashmap.get("\"N03.si\""));
+		
+		//find a way to remove double quotes from key
 	}
 }
 
