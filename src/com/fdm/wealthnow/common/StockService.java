@@ -25,19 +25,38 @@ public class StockService {
 		return stock;
 	}
 	
-	public getStockFromWeb(){
-		
+//	public List<Stock> getStockFromWeb(List<String> symbolList){
+	public String getStockFromWeb(List<String> symbolList){	
+		int i=0;
 		StringBuffer sb = new StringBuffer();
-		while ()
-		String yahooUrl = "http://finance.yahoo.com/d/quotes.csv?s=" + "sb.append" + "T&f=nab";
-		InputStream response = new URL(yahooUrl).openStream();
-		Scanner scanner = new Scanner(response, "UTF-8");
-		while(scanner.hasNext()) {
-			System.out.println("Output: " + scanner.next());
+		while(i<symbolList.size()){
+			sb.append(symbolList.get(i));
+			sb.append(".si");
+			if(i!=symbolList.size()-1){
+				sb.append("+");
+			}
+			i++;
 		}
-		return 
-				
-		response.close();
 		
+		String yahooUrl = "http://finance.yahoo.com/d/quotes.csv?s=" + sb + "T&f=nab";
+//		InputStream response = new URL(yahooUrl).openStream();
+//		Scanner scanner = new Scanner(response, "UTF-8");
+//		while(scanner.hasNext()) {
+//			System.out.println("Output: " + scanner.next());
+//		}
+//		return; 
+//				
+//		response.close();
+		return yahooUrl;
+	}
+	
+	public static void main(String[] args) {
+		StockService s1 = new StockService();
+		List<String> list = new ArrayList<>();
+		list.add("S51");
+		list.add("S556");
+		list.add("adsa");
+		list.add("adaf3");
+		System.out.println(s1.getStockFromWeb(list));
 	}
 }
