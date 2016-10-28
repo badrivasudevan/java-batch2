@@ -60,13 +60,15 @@
 <body>
     <h3>Stock Order Form</h3>
     <form method="POST" action = "OrderProcessor"><!-- test -->
-        <label for="stock">Stock</label>
-        <select name="symbol">
+             <label for="stock">Stock</label>
+        <input type="text" id="symbol" name="symbol" value="<symbol>">
+        <!--    <select name="symbol">
             <option selected="true" disabled="disabled">Choose stock</option>
             <option value="Apple">AAPL</option>
             <option value="Google">GOOGL</option>
             <option value="Microsoft">MSFT</option>
-        </select>
+        </select> -->
+        <p>
         <p>
             <input type="radio" name="transactionType" value="Buy" id=transactionTypeBuy onclick="javascript:OrderTypeCheck();">
             <label for="transactionTypeBuy">Buy</label>
