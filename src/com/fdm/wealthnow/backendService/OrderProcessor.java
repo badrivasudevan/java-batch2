@@ -19,6 +19,7 @@ import com.fdm.wealthnow.common.Orders;
 import com.fdm.wealthnow.common.PriceType;
 import com.fdm.wealthnow.common.Term;
 import com.fdm.wealthnow.common.TransactionType;
+import com.fdm.wealthnow.common.User;
 
 /**
  * Servlet implementation class OrderProcessor
@@ -55,10 +56,11 @@ public class OrderProcessor extends HttpServlet {
 	
 	private long createOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-//		HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession(true);
 //        session.setAttribute("loggedInUser", user);
+		User currentUser = (User) (session.getAttribute("loggedInUser"));
 		
-		//long userID =  Long.parseLong(request.getParameter("userID"));
+		long userID =  currentUser.getUserId();
 		TransactionType transacType = Formatter.formatTransacType(request.getParameter("transactionType"));
 		
 		String stockSymbol = request.getParameter("symbol");
