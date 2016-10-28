@@ -105,6 +105,19 @@ public class Order {
 		return orderStatus;
 	}
 	
+	@Override
+	public String toString() {
+		return "Order ID: " + orderID +
+				" User ID: " + userID +
+				" Order Date: " + orderDate +
+				" Transaction Type: " + TransacType +
+				" Purchased Quantity: "  + orderQuantity +
+				" Stock Symbol: " + stockSymbol +
+				" Term: " + term +
+				" Price Type: " + priceType +
+				" Price Executed: " + priceExecuted +
+				" Order Status: " + orderStatus; 
+	} 
 	
 
 }
