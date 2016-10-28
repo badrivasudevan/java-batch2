@@ -58,7 +58,7 @@ public class OrderProcessor extends HttpServlet {
 //		HttpSession session = request.getSession(true);
 //        session.setAttribute("loggedInUser", user);
 		
-		long userID =  Long.parseLong(request.getParameter("userID"));
+		//long userID =  Long.parseLong(request.getParameter("userID"));
 		TransactionType transacType = Formatter.formatTransacType(request.getParameter("transactionType"));
 		
 		String stockSymbol = request.getParameter("symbol");
