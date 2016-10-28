@@ -5,8 +5,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
+//import java.util.Arrays;
+//import java.util.Date;
+import java.util.HashMap;
 //import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -58,9 +59,7 @@ public class StockService {
 		//	list = Arrays.asList(items);
 			//list.add("","","");
 		}
-		//System.out.println(scanner.next());
-//		return; 
-//				
+	
 		response.close();
 		return list;
 	}
@@ -85,7 +84,16 @@ public class StockService {
 		}	
 		return stocklist;
 		
-
+		//store it in hashmap
+	}
+	
+	public HashMap<String,Stock> createHashMap(List<Stock> list) {
+		HashMap<String,Stock> hm = new HashMap<>();
+		for(int i=0; i<list.size();i++){
+			stock = new Stock(list.get(i).getName(),list.get(i).getSymbol(),list.get(i).getBidprice(),list.get(i).getAskprice(),list.get(i).getCurrentmarketprice(),list.get(i).getUpdatedtime());
+			hm.put(list.get(i).getSymbol(), stock);
+		}
+		return hm;
 	}
 	
 	private Double stringToDouble(String s) {
@@ -107,6 +115,7 @@ public class StockService {
 		list.add("N03");
 		System.out.println(s1.getStockFromWeb(list));
 		System.out.println(s1.stockStorage(s1.getStockFromWeb(list)));
+		System.out.println(s1.createHashMap(s1.stockStorage(s1.getStockFromWeb(list))));
 	}
 }
 
