@@ -1,4 +1,4 @@
-package src.com.fdm.wealthnow.common;
+package com.fdm.wealthnow.common;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -69,13 +69,20 @@ public class StockService {
 		List<Stock> stocklist = new ArrayList<>();
 		for(int i=0;i<list.size();i++){
 			String[] stockdetails = list.get(i).split(",");
+
+			for(int j=0;j<stockdetails.length;j++){
+				System.out.println(stockdetails[j]);
+				
+			}
 			double bid = Double.parseDouble(stockdetails[2]);
 			double ask = Double.parseDouble(stockdetails[3]);
 			double current = Double.parseDouble(stockdetails[4]);
-			stocklist.add(stockdetails[0],stockdetails[1],bid,ask,current,stockdetails[5],stockdetails[6],stockdetails[7]);
-			}
-	
+			stock = new Stock(stockdetails[0],stockdetails[1],bid,ask,current,stockdetails[5],stockdetails[6],stockdetails[7]);
+			stocklist.add(stock);
+
+		}	
 		return stocklist;
+
 	}
 	
 	public static void main(String[] args) throws MalformedURLException, IOException {
@@ -87,7 +94,6 @@ public class StockService {
 		list.add("N03");
 		System.out.println(s1.getStockFromWeb(list));
 		System.out.println(s1.stockStorage(s1.getStockFromWeb(list)));
-		//
 	}
 }
 

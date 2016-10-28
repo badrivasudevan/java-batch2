@@ -8,12 +8,12 @@ public class Stock {
 	private double bidprice;
 	private double askprice;
 	private double currentmarketprice;
-	private long bidvol;
-	private long askvol;
-	public Date updatedtime;
+	private String bidvol;
+	private String askvol;
+	public String updatedtime;
 	
-	public Stock(String name, String symbol, double bidprice, double askprice, double currentmarketprice, long bidvol,
-			long askvol, Date updatedtime) {
+	public Stock(String name, String symbol, double bidprice, double askprice, double currentmarketprice, String bidvol,
+			String askvol, String updatedtime) {
 		super();
 		this.name = name;
 		this.symbol = symbol;
@@ -65,27 +65,27 @@ public class Stock {
 		this.currentmarketprice = currentmarketprice;
 	}
 
-	public long getBidvol() {
+	public String getBidvol() {
 		return bidvol;
 	}
 
-	public void setBidvol(long bidvol) {
+	public void setBidvol(String bidvol) {
 		this.bidvol = bidvol;
 	}
 
-	public long getAskvol() {
+	public String getAskvol() {
 		return askvol;
 	}
 
-	public void setAskvol(long askvol) {
+	public void setAskvol(String askvol) {
 		this.askvol = askvol;
 	}
 
-	public Date getUpdatedtime() {
+	public String getUpdatedtime() {
 		return updatedtime;
 	}
 
-	public void setUpdatedtime(Date updatedtime) {
+	public void setUpdatedtime(String updatedtime) {
 		this.updatedtime = updatedtime;
 	}
 
