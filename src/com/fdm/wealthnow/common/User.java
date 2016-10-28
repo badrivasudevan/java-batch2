@@ -1,20 +1,20 @@
 package com.fdm.wealthnow.common;
 
 public class User {
-	int userId;
+	long userId;
 	String userName;
 	String fullName;
 	
-	public User(int userId, String userName, String fullName) {
+	public User(long userId, String userName, String fullName) {
 		this.userId = userId;
 		this.userName = userName;
 		this.fullName = fullName;
 	}
 	
-	public int getUserId() {
+	public long getUserId() {
 		return userId;
 	}
-	public void setUserId(int userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 	public String getUserName() {
