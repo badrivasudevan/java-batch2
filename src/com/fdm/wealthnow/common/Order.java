@@ -2,7 +2,7 @@ package com.fdm.wealthnow.common;
 
 import java.util.Date;
 
-public class Orders {
+public class Order {
 
 	private long orderID;
 	private long userID;
@@ -16,9 +16,8 @@ public class Orders {
 	private OrderStatus orderStatus;
 
 
-	public Orders(long userID, TransactionType transacType, int orderQuantity, String stockSymbol, Term term,
+	public Order(long userID, TransactionType transacType, int orderQuantity, String stockSymbol, Term term,
 			PriceType priceType, double priceExecuted, OrderStatus orderStatus) {
-		super();
 		this.userID = userID;
 		TransacType = transacType;
 		this.orderQuantity = orderQuantity;
@@ -30,7 +29,7 @@ public class Orders {
 	}
 
 
-	public Orders(long orderID, long userID, Date orderDate, TransactionType transacType, int orderQuantity,
+	public Order(long orderID, long userID, Date orderDate, TransactionType transacType, int orderQuantity,
 
 		String stockSymbol, Term term, PriceType priceType, double priceExecuted, OrderStatus orderStatus) {
 		

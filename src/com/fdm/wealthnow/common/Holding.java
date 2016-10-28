@@ -1,6 +1,6 @@
 package com.fdm.wealthnow.common;
 
-public class Holdings {
+public class Holding {
 	private long holdingsId;
 	private long userId;
 	private String stockSymbol;
@@ -9,7 +9,7 @@ public class Holdings {
 	private String currency;
 
 
-	public Holdings(long holdingsId, long userId, String stockSymbol, int remainingQuantity,
+	public Holding(long holdingsId, long userId, String stockSymbol, int remainingQuantity,
 			double pricePaid, String currency) {
 		this.holdingsId = holdingsId;
 		this.userId = userId;
@@ -52,10 +52,13 @@ public class Holdings {
 
 	@Override
 	public String toString() {
-		return "Holdings [holdingsId=" + holdingsId + ", userId=" + userId + ", stockSymbol=" + stockSymbol
+		return "Holding [holdingsId=" + holdingsId + ", userId=" + userId + ", stockSymbol=" + stockSymbol
 				+ ", remainingQuantity=" + remainingQuantity + ", pricePaid=" + pricePaid + ", currency=" + currency
 				+ "]";
 	}
+
+
+
 	
 	
 	
