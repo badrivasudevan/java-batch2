@@ -66,7 +66,7 @@ public class WatchListDAO {
 			List<String> watchlistname = new ArrayList<>();
 			
 			while(rs.next()){
-				watchlistname.add(rs.getString("watchlist_name"));
+				watchlistname.add(rs.getString("symbol"));
 			}
 		
 			return watchlistname;
