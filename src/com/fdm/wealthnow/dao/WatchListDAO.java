@@ -35,7 +35,7 @@ public class WatchListDAO {
 			HashMap<String, String> watchlistforuserid = new HashMap<>();
 			
 			while(rs.next()){
-				watchlistforuserid.put(rs.getString("userswatchlist.w_id"), rs.getString("watchlist.watchlist_name"));
+				watchlistforuserid.put(rs.getString("w_id"), rs.getString("watchlist_name"));
 			}
 			
 			//for user's viewing purpose of all watchlists he or she possess
@@ -80,7 +80,7 @@ public class WatchListDAO {
 
 		List<String> list = WatchListDAO.retrieveStockSymbol(4);
 		System.out.println(list);
-		List<String> list2 = WatchListDAO.retrieveWatchlistName("w1");
-		System.out.println(list2);
+//		List<String> list2 = WatchListDAO.retrieveWatchlistName("w1");
+//		System.out.println(list2);
 	}
 }
