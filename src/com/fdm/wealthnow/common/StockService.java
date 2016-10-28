@@ -8,9 +8,11 @@ import java.util.ArrayList;
 //import java.util.Arrays;
 //import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 //import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 import com.fdm.wealthnow.common.Stock;
 
@@ -115,7 +117,24 @@ public class StockService {
 		list.add("N03");
 		System.out.println(s1.getStockFromWeb(list));
 		System.out.println(s1.stockStorage(s1.getStockFromWeb(list)));
-		System.out.println(s1.createHashMap(s1.stockStorage(s1.getStockFromWeb(list))));
+		
+		HashMap<String,Stock> hashmap = new HashMap<>();
+		hashmap = s1.createHashMap(s1.stockStorage(s1.getStockFromWeb(list)));
+		//System.out.println(hashmap);
+		//System.out.println(s1.createHashMap(s1.stockStorage(s1.getStockFromWeb(list))));
+//		System.out.println(hashmap.keySet());
+//		System.out.println(hashmap.values());
+//		System.out.println(hashmap);
+//		System.out.println(hashmap.get("S51.si"));
+		
+		System.out.println("**************************");
+		Iterator iter = hashmap.keySet().iterator();
+		while(iter.hasNext()) {
+			String key = (String) iter.next();
+			System.out.println("key:"+ key + "value:" + hashmap.get(key));
+		}
+		
+		System.out.println("fdsfsdfsd:" + hashmap.get("\"N03.si\""));
 	}
 }
 
