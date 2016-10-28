@@ -84,6 +84,47 @@ public class UserDAO {
 			DBUtil.closeConnection(rs,  ps, connection);
 		}
 	}
+		
+		public static boolean addBalance(long user_id, double cash) throws Exception {
+			Connection connection = null;
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			final String connectSQL = "Update users SET balance=(balance+?) where user_id = ?";
+			
+			try {
+				connection = DBUtil.getConnection();
+				ps = connection.prepareStatement(connectSQL);
+				ps.setDouble(1, cash);
+				ps.setLong(2, user_id);
+				rs = ps.executeQuery();
+				connection.commit();
+		
+				return true;
+			}
+			finally {
+				DBUtil.closeConnection(rs,  ps, connection);
+			}
+	}
 	
-
+		public static boolean deductBalance(long user_id, double cash) throws Exception {
+			Connection connection = null;
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			final String connectSQL = "Update users SET balance=(balance-?) where user_id = ?";
+			
+			try {
+				connection = DBUtil.getConnection();
+				ps = connection.prepareStatement(connectSQL);
+				ps.setDouble(1, cash);
+				ps.setLong(2, user_id);
+				rs = ps.executeQuery();
+				connection.commit();
+		
+				return true;
+			}
+			finally {
+				DBUtil.closeConnection(rs,  ps, connection);
+			}
+	}
+		
 }
