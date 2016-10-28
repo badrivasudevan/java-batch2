@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fdm.wealthnow.common.User;
 import com.fdm.wealthnow.common.WatchlistService;
 import com.fdm.wealthnow.dao.WatchListDAO;
 
@@ -38,13 +39,26 @@ public class WatchListController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String watchListName = request.getParameter("WatchListName");
+		User currentUser = (User) (session.getAttribute("loggedInUser"));	//Check for log in users
+		long userID =  currentUser.getUserId();
+		
+		String watchListName = request.getParameter("WatchListName");		//Get watchlist name from jsp
 		System.out.println("WatchList Name: " + watchListName);
-	}
-	WatchlistService watchList = WatchListDAO.retrieveWatchlist(w_id);
-	if(watchList != null) {
-		while (i < )
-		WatchlistService.createNewWatchlist
+	
+	WatchlistService watchList = WatchListDAO.retrieveWatchlist(w_id);		//get watchlist ID 
+	if(watchList != null) {													//if watchlist ID is not null
+																			//create new watchlist using loop to check for hasnext() in sql
+		WatchlistService.createNewWatchlist									//Add new watchlist/watchlistname into sql
+		
+																				
+		WatchlistService.editWatchlistName									//Replace watchlist name to sql
+		
+		
+		WatchlistService.selectWatchlist									//Select watchlist from drop down list
+			
+		String stockName = request.getParameter("stockname");				//add stocks into watchlist
+		System.out.println("WatchList Name: " + stockName);					
+																			//add stocks into sql
+									
 	}
 }
