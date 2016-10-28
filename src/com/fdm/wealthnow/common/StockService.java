@@ -24,7 +24,7 @@ public class StockService {
 	public Stock getInfo(String symbol){
 		for(int i=0;i<stockholding.size();i++){
 			if(stockholding.get(i).getSymbol().equals(symbol)) {
-				stock = new Stock(stockholding.get(i).getName(),stockholding.get(i).getSymbol(),stockholding.get(i).getBidprice(), stockholding.get(i).getAskprice(),stockholding.get(i).getCurrentmarketprice(), stockholding.get(i).getBidvol(),stockholding.get(i).getAskvol(),stockholding.get(i).getUpdatedtime());
+				stock = new Stock(stockholding.get(i).getName(),stockholding.get(i).getSymbol(),stockholding.get(i).getBidprice(), stockholding.get(i).getAskprice(),stockholding.get(i).getCurrentmarketprice(), stockholding.get(i).getUpdatedtime());
 				break;
 			}
 		}
@@ -47,7 +47,7 @@ public class StockService {
 			i++;
 		}
 		
-		String yahooUrl = "http://finance.yahoo.com/d/quotes.csv?s=" +URLEncoder.encode(sb.toString()) + "&f=nsbal1b6a5d1t1";
+		String yahooUrl = "http://finance.yahoo.com/d/quotes.csv?s=" +URLEncoder.encode(sb.toString()) + "&f=nsbal1d1t1";
 		InputStream response = new URL(yahooUrl).openStream();
 		Scanner scanner = new Scanner(response, "UTF-8").useDelimiter("\n");
 		int j = 0;
@@ -74,15 +74,28 @@ public class StockService {
 				System.out.println(stockdetails[j]);
 				
 			}
-			double bid = Double.parseDouble(stockdetails[2]);
-			double ask = Double.parseDouble(stockdetails[3]);
+			//double bid = Double.parseDouble(stockdetails[2]);
+			//double ask = Double.parseDouble(stockdetails[3]);
+			double bid = stringToDouble(stockdetails[2]);
+			double ask = stringToDouble(stockdetails[3]);
 			double current = Double.parseDouble(stockdetails[4]);
-			stock = new Stock(stockdetails[0],stockdetails[1],bid,ask,current,stockdetails[5],stockdetails[6],stockdetails[7]);
+			stock = new Stock(stockdetails[0],stockdetails[1],bid,ask,current,stockdetails[5]);
 			stocklist.add(stock);
 
 		}	
 		return stocklist;
+		
 
+	}
+	
+	private Double stringToDouble(String s) {
+		Double d = 0.0;
+		
+		try {
+		d = Double.parseDouble(s);
+		} catch (Exception e) {  }
+		
+		return d;
 	}
 	
 	public static void main(String[] args) throws MalformedURLException, IOException {
@@ -97,3 +110,4 @@ public class StockService {
 	}
 }
 
+ 
