@@ -1,11 +1,17 @@
-package com.fdm.wealthnow.common;
-
+package src.com.fdm.wealthnow.common;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 //import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+
+import com.fdm.wealthnow.common.Stock;
 
 public class StockService {
 	//extract all stock data from yahoo finance api and store it in the arraylist and update the values using list.set()
@@ -25,9 +31,12 @@ public class StockService {
 		return stock;
 	}
 	
-//	public List<Stock> getStockFromWeb(List<String> symbolList){
-	public String getStockFromWeb(List<String> symbolList){	
-		int i = 0;
+
+//	public String getStockFromWeb(List<String> symbolList){
+	public List<String> getStockFromWeb(List<String> symbolList) throws MalformedURLException, IOException{	
+		List<String> list = new ArrayList<>();
+		int i=0;
+
 		StringBuffer sb = new StringBuffer();
 		while(i < symbolList.size()){
 			sb.append(symbolList.get(i));
@@ -38,26 +47,47 @@ public class StockService {
 			i++;
 		}
 		
-		String yahooUrl = "http://finance.yahoo.com/d/quotes.csv?s=" + sb + "T&f=nab";
-//		InputStream response = new URL(yahooUrl).openStream();
-//		Scanner scanner = new Scanner(response, "UTF-8");
-//		while(scanner.hasNext()) {
-//			System.out.println("Output: " + scanner.next());
-//		}
+		String yahooUrl = "http://finance.yahoo.com/d/quotes.csv?s=" +URLEncoder.encode(sb.toString()) + "&f=nsbal1b6a5d1t1";
+		InputStream response = new URL(yahooUrl).openStream();
+		Scanner scanner = new Scanner(response, "UTF-8").useDelimiter("\n");
+		int j = 0;
+		while(scanner.hasNext()) {
+			list.add(scanner.next());
+			//System.out.println("Output: " + scanner.next());
+	
+		//	list = Arrays.asList(items);
+			//list.add("","","");
+		}
+		//System.out.println(scanner.next());
 //		return; 
 //				
-//		response.close();
-		return yahooUrl;
+		response.close();
+		return list;
 	}
 	
-	public static void main(String[] args) {
+	public List<Stock> stockStorage(List<String> list) {
+		List<Stock> stocklist = new ArrayList<>();
+		for(int i=0;i<list.size();i++){
+			String[] stockdetails = list.get(i).split(",");
+			double bid = Double.parseDouble(stockdetails[2]);
+			double ask = Double.parseDouble(stockdetails[3]);
+			double current = Double.parseDouble(stockdetails[4]);
+			stocklist.add(stockdetails[0],stockdetails[1],bid,ask,current,stockdetails[5],stockdetails[6],stockdetails[7]);
+			}
+	
+		return stocklist;
+	}
+	
+	public static void main(String[] args) throws MalformedURLException, IOException {
 		StockService s1 = new StockService();
 		List<String> list = new ArrayList<>();
 		list.add("S51");
-		list.add("S556");
-		list.add("adsa");
-		list.add("adaf3");
+		list.add("N21");
+		list.add("E5H");
+		list.add("N03");
 		System.out.println(s1.getStockFromWeb(list));
+		System.out.println(s1.stockStorage(s1.getStockFromWeb(list)));
 		//
 	}
 }
+
