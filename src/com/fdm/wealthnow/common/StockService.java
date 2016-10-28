@@ -1,17 +1,16 @@
 package com.fdm.wealthnow.common;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 //import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Scanner;
 
 public class StockService {
 	//extract all stock data from yahoo finance api and store it in the arraylist and update the values using list.set()
 	//or store data from yahoo finance api in SQL database and update the values from there
 	//by calling SQL statements in java 
-	private ConcurrentHashMap<String,Stock> stocklist = new ConcurrentHashMap<>();
-	
 	private List<Stock> stockholding = new ArrayList<>();;	//???
 	//private String symbol;
 	private Stock stock;
@@ -26,4 +25,19 @@ public class StockService {
 		return stock;
 	}
 	
+	public getStockFromWeb(){
+		
+		StringBuffer sb = new StringBuffer();
+		while ()
+		String yahooUrl = "http://finance.yahoo.com/d/quotes.csv?s=" + "sb.append" + "T&f=nab";
+		InputStream response = new URL(yahooUrl).openStream();
+		Scanner scanner = new Scanner(response, "UTF-8");
+		while(scanner.hasNext()) {
+			System.out.println("Output: " + scanner.next());
+		}
+		return 
+				
+		response.close();
+		
+	}
 }
