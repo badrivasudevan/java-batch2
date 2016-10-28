@@ -9,6 +9,8 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+import com.fdm.wealthnow.backendService.OrderFetcherTask;
+
 @WebListener
 public class ContextListener implements ServletContextListener {
 	private static final int WORKER_THREAD_POOL_SIZE = 5;
@@ -31,13 +33,17 @@ public class ContextListener implements ServletContextListener {
     }
     
     private void initialize() {
-    			// Create a thread that wakes up periodically and scans for open orders.
-    			// It fetches the orders and delegates to executor service thread pool
-    			scheduledExecutorService = Executors.newScheduledThreadPool(1);
-    			//scheduledExecutorService.scheduleAtFixedRate(runnable, 2, 2, 30, TimeUnit.SECONDS);
+    	
+    	// Create worker thread pool that does stock trading
+		executorService = Executors.newFixedThreadPool(WORKER_THREAD_POOL_SIZE);
+		OrderFetcherTask task = new OrderFetcherTask(executorService);
+		
+		// Create a thread that wakes up periodically and scans for open orders.
+    	// It fetches the orders and delegates to executor service thread pool
+    	scheduledExecutorService = Executors.newScheduledThreadPool(1);
+    	scheduledExecutorService.scheduleAtFixedRate(task, 2, 30, TimeUnit.SECONDS);
     			
-    			// Create worker thread pool that does stock trading
-    			executorService = Executors.newFixedThreadPool(WORKER_THREAD_POOL_SIZE);
+    			
     }
 	
 }

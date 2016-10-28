@@ -6,15 +6,26 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fdm.wealthnow.common.DBUtil;
-import com.fdm.wealthnow.common.Orders;
+import com.fdm.wealthnow.common.Order;
 
 public class OrderDAO {
 	
 	static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	
+	
+	private static String getCurrentTimeStamp() {
+		
+		java.util.Date today = new java.util.Date();
+		String date = dateFormat.format(today.getTime());
 
-	public static boolean storeOrder(Orders order) throws SQLException{
+		return date;
+	}
+
+	public static boolean storeOrder(Order order) throws SQLException{
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -53,13 +64,15 @@ public class OrderDAO {
 
 	}
 	
-	private static String getCurrentTimeStamp() {
+	
+	public static List<Order> fetchOrders() throws SQLException{
 		
-		java.util.Date today = new java.util.Date();
-		String date = dateFormat.format(today.getTime());
-
-		return date;
+		List<Order> orderList = new ArrayList<>();
+		
+		return orderList;
+		
 	}
+
 	
 
 }

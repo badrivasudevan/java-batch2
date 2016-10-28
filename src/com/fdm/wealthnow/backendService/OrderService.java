@@ -1,14 +1,18 @@
 package com.fdm.wealthnow.backendService;
 
-public class OrderService implements Runnable{
-	
-	
-	
+import java.util.List;
 
-	@Override
-	public void run() {
+import com.fdm.wealthnow.common.Order;
+
+public class OrderService{
+
+	public static List<Order> getOpenOrders() {
 		// TODO Auto-generated method stub
 		
+		
+		
+		
+		return null;
 	}
 
 }
