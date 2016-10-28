@@ -7,9 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import com.fdm.wealthnow.common.DBUtil;
-import com.fdm.wealthnow.common.Holdings;
 
 public class WatchListDAO {
 
@@ -68,7 +66,7 @@ public class WatchListDAO {
 			while(rs.next()){
 				watchlistname.add(rs.getString("symbol"));
 			}
-		
+			
 			return watchlistname;
 		}
 		finally{
