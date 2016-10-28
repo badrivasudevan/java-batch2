@@ -59,7 +59,7 @@
 
 <body>
     <h3>Stock Order Form</h3>
-    <form method="POST" action = "OrderProcessor">
+    <form method="POST" action = "OrderProcessor"><!-- test -->
         <label for="stock">Stock</label>
         <select name="symbol">
             <option selected="true" disabled="disabled">Choose stock</option>
