@@ -39,6 +39,8 @@ public class OrderProcessor extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
@@ -57,12 +59,34 @@ public class OrderProcessor extends HttpServlet {
 //        session.setAttribute("loggedInUser", user);
 		
 		long userID =  Long.parseLong(request.getParameter("userID"));
-		TransactionType transacType = Formatter.formatTransacType(request.getParameter("transacType"));
-		int orderQuantity = Integer.parseInt(request.getParameter("quantity"));
+		TransactionType transacType = Formatter.formatTransacType(request.getParameter("transactionType"));
+		
 		String stockSymbol = request.getParameter("symbol");
 		Term term = Formatter.formatTerm(request.getParameter("term")); 
-		PriceType priceType = Formatter.formatPriceType(request.getParameter("priceType")); 
-		double priceExecuted = Double.parseDouble(request.getParameter("priceExecuted"));
+		PriceType priceType = Formatter.formatPriceType(request.getParameter("priceType"));
+		String limitBuy = request.getParameter("limitBuy");
+		String limitSell = request.getParameter("limitSell");
+		String stopLoss = request.getParameter("stopLoss");
+		double priceExecuted = 0;
+		int orderQuantity = Integer.parseInt(request.getParameter("quantity"));
+		
+		if (limitBuy != null) {
+			priceExecuted = Double.parseDouble(limitBuy);
+			
+		}
+		
+		if (limitSell != null) {
+			priceExecuted = Double.parseDouble(limitSell);
+			
+		}
+		
+		if (stopLoss != null) {
+			priceExecuted = Double.parseDouble(stopLoss);
+			
+		}
+		
+		
+		//double priceExecuted = Double.parseDouble(request.getParameter("priceExecuted"));
 		OrderStatus orderStatus = OrderStatus.Pending;
 		
 		Orders newOrder = new Orders(userID, transacType, orderQuantity, stockSymbol, term, priceType, priceExecuted, orderStatus);
