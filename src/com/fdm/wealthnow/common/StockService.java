@@ -26,9 +26,10 @@ public class StockService {
 	}
 	
 	public getStockFromWeb(){
-		StringBuffer sb = new StringBuffer();
 		
-		String yahooUrl = "http://finance.yahoo.com/d/quotes.csv?s=AAPL+GOOG+MSFT&f=nab";
+		StringBuffer sb = new StringBuffer();
+		while ()
+		String yahooUrl = "http://finance.yahoo.com/d/quotes.csv?s=" + "sb.append" + "T&f=nab";
 		InputStream response = new URL(yahooUrl).openStream();
 		Scanner scanner = new Scanner(response, "UTF-8");
 		while(scanner.hasNext()) {
