@@ -27,9 +27,9 @@ public class StockService {
 	
 //	public List<Stock> getStockFromWeb(List<String> symbolList){
 	public String getStockFromWeb(List<String> symbolList){	
-		int i=0;
+		int i = 0;
 		StringBuffer sb = new StringBuffer();
-		while(i<symbolList.size()){
+		while(i < symbolList.size()){
 			sb.append(symbolList.get(i));
 			sb.append(".si");
 			if(i!=symbolList.size()-1){
