@@ -8,7 +8,15 @@ public class Holding {
 	private double pricePaid;
 	private String currency;
 
-
+	public Holding(long userId, String stockSymbol, int remainingQuantity,
+			double pricePaid, String currency) {
+		this.userId = userId;
+		this.stockSymbol = stockSymbol;
+		this.remainingQuantity = remainingQuantity;
+		this.pricePaid = pricePaid;
+		this.currency = currency;
+	}
+	
 	public Holding(long holdingsId, long userId, String stockSymbol, int remainingQuantity,
 			double pricePaid, String currency) {
 		this.holdingsId = holdingsId;
