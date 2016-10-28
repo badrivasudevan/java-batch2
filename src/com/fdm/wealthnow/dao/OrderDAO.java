@@ -41,6 +41,7 @@ public class OrderDAO {
 			
 			ps.executeUpdate();
 			
+			
 			con.commit();
 			
 			return true;	
