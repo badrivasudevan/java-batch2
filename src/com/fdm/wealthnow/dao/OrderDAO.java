@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.fdm.wealthnow.common.DBUtil;
 import com.fdm.wealthnow.common.Order;
+import com.fdm.wealthnow.common.OrderStatus;
 
 public class OrderDAO {
 	
@@ -65,9 +66,12 @@ public class OrderDAO {
 	}
 	
 	
-	public static List<Order> fetchOrders() throws SQLException{
+	public static List<Order> fetchOrders(OrderStatus status) throws SQLException{
 		
 		List<Order> orderList = new ArrayList<>();
+		
+		
+		//Fetch Orders by batch code
 		
 		return orderList;
 		
