@@ -58,5 +58,6 @@ public class StockService {
 		list.add("adsa");
 		list.add("adaf3");
 		System.out.println(s1.getStockFromWeb(list));
+		//
 	}
 }
