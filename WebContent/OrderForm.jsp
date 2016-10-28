@@ -61,7 +61,7 @@
     <h3>Stock Order Form</h3>
     <form>
         <label for="stock">Stock</label>
-        <select name="stock">
+        <select name="symbol">
             <option selected="true" disabled="disabled">Choose stock</option>
             <option value="Apple">AAPL</option>
             <option value="Google">GOOGL</option>
@@ -74,13 +74,13 @@
             <label for="transactionTypeSell">Sell</label>
         </p>
         <div id="buyChecked">
-            <select id="PriceTypeBuy" type="list" name="PriceType">
+            <select id="PriceTypeBuy" type="list" name="priceType">
                 <option value="Marketprice"> Market Price </option>
                 <option value="Limit" id="limit"> Limit </option>
             </select>
         </div>
         <div id="sellChecked">
-            <select id="PriceTypeSell" type="list" name="PriceType">
+            <select id="PriceTypeSell" type="list" name="priceType">
                 <option value="Marketprice"> Market Price </option>
                 <option value="Limit" id="limit"> Limit </option>
                 <option value="Stoploss" id="stoploss"> Stop Loss </option>
@@ -88,23 +88,23 @@
         </div>
         <div id="Limit-Buy" style='display:none;'>
             <label for="limitBuy">Buy limit</label>
-            <input type="text" id="limitBuy" name="LimitBuy">
+            <input type="text" id="limitBuy" name="limitBuy">
         </div>
         <div id="Limit-Sell" style='display:none;'>
             <label for="limitSell">Sell limit</label>
-            <input type="text" id="limitSell" name="LimitSell">
+            <input type="text" id="limitSell" name="limitSell">
         </div>
         <div id="Stop-loss" style='display:none;'>
             <label for="Stop-loss">Stop Loss</label>
-            <input type="text" id="stopLoss" name="StopLoss">
+            <input type="text" id="stopLoss" name="stopLoss">
         </div>
         <label for="quantity">Quantity</label>
-        <input id="quantity" type="text" style="width: 50px;" name=Quantity/>
+        <input id="quantity" type="text" style="width: 50px;" name=quantity/>
         <p>
             <label for="Term">Term</label>
-            <select name="Term">
-                <option value="GoodTilCanceled"> Good 'Til Canceled </option>
-                <option value="GoodTilDay"> Good 'Til Day </option>
+            <select name="term">
+                <option value="GoodTilCanceled" name= "goodTilCanceled"> Good 'Til Canceled </option>
+                <option value="GoodTilDay" name= "goodTilDay"> Good 'Til Day </option>
             </select>
         </p>
         <input type="submit" value="Submit" />
