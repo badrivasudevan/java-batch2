@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.fdm.wealthnow.common.DBUtil;
@@ -19,9 +20,7 @@ public class WatchListDAO {
 	public static List<String> retrieveStockSymbol(int userId) throws SQLException{
 		Connection con = null;
 		PreparedStatement ps = null;
-//		PreparedStatement ps2 = null;
 		ResultSet rs = null;
-//		ResultSet rs2 = null;
 //		final String retrieveStockSymbolSQL = "Select symbol from watchlist_stocks where w_id=?";
 //		final String retrieveWatchlistSQL = "Select w_id from userswatchlist where user_id=?";
 		final String retrieveWatchlistSQL = "select userswatchlist.user_id,userswatchlist.w_id,watchlist.watchlist_name from userswatchlist right join watchlist on watchlist.w_id=userswatchlist.w_id where userswatchlist.user_id=? order by watchlist_name";
@@ -33,22 +32,17 @@ public class WatchListDAO {
 			ps.setInt(1, userId);
 			rs = ps.executeQuery();
 			
-			List<String> watchlistforuserid = new ArrayList<>();
+			HashMap<String, String> watchlistforuserid = new HashMap<>();
 			
 			while(rs.next()){
-				watchlistforuserid.add(rs.getString("watchlist_name"));
+				watchlistforuserid.put(rs.getString("userswatchlist.w_id"), rs.getString("watchlist.watchlist_name"));
 			}
+			
+			//for user's viewing purpose of all watchlists he or she possess
+			List<String> list = new ArrayList<>();
+			list.addAll(watchlistforuserid.values());
 		
-//			ps2 = con.prepareStatement(retrieveStockSymbolSQL);
-//			ps2.setString(1, rs.getString("w_id"));
-//			rs2 = ps2.executeQuery();
-//			rs2.next();
-//			
-//			List<String> list = new ArrayList<>();
-//			list.add(rs2.getString("symbol"));
-//			
-//			return list;
-			return watchlistforuserid;
+			return list;
 		}
 		finally{
 			DBUtil.closeConnection(rs, ps, con);
@@ -56,7 +50,7 @@ public class WatchListDAO {
 		
 	}
 	
-	public static List<String> retrieveWatchlistName(String w_id) throws SQLException {
+	public static List<String> retrieveWatchlistName(String w_name) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;		
