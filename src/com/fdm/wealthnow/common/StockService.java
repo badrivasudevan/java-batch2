@@ -1,8 +1,6 @@
 package com.fdm.wealthnow.common;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 //import java.util.Date;
@@ -27,13 +25,17 @@ public class StockService {
 		return stock;
 	}
 	
-	public static void main(String[] args) throws Exception	{
+	public getStockFromWeb(){
+		StringBuffer sb = new StringBuffer();
+		
 		String yahooUrl = "http://finance.yahoo.com/d/quotes.csv?s=AAPL+GOOG+MSFT&f=nab";
 		InputStream response = new URL(yahooUrl).openStream();
 		Scanner scanner = new Scanner(response, "UTF-8");
 		while(scanner.hasNext()) {
 			System.out.println("Output: " + scanner.next());
 		}
+		return 
+				
 		response.close();
 		
 	}
