@@ -36,35 +36,35 @@ public class BalanceController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {	
-		Integer fund = Integer.parseInt(request.getParameter("fund"));
+		float fund = Float.parseFloat(request.getParameter("fund"));
 		String sign = request.getParameter("operator");
-		Integer result = 0;
-		int bal = UserDAO.getBalance(session.getUserId) ;
+		float result = 0;
+		float bal = Float.parseFloat(request.getParameter("bal"));
+		String user_errormsg = "Not Enough Funds to withdraw!";
 		switch(sign) {
 		case "+":{
 			result = bal + fund;
 			break;
 		}
-		case "-":{
-//			if(bal < fund){
-//			}
-//			else {
-				result = bal - fund;
-				break;
-//			}
+		case "-":{	
+			if (bal < fund) {
+		            	// Create a session and send to landing page
+		         System.out.println("Not enough cash to withdraw...");
+		         System.out.println("Authentication failed");
+		         request.setAttribute("errorMessage", user_errormsg); 	
+		         request.getRequestDispatcher("/balancePage.jsp").forward(request, response); 
+		         } 
+		         else {
+		        	 result = bal - fund;
+		        	 break;
+		         }	
 		}
 		}
 		
 		request.setAttribute("result", result);
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("balancePage.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/balancePage.jsp");
 		dispatcher.forward(request, response);
 
 	}
 	
-	private float getBalance(long userId) throws Exception{
-		float bal = 0;
-		bal = UserDAO.getBalance(userId);
-		return bal; 
-	}
-
 }

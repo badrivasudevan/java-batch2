@@ -15,19 +15,30 @@
 	<H1> Welcome <%= currentUser.getFullName() %></H1>
 	<H2> Balance : $<%= UserDAO.getBalance(currentUser.getUserId()) %></H2>
 	<h3> Deposit/Withdraw Funds </h3>
+	
+	<%
+		if(request.getAttribute("errorMessage") != null) {
+  		     out.println(request.getAttribute("errorMessage"));
+    	}
+	%>
+	
+	
 	<form action = "${pageContext.request.contextPath}/BalanceController" method="POST">
-		current balance :
-		<input type="text" value=session.getAttribute(UserDAO.getBalance(currentUser.getUserId())) name="bal"/>
+		<%-- <input type="number" value="<%=request.setAttribute("bal",UserDAO.getBalance(currentUser.getUserId()))%>" name="bal"/> --%>
 		<%-- $<%= UserDAO.getBalance(currentUser.getUserId()) %> --%>
-		<%-- <%= request.getAttribute("bal") %> --%>
+		Transaction Type : 
+		<%	float bal = UserDAO.getBalance(currentUser.getUserId()); %>
+		<input type="hidden" name="bal" value="<%=bal%>" />
 		<select name="operator">
 						<option value="+">Deposit</option>
 						<option value="-">Withdrawal</option>
 		</select>
+		Amount : 
 		<input type="text" name="fund">
 		<button type="submit">Calculate</button>
 	</form>
 	<p> Balance = ${result} </p>
 	
+
 </body>
 </html>
