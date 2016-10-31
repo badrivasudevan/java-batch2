@@ -104,8 +104,8 @@ public class HoldingDAO {
 	public static void main(String[] args) throws Exception{
 
 		//Testing retrieveHolding
-		int holding = HoldingDAO.retrieveIndividualHolding(1L, "AAPL");
-		System.out.println(holding);
+		/*int holding = HoldingDAO.retrieveIndividualHolding(1L, "AAPL");
+		System.out.println(holding);*/
 		
 		//Testing storeHolding
 		/*Holding holding = new Holding(6, "APPL", 100, 99.99, "SGD");
