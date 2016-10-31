@@ -110,7 +110,7 @@ public class UserDAO {
 			Connection connection = null;
 			PreparedStatement ps = null;
 			ResultSet rs = null;
-			final String connectSQL = "Update users SET balance=(balance-?) where user_id = ?";
+			final String connectSQL = "Update users SET balance=(bal  ance-?) where user_id = ?";
 			
 			try {
 				connection = DBUtil.getConnection();
