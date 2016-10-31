@@ -72,8 +72,11 @@ public class BuySellTask implements Runnable {
 
 		}
 
-		if (order.getOrderStatus() == OrderStatus.Completed)
+		if (order.getOrderStatus() == OrderStatus.Completed){
 			HoldingService.updatePortfolio(order);
+			OrderService.updateCompletedOrder(order);
+		}
+		
 
 	}
 

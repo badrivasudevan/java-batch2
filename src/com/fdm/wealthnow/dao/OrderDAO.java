@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fdm.wealthnow.common.DBUtil;
+import com.fdm.wealthnow.common.Holding;
 import com.fdm.wealthnow.common.Order;
 import com.fdm.wealthnow.common.OrderStatus;
 import com.fdm.wealthnow.common.PriceType;
@@ -119,6 +120,31 @@ public class OrderDAO {
 		finally{
 			DBUtil.closeConnection(rs, ps, con);
 		}
+	}
+	
+	public static void updateOrder(Order order) throws SQLException{
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		final String updateOrderSQL = "Update " + STOCK_ORDER + " set order_status = ? where order_id = ?";
+
+		try{
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(updateOrderSQL);
+			ps.setString(1, "Complete");
+			ps.setLong(2, order.getOrderID());
+			
+			
+			ps.executeUpdate();
+			con.commit();
+			
+			}
+		finally{
+			DBUtil.closeConnection(rs, ps, con);
+		}		
+		
 	}
 
 }

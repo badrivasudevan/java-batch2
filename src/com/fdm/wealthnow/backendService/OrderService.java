@@ -30,6 +30,11 @@ public class OrderService{
 		return orderList;
 	}
 	
+	public static void updateCompletedOrder(Order order) throws SQLException{
+		
+		OrderDAO.updateOrder(order);
+	}
+	
 	public static boolean validateCashBalance(Order order) throws Exception{
 		
 		double totalAmount = order.getOrderQuantity() * order.getPriceExecuted();
