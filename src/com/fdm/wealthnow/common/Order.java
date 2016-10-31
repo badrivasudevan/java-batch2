@@ -97,7 +97,6 @@ public class Order {
 
 	public double getPriceExecuted() {
 		
-		priceExecuted = Math.round(priceExecuted * 100.0) / 100.0;
 		return priceExecuted;
 	}
 
