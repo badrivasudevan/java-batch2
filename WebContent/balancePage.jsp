@@ -30,10 +30,10 @@
 	<fieldset>
 		<legend><Strong>Deposit/Withdraw Funds</Strong></legend>
 	
-		<%
-			if(request.getAttribute("errorMessage") != null) {
-	  		     out.println(request.getAttribute("errorMessage"));
-	    	}
+		<%	if(request.getAttribute("errorMessage") != null) {	 %>
+	  		     <!-- out.println(request.getAttribute("errorMessage")); -->
+	  		   <script>alert("Not Enough Funds to withdraw!");</script>
+	    <%		}
 		%>
 		<form action="${pageContext.request.contextPath}/BalanceController"
 			method="POST">
