@@ -57,6 +57,17 @@ public class Holding {
 		return currency;
 	}
 
+	public void setRemainingQuantity(int remainingQuantity) {
+		this.remainingQuantity = remainingQuantity;
+	}
+
+	public void setPricePaid(double pricePaid) {
+		this.pricePaid = pricePaid;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
 
 	@Override
 	public String toString() {
