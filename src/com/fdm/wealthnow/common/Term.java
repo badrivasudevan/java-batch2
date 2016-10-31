@@ -3,5 +3,5 @@ package com.fdm.wealthnow.common;
 public enum Term {
 
 	GoodForDay,
-	GoodTilCancelled;
+	GoodUntilCancelled;
 }
