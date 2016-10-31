@@ -30,7 +30,7 @@ public class Formatter {
 	
 	public static TransactionType formatTransacType(String transacType){
 		
-		if(transacType == "Buy")
+		if(transacType.equalsIgnoreCase("Buy"))
 			return TransactionType.Buy;
 		else
 			return TransactionType.Sell;
@@ -38,7 +38,7 @@ public class Formatter {
 	
 	public static Term formatTerm(String transacTerm){
 		
-		if(transacTerm == "Good For Day"){
+		if(transacTerm.equalsIgnoreCase("GoodTilDay")){
 			return Term.GoodForDay;
 		}
 		else{
@@ -47,23 +47,25 @@ public class Formatter {
 	}
 	
 	public static PriceType formatPriceType (String priceType){
-		if (priceType == "Market"){
+		
+		if (priceType.equalsIgnoreCase("Market")){
 			return PriceType.Market;
 		}
-		else if (priceType == "Limit"){
+		else if (priceType.equalsIgnoreCase("Limit")){
 			return PriceType.Limit;
 		}
+		else
 		return PriceType.StopLoss;
 
 	}
 	
 	public static OrderStatus formatOrderStatus (String orderStatus){ 
 
-		if (orderStatus == "Pending")
+		if (orderStatus.equalsIgnoreCase("Pending"))
 		{
 			return OrderStatus.Pending;
 		}
-		else if (orderStatus == "Completed"){
+		else if (orderStatus.equalsIgnoreCase("Completed")){
 			return OrderStatus.Completed;
 		}
 		else {
