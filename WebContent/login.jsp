@@ -4,11 +4,7 @@
 		</head>
 		<body>
 			<h1>Login Page</h1>
-			<%
-		    	if(request.getAttribute("errorMessage") != null) {
-  		      		out.println(request.getAttribute("errorMessage"));
-    			}
-			%>
+			
 		<fieldset style = "width: 200px">
 			<form action="LoginController" method="POST"> 
 			   <br> User name 
@@ -18,5 +14,11 @@
 				<input type="submit" value="submit">
 			</form>
 		</fieldset>
+			<%
+		    	if(request.getAttribute("errorMessage") != null) { %>
+  		      		<!--  out.println(request.getAttribute("errorMessage"));  -->
+  		      	<script>alert("Invalid username or password");</script>
+		  <% 	}
+			%>
 		</body>
 </html>
