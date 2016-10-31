@@ -18,6 +18,7 @@
 						<a href="WatchList.jsp">Watchlists</a> <br>
 						<a href="Portfolio.jsp">User Portfolio Viewer</a> <br>
 						<a href="OrderForm.jsp">Order Form</a>
+						<a href="logout.jsp">Logout</a>
 					</form>
 			</fieldset>
 	</body>
