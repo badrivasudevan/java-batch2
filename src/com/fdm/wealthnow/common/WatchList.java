@@ -55,7 +55,6 @@ public class WatchList {
 			stocklist.add(stocksvc.getInfo(symbol));
 		}
 		
-		
 		return stocklist;
 		
 		
