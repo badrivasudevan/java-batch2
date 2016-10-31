@@ -20,6 +20,8 @@ public class BuySellTask implements Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
+		
+		System.out.println("BuySellTask is executing");
 
 		TransactionType type = order.getTransacType();
 
@@ -46,14 +48,20 @@ public class BuySellTask implements Runnable {
 	}
 
 	private void BuyTask(Order order) throws Exception {
+		
+		System.out.println("I am buying stock");
 
 		Stock stock = StockService.getInfo(order.getStockSymbol());
 
 		if (OrderService.validateCashBalance(order)) {
+			
+			System.out.println("There is enough cash to buy stock!");
 
 			if (order.getPriceType() == PriceType.Market) {
 				order.setPriceExecuted(stock.getAskprice());
 				order.setOrderStatus(OrderStatus.Completed);
+				
+				System.out.println(order);
 
 			} else if (order.getPriceType() == PriceType.Limit) {
 

@@ -21,6 +21,11 @@ public class OrderService{
 		
 		orderList = OrderDAO.fetchOrder(OrderStatus.Pending);
 		
+		for(Order order: orderList){
+			
+			System.out.println(order);
+		}
+		
 		
 		return orderList;
 	}
