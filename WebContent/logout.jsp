@@ -12,5 +12,7 @@
   request.getSession(true).invalidate();
   System.out.println("Session exist:" +  request.getSession(false));
 %> 
+
+<a href="login.jsp">Login</a>
 </body>
 </html>

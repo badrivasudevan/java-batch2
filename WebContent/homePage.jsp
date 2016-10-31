@@ -17,7 +17,7 @@
 						<a href="balancePage.jsp">Account Balance</a> <br>
 						<a href="WatchList.jsp">Watchlists</a> <br>
 						<a href="Portfolio.jsp">User Portfolio Viewer</a> <br>
-						<a href="OrderForm.jsp">Order Form</a>
+						<a href="OrderForm.jsp">Order Form</a> <br>
 						<a href="logout.jsp">Logout</a>
 					</form>
 			</fieldset>
