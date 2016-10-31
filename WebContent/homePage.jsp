@@ -13,9 +13,9 @@
 			<fieldset>
 				<legend>Trading Platform Quick Links</legend>
 					<form action = post method >
-						<a href="http://www.w3schools.com/html/">Account Balance</a>
-						<a href="http://www.w3schools.com/html/">Watchlists</a>
-						<a href="http://www.w3schools.com/html/">Visit our HTML tutorial</a>
+						<a href="">Account Balance</a>
+						<a href="WatchList.jsp">Watchlists</a>
+						<a href="">Visit our HTML tutorial</a>
 					</form>
 			</fieldset>
 	</body>
