@@ -84,7 +84,7 @@ public class BuySellTask implements Runnable {
 
 		Stock stock = StockService.getInfo(order.getStockSymbol());
 
-		if (OrderService.validateOwnedQuantity(order)) {
+		if (OrderService.validateOwnedQuantity(order) && OrderService.hasHolding(order)) {
 
 			if (order.getPriceType() == PriceType.Market) {
 				order.setPriceExecuted(stock.getBidprice());
