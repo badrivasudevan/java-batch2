@@ -31,12 +31,7 @@
 	</fieldset>
 
 	<fieldset>
-		<% User currentUser = (User) (session.getAttribute("loggedInUser"));%>
-		<H1>
-			Welcome
-			<%= currentUser.getFullName() %></H1>
-		<H2>
-			Balance : $<%= UserDAO.getBalance(currentUser.getUserId()) %></H2>
+		
 		<h3>Deposit/Withdraw Funds</h3>
 	
 		<%
