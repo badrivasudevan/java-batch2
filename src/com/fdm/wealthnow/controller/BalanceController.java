@@ -41,9 +41,16 @@ public class BalanceController extends HttpServlet {
 		float result = 0;
 		float bal = Float.parseFloat(request.getParameter("bal"));
 		String user_errormsg = "Not Enough Funds to withdraw!";
+		long userId = Long.parseLong(request.getParameter("userid"));
 		switch(sign) {
 		case "+":{
 			result = bal + fund;
+			try {
+				UserDAO.addBalance(userId, fund);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			break;
 		}
 		case "-":{	
@@ -53,10 +60,17 @@ public class BalanceController extends HttpServlet {
 		         System.out.println("Authentication failed");
 		         request.setAttribute("errorMessage", user_errormsg); 	
 		         request.getRequestDispatcher("/balancePage.jsp").forward(request, response); 
-		         } 
+		         break;
+		    } 
 		         else {
-		        	 result = bal - fund;
-		        	 break;
+		        	result = bal - fund;
+		        	try {
+						UserDAO.deductBalance(userId, fund);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		        	break;
 		         }	
 		}
 		}

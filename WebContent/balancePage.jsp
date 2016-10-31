@@ -21,11 +21,10 @@
   		     out.println(request.getAttribute("errorMessage"));
     	}
 	%>
-	
-	
 	<form action = "${pageContext.request.contextPath}/BalanceController" method="POST">
-		<%-- <input type="number" value="<%=request.setAttribute("bal",UserDAO.getBalance(currentUser.getUserId()))%>" name="bal"/> --%>
-		<%-- $<%= UserDAO.getBalance(currentUser.getUserId()) %> --%>
+		<% long user = currentUser.getUserId(); %>
+		<input type="hidden" name="userid" value="<%=user%>"/>
+		
 		Transaction Type : 
 		<%	float bal = UserDAO.getBalance(currentUser.getUserId()); %>
 		<input type="hidden" name="bal" value="<%=bal%>" />
@@ -37,8 +36,7 @@
 		<input type="text" name="fund">
 		<button type="submit">Calculate</button>
 	</form>
-	<p> Balance = ${result} </p>
+	<%-- <p> Balance = ${result} </p> --%>
 	
-
 </body>
 </html>
