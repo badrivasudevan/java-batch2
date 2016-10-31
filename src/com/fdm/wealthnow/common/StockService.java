@@ -24,6 +24,12 @@ public class StockService {
 	//private String symbol;
 	private static Stock stock;
 	
+	
+	public static void storeStock(Stock stock){
+		
+		stockholding.add(stock);
+	}
+	
 	public static Stock getInfo(String symbol){
 		for(int i=0;i<stockholding.size();i++){
 			if(stockholding.get(i).getSymbol().equals(symbol)) {
