@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fdm.wealthnow.common.Holding;
 import com.fdm.wealthnow.common.Order;
 import com.fdm.wealthnow.common.OrderStatus;
 import com.fdm.wealthnow.dao.HoldingDAO;
@@ -30,6 +31,11 @@ public class OrderService{
 		return orderList;
 	}
 	
+	public static void updateCompletedOrder(Order order) throws SQLException{
+		
+		OrderDAO.updateOrder(order);
+	}
+	
 	public static boolean validateCashBalance(Order order) throws Exception{
 		
 		double totalAmount = order.getOrderQuantity() * order.getPriceExecuted();
@@ -51,6 +57,20 @@ public class OrderService{
 
 		return true;
 
+	}
+	
+	public static boolean hasHolding(Order order) throws Exception{
+		
+		List<Holding> holdingList = HoldingDAO.retrieveHolding(order.getUserID());
+		
+			for(Holding holding : holdingList){
+			
+			if(order.getStockSymbol().equals(holding.getStockSymbol()))
+				return true;
+		}
+			
+			return false;
+		
 	}
 	
 	

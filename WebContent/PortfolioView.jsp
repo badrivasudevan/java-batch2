@@ -9,16 +9,24 @@
 <title>Holdings</title>
 </head>
 <body>
-	<% User currentUser = (User) (session.getAttribute("loggedInUser"));%>
+			<% HttpSession session = request.getSession(true);%>
+
+
+	<% User currentUser = (User) (session.getAttribute("loggedInUser"));
+	
+	long userId = currentUser.getUserId();%>
+	
+	<form 
+	
 	<H1>
 		Welcome
 		<%= currentUser.getFullName() %></H1>
 	<H2>
 		Balance : $<%= UserDAO.getBalance(currentUser.getUserId()) %></H2>
 	<H2>
-		Stocks : $<%= HoldingDAO.retrieveHolding(currentUser.getUserId()).get(1).getStockSymbol() %></H2>
+		Stocks : $<%= HoldingDAO.retrieveHolding(currentUser.getUserId().getStockSymbol() %></H2>
 	<H2>
-		Quantity : $<%= HoldingDAO.retrieveHolding(currentUser.getUserId()).get(1).getRemainingQuantity() %></H2>
+		Quantity : $<%= HoldingDAO.retrieveHolding(currentUser.getUserId()getR %></H2>
 	<H2>
 		Price : $<%= HoldingDAO.retrieveHolding(currentUser.getUserId()).get(1).getPricePaid() %></H2>
 
