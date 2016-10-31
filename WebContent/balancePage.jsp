@@ -51,6 +51,7 @@
 				<option value="-">Withdrawal</option>
 			</select> Amount : <input type="number" name="fund">
 			<button type="submit">Calculate</button>
+		
 		</form>
 	</fieldset>
 </body>
