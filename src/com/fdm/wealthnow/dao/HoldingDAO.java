@@ -13,6 +13,37 @@ import com.fdm.wealthnow.common.Holding;
 public class HoldingDAO {
 	private static final String STOCK_HOLDING = "stock_holding";
 
+	public static int retrieveIndividualHolding(long userId, String stockSymbol) throws Exception{
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Holding holding = null;
+		int quantity;
+		
+		final String retrieveHoldingSQL = "Select holding_id, stock_symbol, remaining_quantity, price_paid, currency from " +
+										   STOCK_HOLDING + " where user_id = ? and stock_symbol in ?";
+
+		try{
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(retrieveHoldingSQL);
+			ps.setLong(1, userId);
+			ps.setString(2, stockSymbol);
+			rs = ps.executeQuery();
+			rs.next();
+			holding = new Holding(rs.getLong("holding_id"),
+								  userId,
+								  rs.getString("stock_symbol"),
+								  rs.getInt("remaining_quantity"),
+								  rs.getDouble("price_paid"),
+								  rs.getString("currency"));
+			quantity = holding.getRemainingQuantity();
+			return quantity;
+		}
+		finally{
+			DBUtil.closeConnection(rs, ps, con);
+		}		
+	}
+	
 	public static List<Holding> retrieveHolding(long userId) throws Exception{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -29,11 +60,11 @@ public class HoldingDAO {
 			rs = ps.executeQuery();
 			while(rs.next()){
 				holding = new Holding(rs.getLong("holding_id"),
-									   userId,
-									   rs.getString("stock_symbol"),
-									   rs.getInt("remaining_quantity"),
-									   rs.getDouble("price_paid"),
-									   rs.getString("currency"));
+									  userId,
+									  rs.getString("stock_symbol"),
+									  rs.getInt("remaining_quantity"),
+									  rs.getDouble("price_paid"),
+									  rs.getString("currency"));
 				holdingList.add(holding);
 			}
 			return holdingList;
@@ -73,11 +104,11 @@ public class HoldingDAO {
 	public static void main(String[] args) throws Exception{
 
 		//Testing retrieveHolding
-		/*List<Holdings> holding = HoldingDAO.retrieveHolding(1L);
-		System.out.println(holding);*/
+		int holding = HoldingDAO.retrieveIndividualHolding(1L, "AAPL");
+		System.out.println(holding);
 		
 		//Testing storeHolding
-		/*Holdings holding = new Holdings(6, "APPL", 100, 99.99, "SGD");
+		/*Holding holding = new Holding(6, "APPL", 100, 99.99, "SGD");
 		System.out.println(holding);
 		HoldingDAO.storeHolding(holding);*/
 	}
