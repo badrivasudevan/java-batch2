@@ -20,11 +20,11 @@ public class StockService {
 	//extract all stock data from yahoo finance api and store it in the arraylist and update the values using list.set()
 	//or store data from yahoo finance api in SQL database and update the values from there
 	//by calling SQL statements in java 
-	private List<Stock> stockholding = new ArrayList<>();;	//???
+	private static List<Stock> stockholding = new ArrayList<>();;	//???
 	//private String symbol;
-	private Stock stock;
+	private static Stock stock;
 	
-	public Stock static getInfo(String symbol){
+	public static Stock getInfo(String symbol){
 		for(int i=0;i<stockholding.size();i++){
 			if(stockholding.get(i).getSymbol().equals(symbol)) {
 				stock = new Stock(stockholding.get(i).getName(),stockholding.get(i).getSymbol(),stockholding.get(i).getBidprice(), stockholding.get(i).getAskprice(),stockholding.get(i).getCurrentmarketprice(), stockholding.get(i).getUpdatedtime());
