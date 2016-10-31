@@ -96,6 +96,7 @@ public class Order {
 
 
 	public double getPriceExecuted() {
+		
 		return priceExecuted;
 	}
 
