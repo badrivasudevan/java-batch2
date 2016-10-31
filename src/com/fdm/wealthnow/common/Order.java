@@ -105,18 +105,25 @@ public class Order {
 		return orderStatus;
 	}
 	
+	
+	
+	public void setOrderStatus(OrderStatus orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Order ID: " + orderID +
-				" User ID: " + userID +
-				" Order Date: " + orderDate +
-				" Transaction Type: " + TransacType +
-				" Purchased Quantity: "  + orderQuantity +
-				" Stock Symbol: " + stockSymbol +
-				" Term: " + term +
-				" Price Type: " + priceType +
-				" Price Executed: " + priceExecuted +
-				" Order Status: " + orderStatus; 
+				" \nUser ID: " + userID +
+				" \nOrder Date: " + orderDate +
+				" \nTransaction Type: " + TransacType +
+				" \nPurchased Quantity: "  + orderQuantity +
+				" \nStock Symbol: " + stockSymbol +
+				" \nTerm: " + term +
+				" \nPrice Type: " + priceType +
+				" \nPrice Executed: " + priceExecuted +
+				" \nOrder Status: " + orderStatus; 
 	} 
 	
 
