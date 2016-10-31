@@ -41,11 +41,20 @@ public class OrderProcessor extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
 //      session.setAttribute("loggedInUser", user);
-		User currentUser = (User) (session.getAttribute("loggedInUser"));
-		
-		long userID =  currentUser.getUserId();
+		//User currentUser = (User) (session.getAttribute("loggedInUser"));
+		//long userID = currentUser.getUserId();
+		long userID = 1234;
 		TransactionType transacType = Formatter.formatTransacType(request.getParameter("transactionType"));
 		
 		String stockSymbol = request.getParameter("symbol");
@@ -57,20 +66,26 @@ public class OrderProcessor extends HttpServlet {
 		double priceExecuted = 0;
 		int orderQuantity = Integer.parseInt(request.getParameter("quantity"));
 		
+		try { 
 		if (limitBuy != null) {
 			priceExecuted = Double.parseDouble(limitBuy);
 			
 		}
+	
 		
 		if (limitSell != null) {
 			priceExecuted = Double.parseDouble(limitSell);
-			
 		}
 		
 		if (stopLoss != null) {
 			priceExecuted = Double.parseDouble(stopLoss);
 			
 		}
+		
+		else
+			priceExecuted = 0;
+		}
+		catch (NumberFormatException e) {};
 		
 		
 		//double priceExecuted = Double.parseDouble(request.getParameter("priceExecuted"));
@@ -83,15 +98,6 @@ public class OrderProcessor extends HttpServlet {
 		dispatcher.forward(request, response);
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		
-		
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		
 	}
 	
@@ -110,6 +116,8 @@ public class OrderProcessor extends HttpServlet {
 		String limitBuy = request.getParameter("limitBuy");
 		String limitSell = request.getParameter("limitSell");
 		String stopLoss = request.getParameter("stopLoss");
+		double marketprice = 0;
+
 		double priceExecuted = 0;
 		int orderQuantity = Integer.parseInt(request.getParameter("quantity"));
 		
@@ -127,6 +135,8 @@ public class OrderProcessor extends HttpServlet {
 			priceExecuted = Double.parseDouble(stopLoss);
 			
 		}
+		
+		else priceExecuted = marketprice;
 		
 		
 		//double priceExecuted = Double.parseDouble(request.getParameter("priceExecuted"));
