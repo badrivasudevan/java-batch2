@@ -1,5 +1,12 @@
 package com.fdm.wealthnow.backendService;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+import com.fdm.wealthnow.common.OrderStatus;
+import com.fdm.wealthnow.common.PriceType;
+import com.fdm.wealthnow.common.Term;
+import com.fdm.wealthnow.common.TransactionType;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -52,17 +59,22 @@ public class OrderProcessor extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
 //      session.setAttribute("loggedInUser", user);
-		//User currentUser = (User) (session.getAttribute("loggedInUser"));
-		//long userID = currentUser.getUserId();
 		long userID = 1234;
 		TransactionType transacType = Formatter.formatTransacType(request.getParameter("transactionType"));
-		//System.out.println(request.getParameter("transactionType"));
 		String stockSymbol = request.getParameter("symbol");
-		Term term = Formatter.formatTerm(request.getParameter("term")); 
-		//System.out.println(request.getParameter("term"));
-		
-		PriceType priceType = Formatter.formatPriceType(request.getParameter("priceType"));
-		//System.out.println(priceType);
+		Term term = Formatter.formatTerm(request.getParameter("term"));
+		//System.out.println("term: " + term);
+		PriceType priceType = null;
+		if (request.getParameter("transactionType").equals("Buy")) {
+			System.out.println(request.getParameter("priceTypeBuy"));
+			priceType = Formatter.formatPriceType(request.getParameter("priceTypeBuy"));
+
+		}
+		if (request.getParameter("transactionType").equals("Sell")) {
+			priceType = Formatter.formatPriceType(request.getParameter("priceTypeSell"));
+
+		}
+	
 		
 		String limitBuy = request.getParameter("limitBuy");
 		String limitSell = request.getParameter("limitSell");

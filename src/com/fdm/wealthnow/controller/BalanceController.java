@@ -1,6 +1,10 @@
 package com.fdm.wealthnow.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,17 +35,36 @@ public class BalanceController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
-		try {
-		 String userName = request.getParameter("username");
-         User userId = UserDAO.getUser(userName);    
-         float bal = UserDAO.getBalance(userId.getUserId());
+			throws ServletException, IOException {	
+		Integer fund = Integer.parseInt(request.getParameter("fund"));
+		String sign = request.getParameter("operator");
+		Integer result = 0;
+		int bal = UserDAO.getBalance(session.getUserId) ;
+		switch(sign) {
+		case "+":{
+			result = bal + fund;
+			break;
 		}
-		catch (Exception e) {
-			throw new ServletException(e);
+		case "-":{
+//			if(bal < fund){
+//			}
+//			else {
+				result = bal - fund;
+				break;
+//			}
+		}
 		}
 		
-		//setattribute
+		request.setAttribute("result", result);
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("balancePage.jsp");
+		dispatcher.forward(request, response);
+
+	}
+	
+	private float getBalance(long userId) throws Exception{
+		float bal = 0;
+		bal = UserDAO.getBalance(userId);
+		return bal; 
 	}
 
 }

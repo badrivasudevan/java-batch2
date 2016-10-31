@@ -75,13 +75,13 @@
                 <label for="transactionTypeSell">Sell</label>
             </p>
             <div id="buyChecked">
-                <select id="PriceTypeBuy" name="priceType">
+                <select id="PriceTypeBuy" name="priceTypeBuy">
                     <option name="Market" value="Market"> Market Price </option>
                     <option name="Limit" value="Limit" id="limit"> Limit </option>
                 </select>
             </div>
             <div id="sellChecked">
-                <select id="PriceTypeSell" name="priceType">
+                <select id="PriceTypeSell" name="priceTypeSell">
                     <option name="Market" value="Market"> Market Price </option>
                     <option name="Stoploss" value="Stoploss" id="stoploss"> Stop Loss </option>
                     <option name="Limit" value="Limit" id="limit"> Limit </option>
