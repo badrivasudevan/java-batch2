@@ -55,9 +55,7 @@ public class BalanceController extends HttpServlet {
 		}
 		case "-":{	
 			if (bal < fund) {
-		            	// Create a session and send to landing page
 		         System.out.println("Not enough cash to withdraw...");
-		         System.out.println("Authentication failed");
 		         request.setAttribute("errorMessage", user_errormsg); 	
 		         request.getRequestDispatcher("/balancePage.jsp").forward(request, response); 
 		         break;
