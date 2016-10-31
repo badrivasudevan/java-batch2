@@ -7,7 +7,7 @@
 	<body>
 		 	<% User currentUser = (User) (session.getAttribute("loggedInUser"));%>
 			<H1> Welcome <%= currentUser.getFullName() %></H1>
-			<H2> Balance <%= UserDAO.getBalance(UserDAO.getUser(session.getAttribute("loggedInUser"))) %></H2>
+			<H2> Balance <%=  %></H2>
 			
 			
 			<fieldset>
