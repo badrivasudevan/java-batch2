@@ -10,7 +10,16 @@
 	<title>Balance Page</title>
 </head>
 <body>
-	<fieldset style = "width: 200px">
+	<div>
+	<% User currentUser = (User) (session.getAttribute("loggedInUser"));%>
+		<H1>
+			Welcome
+			<%= currentUser.getFullName() %></H1>
+		<H2>
+			Balance : $<%= UserDAO.getBalance(currentUser.getUserId()) %></H2>
+	</div>
+	
+	<fieldset id style = "width: 200px">
 		<legend>Trading Platform Quick Links</legend>
 			<form action = post method >
 				<a href="balancePage.jsp">Account Balance</a> <br>
