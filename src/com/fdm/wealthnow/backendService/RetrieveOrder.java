@@ -28,8 +28,8 @@ public class RetrieveOrder {
 
 		final String retrieveOrderSQL = "Select order_id, user_id, transaction_type, purchased_quantity, stock_symbol, "
 				+ "term, order_date, price_type, price_executed, order_status from " +
-				STOCK_ORDER + " where order_status = ?";
-		
+				STOCK_ORDER + " where order_status = ? and rownum <10";
+
 		if(orderStatus == OrderStatus.Pending){
 			status = OrderStatus.Pending.toString();
 		}
@@ -39,7 +39,7 @@ public class RetrieveOrder {
 		else{ 
 			status = OrderStatus.Cancelled.toString();
 		}
-		
+
 
 		try {
 			con = DBUtil.getConnection();
@@ -49,34 +49,31 @@ public class RetrieveOrder {
 			Order order = null;
 			while (rs.next()){
 				order = new Order(rs.getLong("order_id"),
-								   rs.getLong("user_id"),
-								   rs.getDate("order_date"),
-								   TransactionType.valueOf(rs.getString("transaction_type")),
-								   rs.getInt("purchased_quantity"),
-								   rs.getString("stock_symbol"),
-								   Term.valueOf(rs.getString("term")),
-								   PriceType.valueOf(rs.getString("price_type")),
-								   rs.getDouble("price_executed"),
-								   OrderStatus.valueOf(rs.getString("order_status")));
+						rs.getLong("user_id"),
+						rs.getDate("order_date"),
+						TransactionType.valueOf(rs.getString("transaction_type")),
+						rs.getInt("purchased_quantity"),
+						rs.getString("stock_symbol"),
+						Term.valueOf(rs.getString("term")),
+						PriceType.valueOf(rs.getString("price_type")),
+						rs.getDouble("price_executed"),
+						OrderStatus.valueOf(rs.getString("order_status")));		
+			
+				orderList.add(order);
 			}
 
-						
-			orderList.add(order);
-		
-		return orderList;	
-	} 
-		
-	finally{
-		DBUtil.closeConnection(rs, ps, con);
+			return orderList;	
+		} 
+		finally{
+			DBUtil.closeConnection(rs, ps, con);
+		}
 	}
 
-}
+	public static void main(String[] args) throws Exception {
 
-public static void main(String[] args) throws Exception {
-
-	List<Order> order = retrieveOrder(OrderStatus.Pending);
-	System.out.println(order);
-}
+		List<Order> order = retrieveOrder(OrderStatus.Pending);
+		System.out.println(order);
+	}
 }
 
 
