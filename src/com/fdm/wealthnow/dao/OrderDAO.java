@@ -12,14 +12,18 @@ import java.util.List;
 import com.fdm.wealthnow.common.DBUtil;
 import com.fdm.wealthnow.common.Order;
 import com.fdm.wealthnow.common.OrderStatus;
+import com.fdm.wealthnow.common.PriceType;
+import com.fdm.wealthnow.common.Term;
+import com.fdm.wealthnow.common.TransactionType;
 
 public class OrderDAO {
-	
+
 	static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-	
-	
+	private static final String STOCK_ORDER = "stock_order";
+
+
 	private static String getCurrentTimeStamp() {
-		
+
 		java.util.Date today = new java.util.Date();
 		String date = dateFormat.format(today.getTime());
 
@@ -31,13 +35,13 @@ public class OrderDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		
+
 
 		final String insertOrder = "INSERT INTO stock_order (order_Id, user_Id, stock_Symbol, order_Date,"
-									+ "transaction_Type, purchased_Quantity, term, price_Type, price_Executed, order_Status)"
-									+ " values (order_id.nextVal, ?, ?, to_date(?, 'yyyy/mm/dd hh24:mi:ss'),"
-									+ "?, ?, ?, ?, ?, ?)";
-		
+				+ "transaction_Type, purchased_Quantity, term, price_Type, price_Executed, order_Status)"
+				+ " values (order_id.nextVal, ?, ?, to_date(?, 'yyyy/mm/dd hh24:mi:ss'),"
+				+ "?, ?, ?, ?, ?, ?)";
+
 		try {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(insertOrder);
@@ -50,33 +54,75 @@ public class OrderDAO {
 			ps.setString(7, order.getPriceType().toString());
 			ps.setDouble(8, order.getPriceExecuted());
 			ps.setString(9, order.getOrderStatus().toString());
-			
+
 			ps.executeUpdate();
-			
-			
+
+
 			con.commit();
-			
+
 			return true;	
-			
+
 		} finally{
 			// TODO Auto-generated catch block
 			DBUtil.closeConnection(rs, ps, con);
 		}
 
 	}
-	
-	
-	public static List<Order> fetchOrders(OrderStatus status) throws SQLException{
-		
+
+
+	public static List<Order> fetchOrder(OrderStatus status) throws SQLException{
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String orderStatus = null;
 		List<Order> orderList = new ArrayList<>();
-		
-		
-		//Fetch Orders by batch code here
-		
-		return orderList;
-		
+
+		final String fetchOrderSQL = "Select order_id, user_id, transaction_type, purchased_quantity, stock_symbol, "
+				+ "term, order_date, price_type, price_executed, order_status from " +
+				STOCK_ORDER + " where order_status = ? and rownum <10";
+
+
+		if(status == OrderStatus.Pending){
+			orderStatus = OrderStatus.Pending.toString();
+		}
+		else if (status == OrderStatus.Completed){
+			orderStatus = OrderStatus.Completed.toString();
+		}
+		else{ 
+			orderStatus = OrderStatus.Cancelled.toString();
+		}
+
+
+		try {
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(fetchOrderSQL);
+			ps.setString(1, orderStatus);
+			rs = ps.executeQuery();
+			Order order = null;
+			while (rs.next()){
+				order = new Order(rs.getLong("order_id"),
+						rs.getLong("user_id"),
+						rs.getDate("order_date"),
+						TransactionType.valueOf(rs.getString("transaction_type")),
+						rs.getInt("purchased_quantity"),
+						rs.getString("stock_symbol"),
+						Term.valueOf(rs.getString("term")),
+						PriceType.valueOf(rs.getString("price_type")),
+						rs.getDouble("price_executed"),
+						OrderStatus.valueOf(rs.getString("order_status")));		
+
+				orderList.add(order);
+			}
+
+			return orderList;	
+		} 
+		finally{
+			DBUtil.closeConnection(rs, ps, con);
+		}
 	}
 
-	
-
 }
+
+
+
+

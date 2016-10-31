@@ -114,6 +114,53 @@ public class WatchListDAO {
 	
 	}
 	
+	public static boolean removeStock(String w_id, String symbol) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;		
+
+		final String removeStockSymbolFromWatchlist = "DELETE from watchlist_stocks where w_id=? and symbol=?";
+
+		try{
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(removeStockSymbolFromWatchlist);
+			ps.setString(1, w_id);
+			ps.setString(2, symbol);
+			rs = ps.executeQuery();
+		
+			con.commit();
+			
+			return true;
+		}
+		finally{
+			DBUtil.closeConnection(rs, ps, con);
+		}		
+	
+	}
+	
+	public static boolean addStock(String w_id, String symbol) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;		
+
+		final String addStockSymbolFromWatchlist = "Insert into watchlist_stocks values (?,?)";
+
+		try{
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(addStockSymbolFromWatchlist);
+			ps.setString(1, w_id);
+			ps.setString(2, symbol);
+			rs = ps.executeQuery();
+		
+			con.commit();
+			
+			return true;
+		}
+		finally{
+			DBUtil.closeConnection(rs, ps, con);
+		}		
+	
+	}
 	public static void main(String[] args) throws Exception{
 
 //		HashMap<String,String> watchlist = WatchListDAO.retrieveWatchlist(4);
@@ -121,5 +168,7 @@ public class WatchListDAO {
 //		List<String> list2 = WatchListDAO.retrieveStockSymbol("w1");
 //		System.out.println(list2);
 //		removeWatchlist("w5");
+	//	removeStock("w1","S556");
+//		addStock("w6","S56");
 	}
 }
