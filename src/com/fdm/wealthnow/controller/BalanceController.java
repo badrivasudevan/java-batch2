@@ -36,6 +36,9 @@ public class BalanceController extends HttpServlet {
 		 String userName = request.getParameter("username");
          User userId = UserDAO.getUser(userName);    
          float bal = UserDAO.getBalance(userId.getUserId());
+         HttpSession session = request.getSession(true);
+         session.setAttribute("bal", bal);
+         request.getRequestDispatcher("homePage.jsp").forward(request, response); 
 		}
 		catch (Exception e) {
 			throw new ServletException(e);
