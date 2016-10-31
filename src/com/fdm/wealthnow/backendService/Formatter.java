@@ -37,13 +37,16 @@ public class Formatter {
 	}
 	
 	public static Term formatTerm(String transacTerm){
-		
+		System.out.println(transacTerm);
 		if(transacTerm.equalsIgnoreCase("GoodTilDay")){
 			return Term.GoodForDay;
 		}
-		else{
+		if(transacTerm.equalsIgnoreCase("GoodTilCanceled")){
 			return Term.GoodUntilCancelled;
 		}
+		else
+			return null;
+		
 	}
 	
 	public static PriceType formatPriceType (String priceType){
