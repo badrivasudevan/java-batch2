@@ -47,7 +47,7 @@ public class WatchListDAO {
 		
 	}
 	
-	public static List<String> retrieveStockSymbol(String w_id) throws SQLException {
+	public static List<String> retrieveAllStockForWatchlist(String w_id) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;		
@@ -165,7 +165,7 @@ public class WatchListDAO {
 
 //		HashMap<String,String> watchlist = WatchListDAO.retrieveWatchlist(4);
 //		System.out.println(watchlist);
-//		List<String> list2 = WatchListDAO.retrieveStockSymbol("w1");
+//		List<String> list2 = WatchListDAO.retrieveAllStockForWatchlist("w1");
 //		System.out.println(list2);
 //		removeWatchlist("w5");
 	//	removeStock("w1","S556");
