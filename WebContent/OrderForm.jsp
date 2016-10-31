@@ -51,16 +51,15 @@
         }
 
     }
-
     </script>
     <!--     <link rel="stylesheet" type="text/css" href="./css/testpage1.css">-->
-    
 </head>
 
 <body>
     <h3>Stock Order Form</h3>
-    <form method="POST" action = "OrderProcessor"><!-- test -->
-             <label for="stock">Stock</label>
+    <form method="POST" action="OrderProcessor">
+        <!-- test -->
+        <label for="stock">Stock</label>
         <input type="text" id="symbol" name="symbol" value="<symbol>">
         <!--    <select name="symbol">
             <option selected="true" disabled="disabled">Choose stock</option>
@@ -69,50 +68,47 @@
             <option value="Microsoft">MSFT</option>
         </select> -->
         <p>
-        <p>
-            <input type="radio" name="transactionType" value="Buy" id=transactionTypeBuy onclick="javascript:OrderTypeCheck();">
-            <label for="transactionTypeBuy">Buy</label>
-            <input type="radio" name="transactionType" value="Sell" id=transactionTypeSell onclick="javascript:OrderTypeCheck();">
-            <label for="transactionTypeSell">Sell</label>
-        </p>
-        <div id="buyChecked">
-            <select id="PriceTypeBuy" name="priceType">
-             <option name = "Limit" value="Limit" id="limit"> Limit </option>
-                <option name = "Market" value="Market"> Market Price </option>
-               
-            </select>
-        </div>
-        <div id="sellChecked">
-            <select id="PriceTypeSell" name="priceType">
-                        <option name="Market" value="Market"> Market Price </option>
-            
-             <option name="Stoploss" value="Stoploss" id="stoploss"> Stop Loss </option>
-                <option name="Limit" value="Limit" id="limit"> Limit </option>
-               
-            </select>
-        </div>
-        <div id="Limit-Buy" style='display:none;'>
-            <label for="limitBuy">Buy limit</label>
-            <input type="text" id="limitBuy" name="limitBuy">
-        </div>
-        <div id="Limit-Sell" style='display:none;'>
-            <label for="limitSell">Sell limit</label>
-            <input type="text" id="limitSell" name="limitSell">
-        </div>
-        <div id="Stop-loss" style='display:none;'>
-            <label for="Stop-loss">Stop Loss</label>
-            <input type="text" id="stopLoss" name="stopLoss">
-        </div>
-        <label for="quantity">Quantity</label>
-        <input id="quantity" type="text" style="width: 50px;" name="quantity">
-        <p>
-            <label for="Term">Term</label>
-            <select name="term">
-                <option value="GoodTilCanceled" name= "goodTilCanceled"> Good 'Til Canceled </option>
-                <option value="GoodTilDay" name= "goodTilDay"> Good 'Til Day </option>
-            </select>
-        </p>
-        <input type="submit" value="Submit" />
+            <p>
+                <input type="radio" name="transactionType" value="Buy" id=transactionTypeBuy onclick="javascript:OrderTypeCheck();">
+                <label for="transactionTypeBuy">Buy</label>
+                <input type="radio" name="transactionType" value="Sell" id=transactionTypeSell onclick="javascript:OrderTypeCheck();">
+                <label for="transactionTypeSell">Sell</label>
+            </p>
+            <div id="buyChecked">
+                <select id="PriceTypeBuy" name="priceType">
+                    <option name="Market" value="Market"> Market Price </option>
+                    <option name="Limit" value="Limit" id="limit"> Limit </option>
+                </select>
+            </div>
+            <div id="sellChecked">
+                <select id="PriceTypeSell" name="priceType">
+                    <option name="Market" value="Market"> Market Price </option>
+                    <option name="Stoploss" value="Stoploss" id="stoploss"> Stop Loss </option>
+                    <option name="Limit" value="Limit" id="limit"> Limit </option>
+                </select>
+            </div>
+            <div id="Limit-Buy" style='display:none;'>
+                <label for="limitBuy">Buy limit</label>
+                <input type="text" id="limitBuy" name="limitBuy">
+            </div>
+            <div id="Limit-Sell" style='display:none;'>
+                <label for="limitSell">Sell limit</label>
+                <input type="text" id="limitSell" name="limitSell">
+            </div>
+            <div id="Stop-loss" style='display:none;'>
+                <label for="Stop-loss">Stop Loss</label>
+                <input type="text" id="stopLoss" name="stopLoss">
+            </div>
+            <label for="quantity">Quantity</label>
+            <input id="quantity" type="text" style="width: 50px;" name="quantity">
+            <p>
+                <label for="Term">Term</label>
+                <select name="term">
+                    <option value="GoodTilCanceled" name="goodTilCanceled"> Good 'Til Canceled </option>
+                    <option value="GoodTilDay" name="goodTilDay"> Good 'Til Day </option>
+                </select>
+            </p>
+            <input type="submit" value="Submit" />
     </form>
 </body>
 
