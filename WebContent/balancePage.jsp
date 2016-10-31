@@ -11,12 +11,9 @@
 </head>
 <body>
 	<div>
-	<% User currentUser = (User) (session.getAttribute("loggedInUser"));%>
-		<H1>
-			Welcome
-			<%= currentUser.getFullName() %></H1>
-		<H2>
-			Balance : $<%= UserDAO.getBalance(currentUser.getUserId()) %></H2>
+		<% User currentUser = (User) (session.getAttribute("loggedInUser"));%>
+		<H1>User: <%= currentUser.getFullName() %></H1>
+		<H2>Balance : $<%= UserDAO.getBalance(currentUser.getUserId()) %></H2>
 	</div>
 	
 	<fieldset id style = "width: 200px">
@@ -27,12 +24,11 @@
 				<a href="Portfolio.jsp">User Portfolio Viewer</a> <br>
 				<a href="OrderForm.jsp">Order Form</a> <br>
 				<a href="logout.jsp">Logout</a>
-				</form>
+			</form>
 	</fieldset>
 
 	<fieldset>
-		
-		<h3>Deposit/Withdraw Funds</h3>
+		<legend>Deposit/Withdraw Funds</legend>
 	
 		<%
 			if(request.getAttribute("errorMessage") != null) {
