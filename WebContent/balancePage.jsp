@@ -49,7 +49,7 @@
 				name="operator">
 				<option value="+">Deposit</option>
 				<option value="-">Withdrawal</option>
-			</select> Amount : <input type="text" name="fund">
+			</select> Amount : <input type="number" name="fund">
 			<button type="submit">Calculate</button>
 		</form>
 	</fieldset>
