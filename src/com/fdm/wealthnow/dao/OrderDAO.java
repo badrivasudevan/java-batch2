@@ -122,7 +122,7 @@ public class OrderDAO {
 		}
 	}
 	
-	public static void updateOrder(Order order) throws SQLException{
+	public static void updateOrderStatus(Order order) throws SQLException{
 		
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -134,6 +134,31 @@ public class OrderDAO {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(updateOrderSQL);
 			ps.setString(1, "Complete");
+			ps.setLong(2, order.getOrderID());
+			
+			
+			ps.executeUpdate();
+			con.commit();
+			
+			}
+		finally{
+			DBUtil.closeConnection(rs, ps, con);
+		}		
+		
+	}
+	
+	public static void updatePriceExecuted(Order order) throws SQLException{
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		final String updateOrderSQL = "Update " + STOCK_ORDER + " set price_executed = ? where order_id = ?";
+
+		try{
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(updateOrderSQL);
+			ps.setDouble(1, order.getPriceExecuted());
 			ps.setLong(2, order.getOrderID());
 			
 			

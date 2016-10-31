@@ -33,7 +33,12 @@ public class OrderService{
 	
 	public static void updateCompletedOrder(Order order) throws SQLException{
 		
-		OrderDAO.updateOrder(order);
+		OrderDAO.updateOrderStatus(order);
+	}
+	
+	public static void updatePriceExecuted(Order order) throws SQLException{
+		
+		OrderDAO.updatePriceExecuted(order);
 	}
 	
 	public static boolean validateCashBalance(Order order) throws Exception{

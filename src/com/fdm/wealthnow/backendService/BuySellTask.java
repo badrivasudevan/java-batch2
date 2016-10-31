@@ -6,6 +6,7 @@ import com.fdm.wealthnow.common.PriceType;
 import com.fdm.wealthnow.common.Stock;
 import com.fdm.wealthnow.common.StockService;
 import com.fdm.wealthnow.common.TransactionType;
+import com.fdm.wealthnow.dao.UserDAO;
 
 public class BuySellTask implements Runnable {
 
@@ -59,6 +60,7 @@ public class BuySellTask implements Runnable {
 
 			if (order.getPriceType() == PriceType.Market) {
 				order.setPriceExecuted(stock.getAskprice());
+				OrderService.updatePriceExecuted(order);
 				order.setOrderStatus(OrderStatus.Completed);
 				
 				System.out.println(order);
@@ -81,13 +83,23 @@ public class BuySellTask implements Runnable {
 	}
 
 	private void SellTask(Order order) throws Exception {
+		
+		System.out.println("I am selling stock");
 
 		Stock stock = StockService.getInfo(order.getStockSymbol());
 
 		if (OrderService.validateOwnedQuantity(order) && OrderService.hasHolding(order)) {
+			
+			System.out.println("I am have the stock and quantity");
+			
+			System.out.println("Cash Balance: " + UserDAO.getBalance(order.getUserID()));
 
 			if (order.getPriceType() == PriceType.Market) {
+				
+				System.out.println("Price before" + order.getPriceExecuted());
 				order.setPriceExecuted(stock.getBidprice());
+				OrderService.updatePriceExecuted(order);
+				System.out.println("Price after" + order.getPriceExecuted());
 				order.setOrderStatus(OrderStatus.Completed);
 
 			} else if (order.getPriceType() == PriceType.Limit || order.getPriceType() == PriceType.StopLoss) {
@@ -101,6 +113,8 @@ public class BuySellTask implements Runnable {
 			HoldingService.updatePortfolio(order);
 			OrderService.updateCompletedOrder(order);
 		}
+		
+		System.out.println("Cash Balance: " + UserDAO.getBalance(order.getUserID()));
 
 	}
 
