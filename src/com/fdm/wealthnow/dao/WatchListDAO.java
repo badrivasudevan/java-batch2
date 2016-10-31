@@ -75,29 +75,51 @@ public class WatchListDAO {
 	
 	}
 	
-	
-	public void createNewWatchlist(int user_id, String watchlistname) {
-		//update watchlist and userswatchlist table
-	}	
-	
-	public void editWatchlistName(String newname, String w_id) {
-		// set watchlist_name in watchlist table = newname where w_id=w_id
-	}
+	public static boolean removeWatchlist(String w_id) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps1 = null;
+		ResultSet rs1 = null;		
+		PreparedStatement ps2 = null;
+		ResultSet rs2 = null;		
+		PreparedStatement ps3 = null;
+		ResultSet rs3 = null;		
+		
+		final String removeWatchlistFromUserswatchlist = "DELETE from userswatchlist where w_id=?";
+		final String removeWatchlistFromWatchlist = "DELETE from watchlist where w_id=?";
+		final String removeWatchlistFromWatchlistStocks = "DELETE from watchlist_stocks where w_id=?";
 
+		try{
+			con = DBUtil.getConnection();
+			ps1 = con.prepareStatement(removeWatchlistFromUserswatchlist);
+			ps1.setString(1, w_id);
+			ps2 = con.prepareStatement(removeWatchlistFromWatchlist);
+			ps2.setString(1, w_id);
+			ps3 = con.prepareStatement(removeWatchlistFromWatchlistStocks);
+			ps3.setString(1, w_id);
+			rs1 = ps1.executeQuery();
+			rs2 = ps2.executeQuery();
+			rs3 = ps3.executeQuery();
+
+			con.commit();
+			
+			return true;
+		}
+		finally{
+			rs3.close();
+			ps3.close();
+			rs2.close();
+			ps2.close();
+			DBUtil.closeConnection(rs1, ps1, con);
+		}		
 	
-	public void removeWatchlist(int user_id, String w_id) {
-		// delete from watchlist table where w_id = w_id
-		// delete from userswatchlist table where user_id=user_id and w_id = w_id
 	}
-	
-	
-	
 	
 	public static void main(String[] args) throws Exception{
 
-		HashMap<String,String> watchlist = WatchListDAO.retrieveWatchlist(4);
-		System.out.println(watchlist);
-		List<String> list2 = WatchListDAO.retrieveStockSymbol("w1");
-		System.out.println(list2);
+//		HashMap<String,String> watchlist = WatchListDAO.retrieveWatchlist(4);
+//		System.out.println(watchlist);
+//		List<String> list2 = WatchListDAO.retrieveStockSymbol("w1");
+//		System.out.println(list2);
+//		removeWatchlist("w5");
 	}
 }
