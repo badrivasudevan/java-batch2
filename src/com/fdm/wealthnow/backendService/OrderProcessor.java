@@ -56,10 +56,14 @@ public class OrderProcessor extends HttpServlet {
 		//long userID = currentUser.getUserId();
 		long userID = 1234;
 		TransactionType transacType = Formatter.formatTransacType(request.getParameter("transactionType"));
-		
+		//System.out.println(request.getParameter("transactionType"));
 		String stockSymbol = request.getParameter("symbol");
 		Term term = Formatter.formatTerm(request.getParameter("term")); 
+		//System.out.println(request.getParameter("term"));
+		
 		PriceType priceType = Formatter.formatPriceType(request.getParameter("priceType"));
+		//System.out.println(priceType);
+		
 		String limitBuy = request.getParameter("limitBuy");
 		String limitSell = request.getParameter("limitSell");
 		String stopLoss = request.getParameter("stopLoss");
@@ -93,6 +97,7 @@ public class OrderProcessor extends HttpServlet {
 		
 		Order newOrder = new Order(userID, transacType, orderQuantity, stockSymbol, term, priceType, priceExecuted, orderStatus);
 		
+		
 		request.setAttribute("fieldList", newOrder);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/OrderFormConfirmation.jsp");
 		dispatcher.forward(request, response);
@@ -101,7 +106,7 @@ public class OrderProcessor extends HttpServlet {
 		
 	}
 	
-	private long createOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+/*	private long createOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession(true);
 //        session.setAttribute("loggedInUser", user);
@@ -109,10 +114,12 @@ public class OrderProcessor extends HttpServlet {
 		
 		long userID =  currentUser.getUserId();
 		TransactionType transacType = Formatter.formatTransacType(request.getParameter("transactionType"));
-		
+		System.out.println(request.getParameter("transactionType"));
 		String stockSymbol = request.getParameter("symbol");
 		Term term = Formatter.formatTerm(request.getParameter("term")); 
 		PriceType priceType = Formatter.formatPriceType(request.getParameter("priceType"));
+		
+		
 		String limitBuy = request.getParameter("limitBuy");
 		String limitSell = request.getParameter("limitSell");
 		String stopLoss = request.getParameter("stopLoss");
@@ -145,8 +152,10 @@ public class OrderProcessor extends HttpServlet {
 		Order newOrder = new Order(userID, transacType, orderQuantity, stockSymbol, term, priceType, priceExecuted, orderStatus);
 		
 		return newOrder.getOrderID();
-	}
+	}*/
 	
-	
+/*	public static void main(String[] args) {
+		newOrder.getTerm() = 
+	}*/
 
 }
