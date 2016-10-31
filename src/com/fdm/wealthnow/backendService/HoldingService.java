@@ -132,6 +132,7 @@ public class HoldingService{
 				if(order.getStockSymbol().equals(holding.getStockSymbol())){
 
 					if(remainingQuantity == 0){
+						HoldingService.updateCashBalance(order);
 						HoldingDAO.removeHolding(order);
 						break;
 					}
@@ -154,13 +155,14 @@ public class HoldingService{
 		}
 	}
 	
-	public static void main(String[] args) throws Exception{
-		Order order = new Order(5, TransactionType.Buy, 100, "AAPL", Term.GoodForDay, PriceType.Market, 150, OrderStatus.Pending);
+	//Testing HoldingService
+	/*public static void main(String[] args) throws Exception{
+		Order order = new Order(5, TransactionType.Sell, 50, "AAPL", Term.GoodForDay, PriceType.Market, 9.99, OrderStatus.Pending);
 		List<Holding> holdingList = HoldingService.retrieveHolding(order);
 		System.out.println("Updated price: " + HoldingService.calculatePurchasePrice(holdingList, order));
 		System.out.println("Updated quantity: " + HoldingService.calculateQuantity(holdingList, order));
 		HoldingService.updatePortfolio(order);
 		
-	}
+	}*/
 	
 }
