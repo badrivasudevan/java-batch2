@@ -11,7 +11,6 @@
 			<H1> Welcome <%= currentUser.getFullName() %></H1>
 			<H2> Balance <%= UserDAO.getBalance(currentUser.getUserId()) %></H2>
 			
-			
 			<fieldset style = "width: 200px">
 				<legend>Trading Platform Quick Links</legend>
 					<form action = post method >
