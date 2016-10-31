@@ -10,6 +10,10 @@ import java.util.List;
 import com.fdm.wealthnow.common.DBUtil;
 import com.fdm.wealthnow.common.Holding;
 import com.fdm.wealthnow.common.Order;
+import com.fdm.wealthnow.common.OrderStatus;
+import com.fdm.wealthnow.common.PriceType;
+import com.fdm.wealthnow.common.Term;
+import com.fdm.wealthnow.common.TransactionType;
 
 public class HoldingDAO {
 	private static final String STOCK_HOLDING = "stock_holding";
@@ -74,6 +78,32 @@ public class HoldingDAO {
 		}		
 	}
 	
+	public static void updateHolding(Holding holding) throws SQLException{
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		final String updateHoldingSQL = "Update " + STOCK_HOLDING + " set price_paid = ?, remaining_quantity = ? where user_id = ? and stock_symbol = ?";
+
+		try{
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(updateHoldingSQL);
+			ps.setDouble(1, holding.getPricePaid());
+			ps.setInt(2, holding.getRemainingQuantity());
+			ps.setLong(3, holding.getUserId());
+			ps.setString(4, holding.getStockSymbol());
+			
+			ps.executeUpdate();
+			con.commit();
+			
+			}
+		finally{
+			DBUtil.closeConnection(rs, ps, con);
+		}		
+		
+	}
+	
 	public static void storeHolding(Holding holding) throws SQLException{
 		
 		Connection con = null;
@@ -100,10 +130,34 @@ public class HoldingDAO {
 		}		
 		
 	}
+	
+public static void removeHolding(Order order) throws SQLException{
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		final String removeHoldingSQL = "Delete from " + STOCK_HOLDING + " where user_id = ? and stock_symbol in ?";
+
+		try{
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(removeHoldingSQL);
+			ps.setLong(1, order.getUserID());
+			ps.setString(2, order.getStockSymbol());
+			
+			ps.executeUpdate();
+			con.commit();
+			
+			}
+		finally{
+			DBUtil.closeConnection(rs, ps, con);
+		}		
+		
+	}
 
 	public static void main(String[] args) throws Exception{
 
-		//Testing retrieveHolding
+		//Testing retrieveIndividualHolding
 		/*int holding = HoldingDAO.retrieveIndividualHolding(1L, "AAPL");
 		System.out.println(holding);*/
 		
@@ -111,6 +165,15 @@ public class HoldingDAO {
 		/*Holding holding = new Holding(6, "APPL", 100, 99.99, "SGD");
 		System.out.println(holding);
 		HoldingDAO.storeHolding(holding);*/
+		
+		//Testing removeHolding
+		/*Order order = new Order(6, TransactionType.Sell, 50, "APPL", Term.GoodForDay, PriceType.Market, 9.99, OrderStatus.Pending);
+		HoldingDAO.removeHolding(order);*/
+		
+		//Testing updateHolding
+		/*Holding holding = new Holding(10, "AAPL", 222, 99.99, "SGD");
+		System.out.println(holding);
+		HoldingDAO.updateHolding(holding);*/
 	}
 
 }

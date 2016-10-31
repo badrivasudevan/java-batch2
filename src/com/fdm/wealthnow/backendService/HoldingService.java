@@ -13,6 +13,9 @@ import com.fdm.wealthnow.dao.UserDAO;
 public class HoldingService{
 	
 	private static final double TRANSACTION_FEE = 9.99;
+	private static double purchasePrice;
+	private static int remainingQuantity;
+	static boolean isExist = false;
 	
 	private static List<Holding> retrieveHolding(Order order) throws Exception{
 		List<Holding> holding = HoldingDAO.retrieveHolding(order.getUserID()); 
@@ -20,34 +23,38 @@ public class HoldingService{
 	}
 	
 	
-	private static double calculatePurchasePrice(List<Holding> holdingList, Order order){
-		
-		double purchasePrice = 0.0d;
+	private static double calculatePurchasePrice(List<Holding> holdingList, Order order){	
 		
 		for(Holding holding : holdingList){
-			
-			purchasePrice = holding.getPricePaid();
-			
+
 			if(order.getStockSymbol().equals(holding.getStockSymbol())){
+				isExist = true;
+
 				if(order.getTransacType() == TransactionType.Buy){
 					purchasePrice = ((order.getOrderQuantity() * order.getPriceExecuted()) + (holding.getRemainingQuantity() * holding.getPricePaid()))/(order.getOrderQuantity() + holding.getRemainingQuantity());
+					break;
 				}
 				else {
 					purchasePrice = holding.getPricePaid();
+					break;
 				}
-			}
+			}	
+		}
+
+		if(!isExist)
+		{
+			purchasePrice = order.getPriceExecuted();
 		}
 		return purchasePrice;
 	}
 	
 	private static int calculateQuantity(List<Holding> holdingList, Order order){
 		
-		int remainingQuantity = 0;
-		
 		for(Holding holding : holdingList){
-			/*System.out.println("Stock symbol of holding: " + holding.getStockSymbol());
-			System.out.println("Stock symbol of order: " + order.getStockSymbol());*/
+			
 			if(order.getStockSymbol().equals(holding.getStockSymbol())){
+				
+				isExist = true;
 				
 				if(order.getTransacType() == TransactionType.Buy){
 					remainingQuantity = holding.getRemainingQuantity() + order.getOrderQuantity();
@@ -59,62 +66,101 @@ public class HoldingService{
 			}
 			
 		}
+		
+		if(!isExist)
+		{
+			remainingQuantity = order.getOrderQuantity();
+		}
 		return remainingQuantity;
 	}
 	
-	private static double calculateCashBalance(List<Holding> holdingList, Order order) throws Exception{
-		
-		double cashBalance = UserDAO.getBalance(order.getUserID());
-		
-		for(Holding holding : holdingList){
-			
-			if(order.getStockSymbol().equals(holding.getStockSymbol())){
-				
-				if(order.getTransacType() == TransactionType.Buy){
-					cashBalance = cashBalance - ((order.getOrderQuantity() * order.getPriceExecuted()) + TRANSACTION_FEE);
-				}
-				else {
-					cashBalance = cashBalance + ((order.getOrderQuantity() * order.getPriceExecuted()) - TRANSACTION_FEE);
-				}
-			}
-			
+	private static void updateCashBalance(Order order) throws Exception{
+
+		double cashBalanceChange;
+
+		if(order.getTransacType() == TransactionType.Buy){
+			cashBalanceChange = ((order.getOrderQuantity() * order.getPriceExecuted()) + TRANSACTION_FEE);
+			UserDAO.deductBalance(order.getUserID(), cashBalanceChange);
+		}
+		else {
+			cashBalanceChange = ((order.getOrderQuantity() * order.getPriceExecuted()) - TRANSACTION_FEE);
+			UserDAO.addBalance(order.getUserID(), cashBalanceChange);
 		}
 		
-		
-		return cashBalance;
+		System.out.println("Updated cash balance: " + cashBalanceChange);
+
 	}
 	
-	public static void updatePortfolio(Order order) {
-		
-		List<Holding> holdingList = HoldingService.retrieveHolding(order);
-		
-		if(order.getTransacType() == TransactionType.Buy){
-			
-			for(Holding holding : holdingList){
-				if(order.getStockSymbol() == holding.getStockSymbol()){
-					HoldingService.calculatePurchasePrice(holdingList, order);
-					HoldingService.calculateQuantity(holdingList, order);
-					HoldingService.calculateCashBalance(holdingList, order);
-					break;
+	public static void updatePortfolio(Order order){
+
+		try{
+			Holding newHolding = null;
+			List<Holding> holdingList = HoldingService.retrieveHolding(order);
+			purchasePrice = HoldingService.calculatePurchasePrice(holdingList, order);
+			remainingQuantity = HoldingService.calculateQuantity(holdingList, order);
+
+			if(order.getTransacType() == TransactionType.Buy){
+
+				for(Holding holding : holdingList){
+					if(order.getStockSymbol().equals(holding.getStockSymbol())){
+
+						isExist = true;
+
+						newHolding = HoldingDAO.retrieveIndividualHolding(order);
+
+						newHolding.setPricePaid(purchasePrice);
+						newHolding.setRemainingQuantity(remainingQuantity);
+
+						HoldingDAO.updateHolding(newHolding);
+
+						break;
+					}
 				}
-				
-			}
-			//else insert new entry
+
+				if(!isExist){
+					newHolding = new Holding(order.getUserID(), order.getStockSymbol(), remainingQuantity, purchasePrice, "SGD");
+					HoldingDAO.storeHolding(newHolding);
+
+				}
+
+				HoldingService.updateCashBalance(order);
+			
+		//----------------------------------------------------sell order---------------------------------------------------------
 		}
 		else{
 			for(Holding holding : holdingList){
-				if(order.getStockSymbol() == holding.getStockSymbol()){
-					//call methods
+				if(order.getStockSymbol().equals(holding.getStockSymbol())){
+
+					if(remainingQuantity == 0){
+						HoldingDAO.removeHolding(order);
+						break;
+					}
+					else{
+						newHolding = HoldingDAO.retrieveIndividualHolding(order);
+						
+						newHolding.setPricePaid(purchasePrice);
+						newHolding.setRemainingQuantity(remainingQuantity);
+						
+						HoldingDAO.updateHolding(newHolding);
+						HoldingService.updateCashBalance(order);
+						break;
+					}
 				}
 			}
+		}
+	}
+		catch(Exception e){
+			System.out.println("Unable to update portfolio due to connection error");
 		}
 	}
 	
 	public static void main(String[] args) throws Exception{
-		Order order = new Order(1, TransactionType.Sell, 50, "AAPL", Term.GoodForDay, PriceType.Market, 9.99, OrderStatus.Pending);
+		Order order = new Order(5, TransactionType.Buy, 100, "AAPL", Term.GoodForDay, PriceType.Market, 150, OrderStatus.Pending);
 		List<Holding> holdingList = HoldingService.retrieveHolding(order);
 		System.out.println("Updated price: " + HoldingService.calculatePurchasePrice(holdingList, order));
 		System.out.println("Updated quantity: " + HoldingService.calculateQuantity(holdingList, order));
+		HoldingService.updatePortfolio(order);
+		
 	}
 	
 }
