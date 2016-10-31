@@ -15,7 +15,7 @@ public class OrderService{
 		
 		List<Order> orderList = new ArrayList<>();
 		
-		orderList = OrderDAO.fetchOrders(OrderStatus.Pending);
+		orderList = OrderDAO.fetchOrder(OrderStatus.Pending);
 		
 		
 		return orderList;
