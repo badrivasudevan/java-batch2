@@ -3,6 +3,7 @@
 			<title>Login Page</title>
 		</head>
 		<body>
+			<h1>Login Page</h1>
 			<%
 		    	if(request.getAttribute("errorMessage") != null) {
   		      		out.println(request.getAttribute("errorMessage"));
