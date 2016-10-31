@@ -5,10 +5,10 @@
 	</style>
 </head>
 <body>
-	<h2>Watchlist</h2>
+	<h1>Watchlist</h1>
 	
-	<fieldset style = "width: 200px">
-				<legend>Trading Platform Quick Links</legend>
+	<fieldset id style = "width: 210px">
+			<legend><strong>Trading Platform Quick Links</strong></legend>
 					<form action = post method >
 						<a href="balancePage.jsp">Account Balance</a> <br>
 						<a href="WatchList.jsp">Watchlists</a> <br>
@@ -24,7 +24,7 @@
 	</fieldset>
 	
 	<fieldset>
-		<legend>Watchlist Tools Bar</legend>
+		<legend><strong>Watchlist Tools Bar</strong></legend>
 			<div id = "watchlist">
 			Watchlist Name: <input type = "text" name = "WatchListName"> <br>
 			<input type = "button" value = "Add WatchList" onclick = ""> 
@@ -47,7 +47,7 @@
 	</fieldset>
 	
 	<fieldset>
-		<legend>Watchlist</legend>
+		<legend><strong>Watchlist</strong></legend>
 			<div id = "righttab">
 				<select>
 					<option value = "WatchLists"> WatchLists </option>

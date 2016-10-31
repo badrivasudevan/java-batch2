@@ -16,8 +16,8 @@
 		<H2>Balance : $<%= UserDAO.getBalance(currentUser.getUserId()) %></H2>
 	</div>
 	
-	<fieldset id style = "width: 200px">
-		<legend>Trading Platform Quick Links</legend>
+	<fieldset id style = "width: 210px">
+		<legend><strong>Trading Platform Quick Links</strong></legend>
 			<form action = post method >
 				<a href="balancePage.jsp">Account Balance</a> <br>
 				<a href="WatchList.jsp">Watchlists</a> <br>
@@ -28,7 +28,7 @@
 	</fieldset>
 
 	<fieldset>
-		<legend>Deposit/Withdraw Funds</legend>
+		<legend><Strong>Deposit/Withdraw Funds</Strong></legend>
 	
 		<%
 			if(request.getAttribute("errorMessage") != null) {
