@@ -3,16 +3,14 @@ package com.fdm.wealthnow.backendService;
 import com.fdm.wealthnow.common.Order;
 import com.fdm.wealthnow.common.OrderStatus;
 import com.fdm.wealthnow.common.PriceType;
+import com.fdm.wealthnow.common.Stock;
 import com.fdm.wealthnow.common.StockService;
 import com.fdm.wealthnow.common.TransactionType;
 
-import commonObject.StockData;
-
 public class BuySellTask implements Runnable {
-	
+
 	Order order;
 	StockService stockService;
-	
 
 	public BuySellTask(Order order) {
 
@@ -22,40 +20,75 @@ public class BuySellTask implements Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		
+
 		TransactionType type = order.getTransacType();
-		String stockSymbol = order.getStockSymbol();
-		double price;
-		
-		if(type == TransactionType.Buy){
+
+		if (type == TransactionType.Buy) {
+
+			try {
+				BuyTask(order);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				System.err.println("Exception: " + e.getMessage());
+			}
+
+		} else {
 			
-			price = order.getPriceExecuted();
-			
+			try {
+				SellTask(order);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				System.err.println("Exception: " + e.getMessage());
+			}
+
 		}
-		else{
-			
-		}	
-		
+
 	}
-	
-	private void BuyTask(Order order){
-		
-		if(OrderService.validateCashBalance(order)){
-			
-			if(order.getPriceType() == PriceType.Market){		
+
+	private void BuyTask(Order order) throws Exception {
+
+		Stock stock = StockService.getInfo(order.getStockSymbol());
+
+		if (OrderService.validateCashBalance(order)) {
+
+			if (order.getPriceType() == PriceType.Market) {
+				order.setPriceExecuted(stock.getAskprice());
 				order.setOrderStatus(OrderStatus.Completed);
-				HoldingService.updatePortfolio(order);		
-			}else if(order.getPriceType() == PriceType.Limit){
-				
-				if(order.getPriceExecuted() == StockService.getInfo(order.getStockSymbol()))
-				
+
+			} else if (order.getPriceType() == PriceType.Limit) {
+
+				if (stock.getCurrentmarketprice() <= order.getPriceExecuted())
+					order.setOrderStatus(OrderStatus.Completed);
+
+			}
+
+		}
+
+		if (order.getOrderStatus() == OrderStatus.Completed)
+			HoldingService.updatePortfolio(order);
+
+	}
+
+	private void SellTask(Order order) throws Exception {
+
+		Stock stock = StockService.getInfo(order.getStockSymbol());
+
+		if (OrderService.validateOwnedQuantity(order)) {
+
+			if (order.getPriceType() == PriceType.Market) {
+				order.setPriceExecuted(stock.getBidprice());
+				order.setOrderStatus(OrderStatus.Completed);
+
+			} else if (order.getPriceType() == PriceType.Limit || order.getPriceType() == PriceType.StopLoss) {
+				if (stock.getCurrentmarketprice() >= order.getPriceExecuted())
+					order.setOrderStatus(OrderStatus.Completed);
+
 			}
 		}
-		
+
+		if (order.getOrderStatus() == OrderStatus.Completed)
+			HoldingService.updatePortfolio(order);
+
 	}
-	
-	
-	
-	
 
 }

@@ -110,6 +110,11 @@ public class Order {
 	public void setOrderStatus(OrderStatus orderStatus) {
 		this.orderStatus = orderStatus;
 	}
+	
+	
+	public void setPriceExecuted(double priceExecuted) {
+		this.priceExecuted = priceExecuted;
+	}
 
 
 	@Override
