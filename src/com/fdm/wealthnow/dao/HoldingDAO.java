@@ -13,12 +13,11 @@ import com.fdm.wealthnow.common.Holding;
 public class HoldingDAO {
 	private static final String STOCK_HOLDING = "stock_holding";
 
-	public static int retrieveIndividualHolding(long userId, String stockSymbol) throws Exception{
+	public static Holding retrieveIndividualHolding(long userId, String stockSymbol) throws Exception{
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		Holding holding = null;
-		int quantity;
 		
 		final String retrieveHoldingSQL = "Select holding_id, stock_symbol, remaining_quantity, price_paid, currency from " +
 										   STOCK_HOLDING + " where user_id = ? and stock_symbol in ?";
@@ -36,8 +35,8 @@ public class HoldingDAO {
 								  rs.getInt("remaining_quantity"),
 								  rs.getDouble("price_paid"),
 								  rs.getString("currency"));
-			quantity = holding.getRemainingQuantity();
-			return quantity;
+			
+			return holding;
 		}
 		finally{
 			DBUtil.closeConnection(rs, ps, con);
