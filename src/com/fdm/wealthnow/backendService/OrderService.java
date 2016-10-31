@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.fdm.wealthnow.common.Order;
 import com.fdm.wealthnow.common.OrderStatus;
+import com.fdm.wealthnow.dao.HoldingDAO;
 import com.fdm.wealthnow.dao.OrderDAO;
 import com.fdm.wealthnow.dao.UserDAO;
 
@@ -35,13 +36,12 @@ public class OrderService{
 		return true;
 	}
 	
-	public static boolean validateOwnedQuantity(Order order){
+	public static boolean validateOwnedQuantity(Order order) throws Exception{
 		
-		int ownedQuantity = PortfolioManager.getPortfolio(order.getUserID()).getStocks().get(order.getStockSymbol())
-				.getQuantity();
+		int ownedQuantity = HoldingDAO.retrieveIndividualHolding(order).getRemainingQuantity();
 
 		System.out.println("Owned quantity: " + ownedQuantity);
-		if (quantity > ownedQuantity)
+		if (order.getOrderQuantity() > ownedQuantity)
 			return false;
 
 		return true;

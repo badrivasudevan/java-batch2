@@ -9,11 +9,12 @@ import java.util.List;
 
 import com.fdm.wealthnow.common.DBUtil;
 import com.fdm.wealthnow.common.Holding;
+import com.fdm.wealthnow.common.Order;
 
 public class HoldingDAO {
 	private static final String STOCK_HOLDING = "stock_holding";
 
-	public static Holding retrieveIndividualHolding(long userId, String stockSymbol) throws Exception{
+	public static Holding retrieveIndividualHolding(Order order) throws Exception{
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -25,12 +26,12 @@ public class HoldingDAO {
 		try{
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(retrieveHoldingSQL);
-			ps.setLong(1, userId);
-			ps.setString(2, stockSymbol);
+			ps.setLong(1, order.getUserID());
+			ps.setString(2, order.getStockSymbol());
 			rs = ps.executeQuery();
 			rs.next();
 			holding = new Holding(rs.getLong("holding_id"),
-								  userId,
+								  order.getUserID(),
 								  rs.getString("stock_symbol"),
 								  rs.getInt("remaining_quantity"),
 								  rs.getDouble("price_paid"),
