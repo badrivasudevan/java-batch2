@@ -2,6 +2,7 @@ package com.fdm.wealthnow.backendService;
 
 import com.fdm.wealthnow.common.Order;
 import com.fdm.wealthnow.common.OrderStatus;
+import com.fdm.wealthnow.common.PriceType;
 import com.fdm.wealthnow.common.StockService;
 import com.fdm.wealthnow.common.TransactionType;
 
@@ -41,7 +42,14 @@ public class BuySellTask implements Runnable {
 		
 		if(OrderService.validateCashBalance(order)){
 			
-			order.setOrderStatus(OrderStatus.Completed);
+			if(order.getPriceType() == PriceType.Market){		
+				order.setOrderStatus(OrderStatus.Completed);
+				HoldingService.updatePortfolio(order);		
+			}else if(order.getPriceType() == PriceType.Limit){
+				
+				if(order.getPriceExecuted() == StockService.getInfo(order.getStockSymbol()))
+				
+			}
 		}
 		
 	}

@@ -24,7 +24,7 @@ public class StockService {
 	//private String symbol;
 	private Stock stock;
 	
-	public Stock getInfo(String symbol){
+	public Stock static getInfo(String symbol){
 		for(int i=0;i<stockholding.size();i++){
 			if(stockholding.get(i).getSymbol().equals(symbol)) {
 				stock = new Stock(stockholding.get(i).getName(),stockholding.get(i).getSymbol(),stockholding.get(i).getBidprice(), stockholding.get(i).getAskprice(),stockholding.get(i).getCurrentmarketprice(), stockholding.get(i).getUpdatedtime());
