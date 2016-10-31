@@ -37,7 +37,6 @@ public class Formatter {
 	}
 	
 	public static Term formatTerm(String transacTerm){
-		System.out.println(transacTerm);
 		if(transacTerm.equalsIgnoreCase("GoodTilDay")){
 			return Term.GoodForDay;
 		}
