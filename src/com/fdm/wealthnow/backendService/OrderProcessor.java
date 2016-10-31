@@ -66,7 +66,6 @@ public class OrderProcessor extends HttpServlet {
 		//System.out.println("term: " + term);
 		PriceType priceType = null;
 		if (request.getParameter("transactionType").equals("Buy")) {
-			System.out.println(request.getParameter("priceTypeBuy"));
 			priceType = Formatter.formatPriceType(request.getParameter("priceTypeBuy"));
 
 		}
