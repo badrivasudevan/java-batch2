@@ -41,6 +41,16 @@
 	  		   <script>alert("removewatchlist");</script>
 	    <%		}
 		%>
+		<%	if(request.getAttribute("errorMessage2") != null) {	 %>
+	  		     <!-- out.println(request.getAttribute("errorMessage")); -->
+	  		   <script>alert("Not Enough Funds to withdraw!");</script>
+	    <%		}
+		%>
+		<%	if(request.getAttribute("addwatchlist") != null) {	 %>
+	  		     <!-- out.println(request.getAttribute("errorMessage")); -->
+	  		   <script>alert("removewatchlist");</script>
+	    <%		}
+		%>
 		<legend><strong>Watchlist Tools Bar</strong></legend>
 			<div id = "watchlist">
 			Watchlist Name: <input type = "text" name = "WatchListName">
