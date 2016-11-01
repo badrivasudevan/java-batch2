@@ -37,17 +37,14 @@ public class HoldingController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
-			System.out.println("running holdings");
 			List<Holding> holdingList = new ArrayList<>();
 
 			HttpSession session = request.getSession(true);
-			System.out.println("stock_holding");
 			User currentUser = (User) session.getAttribute("loggedInUser");
 			long userID = currentUser.getUserId();
 			holdingList = HoldingDAO.retrieveHolding(userID); 
 			
 			request.setAttribute("holdingList", holdingList);
-			System.out.println(holdingList);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/PortfolioView.jsp");
 			dispatcher.forward(request,response);
 
