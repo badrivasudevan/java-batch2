@@ -31,10 +31,10 @@ public class OrderFetcherTask implements Runnable {
 			e.printStackTrace();
 		}
 		
-		System.out.println("Order are going to be submitted");
+		System.out.println("Order is being submitted");
 
 		for (Order order : orderList) {
-			System.out.println(order.getStockSymbol() + "is submitted.");
+			System.out.println("Stock (" + order.getStockSymbol() + ") is submitted.");
 			workerPool.submit(new BuySellTask(order));
 		}
 
