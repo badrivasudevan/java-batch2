@@ -160,6 +160,36 @@ public class WatchListDAO {
 			DBUtil.closeConnection(rs, ps, con);
 		}		
 	
+	       public static boolean createWatchlist(long userid, String watchlistname) throws SQLException {
+	              Connection con = null;
+	              PreparedStatement ps1 = null;
+	              ResultSet rs1 = null;      
+	              PreparedStatement ps2 = null;
+	              ResultSet rs2 = null;             
+
+	              final String createWatchlistForUser = "Insert into userswatchlist values (concat('w',watchlist_seq.nextval),?) ";
+	              final String setWatchlistName = "Insert into watchlist values (concat('w',watchlist_seq.currval),?,sysdate)";
+	              
+	              try{
+	                     con = DBUtil.getConnection();
+	                     ps1 = con.prepareStatement(createWatchlistForUser);
+	                     ps2 = con.prepareStatement(setWatchlistName);
+	                     ps1.setLong(1, userid);
+	                     ps2.setString(1, watchlistname);
+	                     rs1 = ps1.executeQuery();
+	                     rs2 = ps2.executeQuery();
+	                     con.commit();
+	                     
+	                     return true;
+	              }
+	              finally{
+	                     rs2.close();
+	                     ps2.close();
+	                     DBUtil.closeConnection(rs1, ps1, con);
+	              }             
+	       
+	       }
+
 	}
 	public static void main(String[] args) throws Exception{
 
