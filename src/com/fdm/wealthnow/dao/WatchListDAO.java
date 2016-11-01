@@ -15,7 +15,7 @@ public class WatchListDAO {
 	//extract information and update the information based on the method being called in java
 	//
 	
-	public HashMap<String, String> retrieveWatchlist(long userId) throws SQLException{
+	public static HashMap<String, String> retrieveWatchlist(long userId) throws SQLException{
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -75,7 +75,7 @@ public class WatchListDAO {
 	
 	}
 	
-	public boolean removeWatchlist(String w_id) throws SQLException {
+	public static boolean removeWatchlist(String w_id) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps1 = null;
 		ResultSet rs1 = null;		
@@ -161,7 +161,7 @@ public class WatchListDAO {
 		}		
 	
 	}
-	       public boolean createWatchlist(long userid, String watchlistname) throws SQLException {
+	       public static boolean createWatchlist(long userid, String watchlistname) throws SQLException {
 	              Connection con = null;
 	              PreparedStatement ps1 = null;
 	              ResultSet rs1 = null;      

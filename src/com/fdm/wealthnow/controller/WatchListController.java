@@ -2,20 +2,13 @@ package com.fdm.wealthnow.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 
-import javax.servlet.RequestDispatcher;
+//import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.fdm.wealthnow.common.User;
-import com.fdm.wealthnow.dao.UserDAO;
 import com.fdm.wealthnow.dao.WatchListDAO;
 
 /**
@@ -44,68 +37,71 @@ public class WatchListController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		long userId = Long.parseLong(request.getParameter("userid"));
-//		HashMap<String, String> watchlistforuserid = new HashMap<>();
-		WatchListDAO watchlist = new WatchListDAO();
 		String watchlistname = request.getParameter("WatchListName");
 		String editwatchlist = request.getParameter("addorremove");
 		String user_errormsg = "No such watchlist in the database!";
 		String user_errormsg2 = "The watchlist is already in the database!";
 		String rwl = watchlistname + " " + "is successfully removed from the database!";
 		String awl = watchlistname + " " + "is successfully added into the database!";
-		
+		System.out.println("Hello"+watchlistname);
 		switch(editwatchlist) {
 		case "+":{
 			try {
-				if(watchlist.retrieveWatchlist(userId).containsValue(watchlistname)) {
+				if(WatchListDAO.retrieveWatchlist(userId).containsValue(watchlistname)) {
 					 System.out.println("The watchlist is already in the database! Try again!");
 					 request.setAttribute("errorMessage2", user_errormsg2);
 					 request.getRequestDispatcher("/WatchList.jsp").forward(request, response);
-				     break;
+				     //break;
 				}
 				else {
-					watchlist.createWatchlist(userId, watchlistname);
+					WatchListDAO.createWatchlist(userId, watchlistname);
 					System.out.println(watchlistname+" is successfully added into the database!");
 				    request.setAttribute("addwatchlist", awl); 	
 				    request.getRequestDispatcher("/WatchList.jsp").forward(request, response); 
-				    break;
+				   // break;
 				}
 				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			break;
 		}
 		case "-":{	
 			try {
-				if (watchlist.retrieveWatchlist(userId).containsValue(watchlistname)) {
-					 for(String s : watchlist.retrieveWatchlist(userId).values()){
+				if (WatchListDAO.retrieveWatchlist(userId).containsValue(watchlistname)) {
+					 for(String s : WatchListDAO.retrieveWatchlist(userId).values()){
 						 if(s.equals(watchlistname)){
-							 String rkey = watchlist.retrieveWatchlist(userId).get(s);
-							 watchlist.removeWatchlist(rkey);
+							 String rkey = WatchListDAO.retrieveWatchlist(userId).get(s);
+							 WatchListDAO.removeWatchlist(rkey);
 							 break;
 						 }
 					 };	
 					 System.out.println(watchlistname+" is successfully removed from the database!");
 				     request.setAttribute("removewatchlist", rwl); 	
 				     request.getRequestDispatcher("/WatchList.jsp").forward(request, response); 
-				     break;
+				    // break;
 				} 
 				else {
 					 System.out.println("No such watchlist in the database! Try again!");
 					 request.setAttribute("errorMessage", user_errormsg);
 					 request.getRequestDispatcher("/WatchList.jsp").forward(request, response);
-				     break;
+				    // break;
 				     }
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}	
+			break;
 		}
 		}
+
 		
+		 request.getRequestDispatcher("/WatchList.jsp").forward(request, response);
+		 
 //		request.setAttribute("result", result);
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WatchList.jsp");
-		dispatcher.forward(request, response);
+//		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WatchList.jsp");
+//		dispatcher.forward(request, response);
 
 		
 		//	WatchlistService.createNewWatchlist									//Add new watchlist/watchlistname into sql

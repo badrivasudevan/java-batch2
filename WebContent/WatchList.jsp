@@ -28,6 +28,7 @@
 						<a href="logout.jsp">Logout</a>
 					</form>
 			</fieldset>
+	<form action="${pageContext.request.contextPath}/WatchListController" method="POST">		
 	<% long user = currentUser.getUserId(); %>
 	<input type="hidden" name="userid" value="<%=user%>" /> 	
 	<fieldset>
@@ -48,7 +49,7 @@
 		%>
 		<%	if(request.getAttribute("addwatchlist") != null) {	 %>
 	  		     <!-- out.println(request.getAttribute("errorMessage")); -->
-	  		   <script>alert("removewatchlist");</script>
+	  		   <script>alert("addwatchlist");</script>
 	    <%		}
 		%>
 		<legend><strong>Watchlist Tools Bar</strong></legend>
@@ -59,8 +60,6 @@
 				<option value="-">Remove WatchList</option>
 			</select>
 			<button type="submit">Submit</button> <br><br>
-			<!-- <input type = "button" name = "AddWatchList" value = "Add WatchList" onclick = ""> 
-			<input type = "button" name = "RemoveWatchList" value = "Remove WatchList" onclick = ""> <br> <br> -->
 		
 			Stocks: <input type = "text" name = "stockname" value = ""> 
 			<input type = "button" value = "Add to Current WatchList" onclick = ""> 
@@ -80,12 +79,11 @@
 	
 	<fieldset>
 	Select Watchlist:
-	<select name="Watchlist" onchange=alert(this.value);>
+	<select name="Watchlist">
 	<% WatchListDAO watchlist = new WatchListDAO();
 	
 	 for(String s : watchlist.retrieveWatchlist(user).values()) { %>
 	<tr>
-		<%-- <td><%= s %> </td> <br> --%>
 		<option value="<%=s %>" style="width:100px;" > <%=s %> </option>
 	</tr>	
 	<% } %>
