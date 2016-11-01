@@ -43,6 +43,8 @@ public class WatchListController extends HttpServlet {
 		String user_errormsg2 = "The watchlist is already in the database!";
 		String rwl = watchlistname + " " + "is successfully removed from the database!";
 		String awl = watchlistname + " " + "is successfully added into the database!";
+		String stocksymbol = request.getParameter("stockname");
+		
 	
 		//store the watchlistdao.retrievewatchlist(userid) to hashmap<String,String> = new HashMap<>();
 		switch(editwatchlist) {
