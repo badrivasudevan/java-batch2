@@ -16,11 +16,6 @@
 
 <% 		User currentUser = (User) (session.getAttribute("loggedInUser"));
 		List<Holding> holdingList = HoldingService.callDAO(currentUser.getUserId());
-			
-		
-/* 	List<Holding> holdingList = (List<Holding>) request
-			.getAttribute("holdingList"); */
-//out.println("holdingList: "+holdingList.size());
 %>
 	
 	<H1>
@@ -38,7 +33,7 @@
 					</form>
 			</fieldset>
 
-		<table id="portfolio_holdings" class="table table-striped">
+		<table id="portfolio_holdings" class="table table-striped" border="1">
 
 			<tr>
 				<th>Stock Symbol</th>
