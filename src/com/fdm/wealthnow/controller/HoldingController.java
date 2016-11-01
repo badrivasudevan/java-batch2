@@ -35,16 +35,6 @@ public class HoldingController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		throw new ServletException("Unsupported operation");	
-
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
 
 		try {
 			System.out.println("running holdings");
@@ -55,7 +45,7 @@ public class HoldingController extends HttpServlet {
 			User currentUser = (User) session.getAttribute("loggedInUser");
 			long userID = currentUser.getUserId();
 			holdingList = HoldingDAO.retrieveHolding(userID); 
-
+			
 			request.setAttribute("holdingList", holdingList);
 			System.out.println(holdingList);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/PortfolioView.jsp");
@@ -66,5 +56,14 @@ public class HoldingController extends HttpServlet {
 			throw new ServletException(e);
 		}
 	}
+		
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request,response);
+	}
+
+
 
 }
