@@ -64,12 +64,12 @@ public class OrderController extends HttpServlet {
 		
 		
 		try {
-		System.out.println("doing try");	
+		System.out.println("Storing order");	
 		OrderDAO.storeOrder(newOrder);
 		}
 		catch (SQLException e) {System.out.println("doing catch");	
 }
-		System.out.println("Executing OrderDAO Store Order.");
+		//System.out.println("Executing OrderDAO Store Order.");
 		request.getRequestDispatcher("/homePage.jsp").forward(request, response);
 
 	}
