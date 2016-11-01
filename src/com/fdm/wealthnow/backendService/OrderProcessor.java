@@ -54,14 +54,12 @@ public class OrderProcessor extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
-//      session.setAttribute("loggedInUser", user);
 		
 		User currentUser = (User) session.getAttribute("loggedInUser");
 		long userID = currentUser.getUserId();
 		TransactionType transacType = Formatter.formatTransacType(request.getParameter("transactionType"));
 		String stockSymbol = request.getParameter("symbol");
 		Term term = Formatter.formatTerm(request.getParameter("term"));
-		//System.out.println("term: " + term);
 		PriceType priceType = null;
 		if (request.getParameter("transactionType").equals("Buy")) {
 			priceType = Formatter.formatPriceType(request.getParameter("priceTypeBuy"));
@@ -76,13 +74,11 @@ public class OrderProcessor extends HttpServlet {
 		String limitBuy = request.getParameter("limitBuy");
 		String limitSell = request.getParameter("limitSell");
 		String stopLoss = request.getParameter("stopLoss");
-		System.out.println("limitbuy: "+limitBuy);
-		System.out.println("limitsell: "+limitSell);
-		System.out.println("stopLoss: "+stopLoss);
-
-		double priceExecuted = 0;
+	
 		int orderQuantity = Integer.parseInt(request.getParameter("quantity"));
 		
+		double priceExecuted = 0;
+
 		try { 
 		if (limitBuy !="") {
 			System.out.println("Executing limitBuy.");
@@ -109,7 +105,6 @@ public class OrderProcessor extends HttpServlet {
 		catch (NumberFormatException e) {};
 		
 		
-		//double priceExecuted = Double.parseDouble(request.getParameter("priceExecuted"));
 		OrderStatus orderStatus = OrderStatus.Pending;
 		
 		Order newOrder = new Order(userID, transacType, orderQuantity, stockSymbol, term, priceType, priceExecuted, orderStatus);
@@ -124,56 +119,4 @@ public class OrderProcessor extends HttpServlet {
 		
 	}
 	
-/*	private long createOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		HttpSession session = request.getSession(true);
-//        session.setAttribute("loggedInUser", user);
-		User currentUser = (User) (session.getAttribute("loggedInUser"));
-		
-		long userID =  currentUser.getUserId();
-		TransactionType transacType = Formatter.formatTransacType(request.getParameter("transactionType"));
-		System.out.println(request.getParameter("transactionType"));
-		String stockSymbol = request.getParameter("symbol");
-		Term term = Formatter.formatTerm(request.getParameter("term")); 
-		PriceType priceType = Formatter.formatPriceType(request.getParameter("priceType"));
-		
-		
-		String limitBuy = request.getParameter("limitBuy");
-		String limitSell = request.getParameter("limitSell");
-		String stopLoss = request.getParameter("stopLoss");
-		double marketprice = 0;
-
-		double priceExecuted = 0;
-		int orderQuantity = Integer.parseInt(request.getParameter("quantity"));
-		
-		if (limitBuy != null) {
-			priceExecuted = Double.parseDouble(limitBuy);
-			
-		}
-		
-		if (limitSell != null) {
-			priceExecuted = Double.parseDouble(limitSell);
-			
-		}
-		
-		if (stopLoss != null) {
-			priceExecuted = Double.parseDouble(stopLoss);
-			
-		}
-		
-		else priceExecuted = marketprice;
-		
-		
-		//double priceExecuted = Double.parseDouble(request.getParameter("priceExecuted"));
-		OrderStatus orderStatus = OrderStatus.Pending;
-		
-		Order newOrder = new Order(userID, transacType, orderQuantity, stockSymbol, term, priceType, priceExecuted, orderStatus);
-		
-		return newOrder.getOrderID();
-	}*/
-	
-/*	public static void main(String[] args) {
-		newOrder.getTerm() = 
-	}*/
-
 }
