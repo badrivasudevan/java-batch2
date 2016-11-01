@@ -109,18 +109,18 @@
             </div>
             <div id="Limit-Buy" style='display:none;'>
                 <label for="limitBuy">Buy limit</label>
-                <input type="text" id="limitBuy" name="limitBuy">
+                <input type="number" id="limitBuy" name="limitBuy">
             </div>
             <div id="Limit-Sell" style='display:none;'>
                 <label for="limitSell">Sell limit</label>
-                <input type="text" id="limitSell" name="limitSell">
+                <input type="number" id="limitSell" name="limitSell">
             </div>
             <div id="Stop-loss" style='display:none;'>
                 <label for="Stop-loss">Stop Loss</label>
-                <input type="text" id="stopLoss" name="stopLoss">
+                <input type="number" id="stopLoss" name="stopLoss">
             </div>
             <label for="quantity">Quantity</label>
-            <input id="quantity" type="text" style="width: 50px;" name="quantity">
+            <input id="quantity" type="number" style="width: 50px;" name="quantity">
             <p>
                 <label for="Term">Term</label>
                 <select name="term">
