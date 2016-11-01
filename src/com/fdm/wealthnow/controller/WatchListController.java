@@ -64,10 +64,13 @@ public class WatchListController extends HttpServlet {
 		}
 		case "-":{	
 			if (watchlist.retrieveWatchlist(userId).containsValue(watchlistname)) {
-				 for(String s : watchlist.retrieveWatchlist(userId).keySet()){
-					 if()
+				 for(String s : watchlist.retrieveWatchlist(userId).values()){
+					 if(s.equals(watchlistname)){
+						 String rwl= watchlist.retrieveWatchlist(userId).get(s);
+					 }
 				 };	
-		         request.setAttribute("errorMessage", user_errormsg); 	
+				 String rwl = watchlistname + " " + "is successfully removed from the database!";
+		         request.setAttribute("removewatchlist", rwl); 	
 		         request.getRequestDispatcher("/balancePage.jsp").forward(request, response); 
 		         break;
 		    } 

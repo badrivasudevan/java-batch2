@@ -30,8 +30,17 @@
 			</fieldset>
 	<% long user = currentUser.getUserId(); %>
 	<input type="hidden" name="userid" value="<%=user%>" /> 	
-	
 	<fieldset>
+		<%	if(request.getAttribute("errorMessage") != null) {	 %>
+	  		     <!-- out.println(request.getAttribute("errorMessage")); -->
+	  		   <script>alert("Not Enough Funds to withdraw!");</script>
+	    <%		}
+		%>
+		<%	if(request.getAttribute("removewatchlist") != null) {	 %>
+	  		     <!-- out.println(request.getAttribute("errorMessage")); -->
+	  		   <script>alert("removewatchlist");</script>
+	    <%		}
+		%>
 		<legend><strong>Watchlist Tools Bar</strong></legend>
 			<div id = "watchlist">
 			Watchlist Name: <input type = "text" name = "WatchListName">
