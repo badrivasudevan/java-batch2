@@ -58,6 +58,9 @@
 		
 		<legend><strong>Watchlist Tools Bar</strong></legend>
 			<div id = "watchlist">
+			
+				
+			
 				Watchlist Name: <input type = "text" name = "WatchListName">
 			 	<select name="addorremove">
 				 	<option selected disabled>Please Choose</option>
