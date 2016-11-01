@@ -30,19 +30,18 @@
 			</fieldset>
 	<% long user = currentUser.getUserId(); %>
 	<input type="hidden" name="userid" value="<%=user%>" /> 	
-	<fieldset>
-<%--  		Current WatchList ID: ${watchListId} <br>
- 		Current WatchList ID: <%= request.getAttribute("watchListId") %> <br>
-		Current WatchList Name: ${WatchListName}
-	    Current WatchList Name: <%= request.getAttribute("watchListName") %> --%>
-	</fieldset>
 	
 	<fieldset>
 		<legend><strong>Watchlist Tools Bar</strong></legend>
 			<div id = "watchlist">
-			Watchlist Name: <input type = "text" name = "WatchListName"> <br>
-			<input type = "button" value = "Add WatchList" onclick = ""> 
-			<input type = "button" value = "Remove WatchList" onclick = ""> <br> <br>
+			Watchlist Name: <input type = "text" name = "WatchListName">
+			 <select name="addorremove">
+				<option value="+">Add WatchList</option>
+				<option value="-">Remove WatchList</option>
+			</select>
+			<button type="submit">Submit</button> <br><br>
+			<!-- <input type = "button" name = "AddWatchList" value = "Add WatchList" onclick = ""> 
+			<input type = "button" name = "RemoveWatchList" value = "Remove WatchList" onclick = ""> <br> <br> -->
 		
 			Stocks: <input type = "text" name = "stockname" value = ""> 
 			<input type = "button" value = "Add to Current WatchList" onclick = ""> 
@@ -61,7 +60,7 @@
 	</fieldset>
 	
 	<fieldset>
-	Watchlist:
+	Select Watchlist:
 	<select name="Watchlist" onchange=alert(this.value);>
 	<% WatchListDAO watchlist = new WatchListDAO();
 	

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fdm.wealthnow.common.User;
+import com.fdm.wealthnow.dao.UserDAO;
 import com.fdm.wealthnow.dao.WatchListDAO;
 
 /**
@@ -43,44 +44,46 @@ public class WatchListController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		long userId = Long.parseLong(request.getParameter("userid"));
-		HashMap<String, String> watchlistforuserid = new HashMap<>();
+//		HashMap<String, String> watchlistforuserid = new HashMap<>();
+		WatchListDAO watchlist = new WatchListDAO();
+		String watchlistname = request.getParameter("WatchListName");
+		String editwatchlist = request.getParameter("addorremove");
+		long id = 0;
+		String user_errormsg = "No such Watchlist in the database!";
 		
-		watchlist = new WatchListDAO();
-		try {
-			watchlistforuserid=watchlist.retrieveWatchlist(userId);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		//get watchlist ID 
-		//String watchListId = new String("");
-		//String watchListName = new String("");
-		//String wlid = watchlistforuserid.get(0);
-		//String wlname = "Hello";
-		if(watchlistforuserid.isEmpty()) {													
-			//if watchlist is empty, there won't show any current watchlist id or watchlist name for that user
-//			watchListId = "";
-//			watchListName = "";
-		//	System.out.println("Is Empty");
-			request.setAttribute("watchListId","");	
-			request.setAttribute("watchListName","");
-			request.getRequestDispatcher("/WatchList.jsp").forward(request, response);
+		switch(editwatchlist) {
+		case "+":{
+			result = bal + fund;
+			try {
+				UserDAO.addBalance(userId, fund);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
 		}
-//		else {
-//			watchListId = watchlistforuserid.get(0);
-//			watchListName = "Hello";
-			System.out.println("Hello");
-			request.setAttribute("watchListId",watchlistforuserid.get(0));	
-			request.setAttribute("watchListName","Hello");	
-			request.getRequestDispatcher("/WatchList.jsp").forward(request, response);
-			//Set set = (Set) watchlistforuserid.entrySet();
-			//Iterator it = set.iterator();
-			//while(it.hasNext()){
-			// Map.Entry entry = (Map.Entry) it;
-			// watchListId = (String) entry.getKey();
-			// watchListName = (String) entry.getValue();
-			//   break;	    
-			//}
-//		}
+		case "-":{	
+			if (watchlist.retrieveWatchlist(userId).containsValue(watchlistname)) {
+				 for(String s : watchlist.retrieveWatchlist(userId).keySet()){
+					 if()
+				 };	
+		         request.setAttribute("errorMessage", user_errormsg); 	
+		         request.getRequestDispatcher("/balancePage.jsp").forward(request, response); 
+		         break;
+		    } 
+		    else {
+		    	 System.out.println("No such Watchlist in the database! Try again!");
+		    	 request.setAttribute("errorMessage", user_errormsg);
+		    	 request.getRequestDispatcher("/WatchList.jsp").forward(request, response);
+		         break;
+		         }	
+		}
+		}
+		
+//		request.setAttribute("result", result);
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WatchList.jsp");
+		dispatcher.forward(request, response);
+
 		
 		//	WatchlistService.createNewWatchlist									//Add new watchlist/watchlistname into sql
 		
@@ -94,11 +97,6 @@ public class WatchListController extends HttpServlet {
 		//System.out.println("WatchList Name: " + stockName);					
 																			//add stocks into sql
 									
-//	request.setAttribute("result", result);
-	//request.setAttribute("watchListId",watchListId);	
-	//request.setAttribute("watchListName",watchListName);	
-//  RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WatchList.jsp");
-//	dispatcher.forward(request, response);
 	}
 	
 	
