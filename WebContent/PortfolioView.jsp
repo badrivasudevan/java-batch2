@@ -8,33 +8,50 @@
 <head>
 <title>Holdings</title>
 </head>
-<% List<Holding> holdingList = (List<Holding>) request.getAttribute("holdingList"); %>
+<%
+	List<Holding> holdingList = (List<Holding>) request
+			.getAttribute("holdingList");
+%>
 
 <body>
-	<% User currentUser = (User) (session.getAttribute("loggedInUser"));%>
+	<%
+		User currentUser = (User) (session.getAttribute("loggedInUser"));
+	%>
 	<H1>
-		User:<%= currentUser.getFullName() %></H1>
+		User:<%=currentUser.getFullName()%></H1>
 	<H2>
-		Balance : $<%= UserDAO.getBalance(currentUser.getUserId()) %></H2>
+		Balance : $<%=UserDAO.getBalance(currentUser.getUserId())%></H2>
 
-	<table id="portfolio_holdings" class="table table-striped">
 
-		<tr>
-			<th>Stock Symbol</th>
-			<th>Quantity</th>
-			<th>Price Paid</th>
-			<th>Currency</th>
+	<form action="${pageContext.request.contextPath}/HoldingController"
+		method="POST">
+		>
+		<table id="portfolio_holdings" class="table table-striped">
 
-		</tr>
+			<tr>
+				<th>Stock Symbol</th>
+				<th>Quantity</th>
+				<th>Price Paid</th>
+				<th>Currency</th>
 
-		<% for (Holding holding : holdingList) { %>
-		<tr>
-			<td><%= holding.getStockSymbol()%></td>
-			<td><%= holding.getRemainingQuantity()%></td>
-			<td><%= holding.getPricePaid()%></td>
-			<td><%= holding.getCurrency()%></td>
-		</tr>
-		<% } %>
-		</body>
-	</table>
+			</tr>
+
+			<%
+				for (Holding holding : holdingList) {
+			%>
+			<tr>
+				<td><%=holding.getStockSymbol()%></td>
+				<td><%=holding.getRemainingQuantity()%></td>
+				<td><%=holding.getPricePaid()%></td>
+				<td><%=holding.getCurrency()%></td>
+			</tr>
+			<%
+				}
+			%>
+
+		</table>
+		<input type="submit" value="Refresh" />
+
+	</form>
+</body>
 </html>
