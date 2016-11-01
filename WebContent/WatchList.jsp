@@ -62,8 +62,6 @@
 			<button type="submit">Submit</button> <br><br>
 		</form>
 			Stocks: <input type = "text" name = "stockname"> 
-<!-- 			<input type = "button" value = "Add to Current WatchList" onclick = ""> 
-			<input type = "button" value = "Remove from Current WatchList" onclick=""> <br><br> -->
 			Add to Watchlist: 
 			<select name="addstock">
 				<% WatchListDAO watchlistadd = new WatchListDAO();
@@ -82,16 +80,7 @@
 				</tr>	
 			<% } %>
 			</select>
-		
-			<select>
-					<option value = "Select WatchLists"> Select WatchLists </option>
-			</select>
-		
-			<select>
-					<option value = "WatchLists Type"> Type </option>
-					<option value = "WatchLists Type"> Global </option>
-					<option value = "WatchLists Type"> Private </option>
-			</select>
+			<button type="submit">Submit</button> <br><br>
 			</div> <br>
 	</fieldset>
 	<fieldset>
