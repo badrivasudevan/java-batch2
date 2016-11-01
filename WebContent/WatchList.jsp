@@ -61,20 +61,15 @@
 			</select>
 			<button type="submit">Submit</button> <br><br>
 		</form>
-			Stocks: <input type = "text" name = "stockname"> 
-			Add to Watchlist: 
-			<select name="addstock">
-				<% WatchListDAO watchlistadd = new WatchListDAO();
-	 			for(String s : watchlistadd.retrieveWatchlist(user).values()) { %>
-				<tr>
-				<option value="<%=s %>" style="width:100px;" > <%=s %> </option>
-				</tr>	
-			<% } %>
+			Stocks: <input type = "text" name = "stockname">  
+			<select name="addorremovestock">
+				<option value="+">Add to WatchList</option>
+				<option value="-">Remove from WatchList</option>
 			</select>
-			Remove to Watchlist:
-			<select name="removestock">
-				<% WatchListDAO watchlistrm = new WatchListDAO();
-	 			for(String s : watchlistrm.retrieveWatchlist(user).values()) { %>
+			Watchlist:
+			<select name="watchlist">
+				<% WatchListDAO watchlistaorm = new WatchListDAO();
+	 			for(String s : watchlistaorm.retrieveWatchlist(user).values()) { %>
 				<tr>
 				<option value="<%=s %>" style="width:100px;" > <%=s %> </option>
 				</tr>	
