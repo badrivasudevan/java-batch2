@@ -31,10 +31,10 @@
 	<% long user = currentUser.getUserId(); %>
 	<input type="hidden" name="userid" value="<%=user%>" /> 	
 	<fieldset>
- 		Current WatchList ID: ${watchListId} <br>
-<%--  		Current WatchList ID: <%= request.getAttribute("watchListId") %> <br> --%>
+<%--  		Current WatchList ID: ${watchListId} <br>
+ 		Current WatchList ID: <%= request.getAttribute("watchListId") %> <br>
 		Current WatchList Name: ${WatchListName}
-<%-- 	    Current WatchList Name: <%= request.getAttribute("watchListName") %> --%>
+	    Current WatchList Name: <%= request.getAttribute("watchListName") %> --%>
 	</fieldset>
 	
 	<fieldset>
@@ -61,15 +61,17 @@
 	</fieldset>
 	
 	<fieldset>
-		<legend><strong>Watchlist</strong></legend>
-			<div id = "righttab">
-				<select>
-					<option value = "WatchLists"> WatchLists </option>
-				</select>
-			</div>
-		
-			<div id = "watchlistmain">
-			</div>
+	Watchlist:
+	<select name="Watchlist">
+	<% WatchListDAO watchlist = new WatchListDAO();
+	
+	 for(String s : watchlist.retrieveWatchlist(user).values()) { %>
+	<tr>
+		<%-- <td><%= s %> </td> <br> --%>
+		<option value=<%=s %> style="width:100px;" onclick="javascript:alert("Hello")"> <%=s %> </option>
+	</tr>	
+	<% } %>
+	</select>
 	</fieldset>
 </body>
 </html>

@@ -43,8 +43,6 @@ public class WatchListController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		long userId = Long.parseLong(request.getParameter("userid"));
-		//String watchListName = request.getParameter("WatchListName");		//Get watchlist name from jsp
-		//System.out.println("WatchList Name: " + watchListName);
 		HashMap<String, String> watchlistforuserid = new HashMap<>();
 		
 		watchlist = new WatchListDAO();
