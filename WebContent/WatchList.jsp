@@ -31,10 +31,10 @@
 	<% long user = currentUser.getUserId(); %>
 	<input type="hidden" name="userid" value="<%=user%>" /> 	
 	<fieldset>
-		<%-- Current WatchList ID: ${watchListId} <br> --%>
-		Current WatchList ID: <%= request.getAttribute("watchListId") %> <br>
-		<%-- Current WatchList Name: ${WatchListName}  --%>
-		Current WatchList Name: <%= request.getAttribute("watchListName") %>
+ 		Current WatchList ID: ${watchListId} <br>
+<%--  		Current WatchList ID: <%= request.getAttribute("watchListId") %> <br> --%>
+		Current WatchList Name: ${WatchListName}
+<%-- 	    Current WatchList Name: <%= request.getAttribute("watchListName") %> --%>
 	</fieldset>
 	
 	<fieldset>

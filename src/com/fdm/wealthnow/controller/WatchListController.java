@@ -54,17 +54,26 @@ public class WatchListController extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		//get watchlist ID 
-		String watchListId = new String();
-		String watchListName = new String();
-		
+		//String watchListId = new String("");
+		//String watchListName = new String("");
+		//String wlid = watchlistforuserid.get(0);
+		//String wlname = "Hello";
 		if(watchlistforuserid.isEmpty()) {													
 			//if watchlist is empty, there won't show any current watchlist id or watchlist name for that user
-			watchListId = "";
-			watchListName = "";
+//			watchListId = "";
+//			watchListName = "";
+		//	System.out.println("Is Empty");
+			request.setAttribute("watchListId","");	
+			request.setAttribute("watchListName","");
+			request.getRequestDispatcher("/WatchList.jsp").forward(request, response);
 		}
-		else {
-			watchListId = watchlistforuserid.get(0);
-			watchListName = "Hello";
+//		else {
+//			watchListId = watchlistforuserid.get(0);
+//			watchListName = "Hello";
+			System.out.println("Hello");
+			request.setAttribute("watchListId",watchlistforuserid.get(0));	
+			request.setAttribute("watchListName","Hello");	
+			request.getRequestDispatcher("/WatchList.jsp").forward(request, response);
 			//Set set = (Set) watchlistforuserid.entrySet();
 			//Iterator it = set.iterator();
 			//while(it.hasNext()){
@@ -73,7 +82,7 @@ public class WatchListController extends HttpServlet {
 			// watchListName = (String) entry.getValue();
 			//   break;	    
 			//}
-		}
+//		}
 		
 		//	WatchlistService.createNewWatchlist									//Add new watchlist/watchlistname into sql
 		
@@ -88,11 +97,10 @@ public class WatchListController extends HttpServlet {
 																			//add stocks into sql
 									
 //	request.setAttribute("result", result);
-	request.setAttribute("watchListId",watchListId);	
-	request.setAttribute("watchListName",watchListName);	
-	RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WatchList.jsp");
-	//request.getRequestDispatcher("/WatchList.jsp").forward(request, response);
-	dispatcher.forward(request, response);
+	//request.setAttribute("watchListId",watchListId);	
+	//request.setAttribute("watchListName",watchListName);	
+//  RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WatchList.jsp");
+//	dispatcher.forward(request, response);
 	}
 	
 	
