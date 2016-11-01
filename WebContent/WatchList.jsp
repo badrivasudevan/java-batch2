@@ -62,13 +62,13 @@
 	
 	<fieldset>
 	Watchlist:
-	<select name="Watchlist">
+	<select name="Watchlist" onchange=alert(this.value);>
 	<% WatchListDAO watchlist = new WatchListDAO();
 	
 	 for(String s : watchlist.retrieveWatchlist(user).values()) { %>
 	<tr>
 		<%-- <td><%= s %> </td> <br> --%>
-		<option value=<%=s %> style="width:100px;" onclick="alert(<%=s%>);"> <%=s %> </option>
+		<option value="<%=s %>" style="width:100px;" > <%=s %> </option>
 	</tr>	
 	<% } %>
 	</select>
