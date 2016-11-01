@@ -160,6 +160,7 @@ public class WatchListDAO {
 			DBUtil.closeConnection(rs, ps, con);
 		}		
 	
+	}
 	       public static boolean createWatchlist(long userid, String watchlistname) throws SQLException {
 	              Connection con = null;
 	              PreparedStatement ps1 = null;
@@ -190,9 +191,9 @@ public class WatchListDAO {
 	       
 	       }
 
-	}
+	
 	public static void main(String[] args) throws Exception{
-
+		//createWatchlist(1027,"test");
 //		HashMap<String,String> watchlist = WatchListDAO.retrieveWatchlist(4);
 //		System.out.println(watchlist);
 //		List<String> list2 = WatchListDAO.retrieveAllStockForWatchlist("w1");
