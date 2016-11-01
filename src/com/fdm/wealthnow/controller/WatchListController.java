@@ -1,7 +1,11 @@
 package com.fdm.wealthnow.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -44,27 +48,52 @@ public class WatchListController extends HttpServlet {
 		HashMap<String, String> watchlistforuserid = new HashMap<>();
 		
 		watchlist = new WatchListDAO();
-		watchlistforuserid=watchlist.retrieveWatchlist(userId);		//get watchlist ID 
-	
-		if(watchlistforuserid.isEmpty()) {													//if watchlist ID is not null //create new watchlist using loop to check for hasnext() in sql
-			
-			
-			WatchlistService.createNewWatchlist									//Add new watchlist/watchlistname into sql
+		try {
+			watchlistforuserid=watchlist.retrieveWatchlist(userId);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		//get watchlist ID 
+		String watchListId = new String();
+		String watchListName = new String();
+		
+		if(watchlistforuserid.isEmpty()) {													
+			//if watchlist is empty, there won't show any current watchlist id or watchlist name for that user
+			watchListId = "";
+			watchListName = "";
+		}
+		else {
+			watchListId = watchlistforuserid.get(0);
+			watchListName = "Hello";
+			//Set set = (Set) watchlistforuserid.entrySet();
+			//Iterator it = set.iterator();
+			//while(it.hasNext()){
+			// Map.Entry entry = (Map.Entry) it;
+			// watchListId = (String) entry.getKey();
+			// watchListName = (String) entry.getValue();
+			//   break;	    
+			//}
+		}
+		
+		//	WatchlistService.createNewWatchlist									//Add new watchlist/watchlistname into sql
 		
 																				
-		WatchlistService.editWatchlistName									//Replace watchlist name to sql
+		//WatchlistService.editWatchlistName									//Replace watchlist name to sql
 		
 		
-		WatchlistService.selectWatchlist									//Select watchlist from drop down list
+		//WatchlistService.selectWatchlist									//Select watchlist from drop down list
 			
 		//String stockName = request.getParameter("stockname");				//add stocks into watchlist
 		//System.out.println("WatchList Name: " + stockName);					
 																			//add stocks into sql
 									
-	}
 //	request.setAttribute("result", result);
-	request.setAttribute("watchListId", watchListId);	
-	request.setAttribute("watchListName", watchListName);	
+	request.setAttribute("watchListId",watchListId);	
+	request.setAttribute("watchListName",watchListName);	
 	RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WatchList.jsp");
 	dispatcher.forward(request, response);
+	}
+	
+	
+	
 }
