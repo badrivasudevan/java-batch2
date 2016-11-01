@@ -1,6 +1,6 @@
 <%@page import = "com.fdm.wealthnow.common.Order"  %>
 <%@page import = "java.util.List"%>
-
+<%@ page import="com.fdm.wealthnow.common.User"%>
 <html>
 <head>
 	<title> Order Confirmation</title>
@@ -9,10 +9,14 @@
 	<% Order order = (Order) request.getAttribute("fieldList"); %>
 	
 		<% out.println(request.getAttribute("fieldList"));%>
-	
+		<% User currentUser = (User) (session.getAttribute("loggedInUser"));%>
+	<H1>
+			Welcome
+			<%= currentUser.getFullName() %></H1>
 </head>
 <body>
 
+		
 <p>
 Stock: <%= order.getStockSymbol() %> <br>
 Transaction Type:  <%= order.getTransacType() %><br>
@@ -37,8 +41,8 @@ Term: <% if (order.getTerm().toString().equalsIgnoreCase("GoodForDay"))
 
 </p>
 
-<form method="GET" action="OrderProcessor" >
-<input type="hidden" id="OrderParameter1" name="userID" value="<%=order.getUserID()%>">
+<form method="POST" action="OrderConfirmation" >
+<input type="hidden" id="OrderParameter1" name="userID" value="<%=currentUser.getUserId()%>">
 <input type="hidden" id="OrderParameter2" name="transacType" value="<%=order.getTransacType()%>">
 <input type="hidden" id="OrderParameter3" name="orderQuantity" value="<%=order.getOrderQuantity()%>">
 <input type="hidden" id="OrderParameter4" name="stockSymbol" value="<%=order.getStockSymbol()%>">
