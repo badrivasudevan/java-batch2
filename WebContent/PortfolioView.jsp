@@ -57,8 +57,5 @@
 			%>
 
 		</table>
-		<input type="submit" value="Refresh" />
-
-	</form>
 </body>
 </html>
