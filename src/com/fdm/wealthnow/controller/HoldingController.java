@@ -22,22 +22,32 @@ import com.fdm.wealthnow.dao.HoldingDAO;
 @WebServlet("/HoldingController")
 public class HoldingController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public HoldingController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public HoldingController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				
-			
+		throw new ServletException("Unsupported operation");	
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+
 		try {
+			System.out.println("running holdings");
 			List<Holding> holdingList = new ArrayList<>();
 
 			HttpSession session = request.getSession(true);
@@ -45,26 +55,16 @@ public class HoldingController extends HttpServlet {
 			User currentUser = (User) session.getAttribute("loggedInUser");
 			long userID = currentUser.getUserId();
 			holdingList = HoldingDAO.retrieveHolding(userID); 
-			
+
 			request.setAttribute("holdingList", holdingList);
 			System.out.println(holdingList);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/PortfolioView.jsp");
 			dispatcher.forward(request,response);
-			
+
 		}
 		catch (Exception e) {
 			throw new ServletException(e);
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		throw new ServletException("Unsupported operation");
-		
-		
-		
 	}
 
 }

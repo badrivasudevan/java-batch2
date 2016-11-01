@@ -13,26 +13,19 @@
 <body>
 	<% User currentUser = (User) (session.getAttribute("loggedInUser"));%>
 	<H1>
-		User:<%= currentUser.getFullName() %></h1>
+		User:<%= currentUser.getFullName() %></H1>
 	<H2>
 		Balance : $<%= UserDAO.getBalance(currentUser.getUserId()) %></H2>
 
 	<table id="portfolio_holdings" class="table table-striped">
 
 		<tr>
-			<th colspan="2">Stock Symbol</th>
+			<th>Stock Symbol</th>
 			<th>Quantity</th>
 			<th>Price Paid</th>
 			<th>Currency</th>
 
 		</tr>
-		<tr>
-			<th></th>
-			<th></th>
-			<th>$</th>
-			<th>$</th>
-		</tr>
-
 
 		<% for (Holding holding : holdingList) { %>
 		<tr>
@@ -42,5 +35,6 @@
 			<td><%= holding.getCurrency()%></td>
 		</tr>
 		<% } %>
+		</body>
 	</table>
 </html>
