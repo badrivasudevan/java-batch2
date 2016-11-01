@@ -57,14 +57,14 @@ public class WatchListController extends HttpServlet {
 		
 		WatchlistService.selectWatchlist									//Select watchlist from drop down list
 			
-		String stockName = request.getParameter("stockname");				//add stocks into watchlist
-		System.out.println("WatchList Name: " + stockName);					
+		//String stockName = request.getParameter("stockname");				//add stocks into watchlist
+		//System.out.println("WatchList Name: " + stockName);					
 																			//add stocks into sql
 									
 	}
 //	request.setAttribute("result", result);
-	request.setAttribute("watchlistid", watchlistid);	
-	request.setAttribute("watchlistname", watchlistname);	
+	request.setAttribute("watchListId", watchListId);	
+	request.setAttribute("watchListName", watchListName);	
 	RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WatchList.jsp");
 	dispatcher.forward(request, response);
 }

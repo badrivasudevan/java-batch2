@@ -31,7 +31,7 @@
 	<% long user = currentUser.getUserId(); %>
 	<input type="hidden" name="userid" value="<%=user%>" /> 	
 	<fieldset>
-		Current WatchList: ${watchlist} <br>
+		Current WatchList ID: ${watchListId} <br>
 		Current WatchList Name: ${WatchListName} 
 	</fieldset>
 	
