@@ -76,27 +76,35 @@ public class OrderProcessor extends HttpServlet {
 		String limitBuy = request.getParameter("limitBuy");
 		String limitSell = request.getParameter("limitSell");
 		String stopLoss = request.getParameter("stopLoss");
+		System.out.println("limitbuy: "+limitBuy);
+		System.out.println("limitsell: "+limitSell);
+		System.out.println("stopLoss: "+stopLoss);
+
 		double priceExecuted = 0;
 		int orderQuantity = Integer.parseInt(request.getParameter("quantity"));
 		
 		try { 
-		if (limitBuy != null) {
+		if (limitBuy !="") {
+			System.out.println("Executing limitBuy.");
+
 			priceExecuted = Double.parseDouble(limitBuy);
 			
 		}
 	
-		
-		if (limitSell != null) {
+		if (limitSell != "") {
+			System.out.println("Executing limitSell.");
 			priceExecuted = Double.parseDouble(limitSell);
 		}
 		
-		if (stopLoss != null) {
+		if (stopLoss != "") {
+			System.out.println("Executing stopLoss.");
+
 			priceExecuted = Double.parseDouble(stopLoss);
 			
 		}
 		
-		else
-			priceExecuted = 0;
+		System.out.println("Price executed:  " + priceExecuted);
+		
 		}
 		catch (NumberFormatException e) {};
 		
