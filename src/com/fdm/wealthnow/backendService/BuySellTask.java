@@ -32,7 +32,7 @@ public class BuySellTask implements Runnable {
 				BuyTask(order);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				System.err.println("Exception: " + e.getMessage());
+				System.err.println("Exception: " + e.getMessage() +"Exception is being caught");
 			}
 
 		} else {
