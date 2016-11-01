@@ -49,37 +49,57 @@ public class WatchListController extends HttpServlet {
 		String watchlistname = request.getParameter("WatchListName");
 		String editwatchlist = request.getParameter("addorremove");
 		long id = 0;
-		String user_errormsg = "No such Watchlist in the database!";
+		String user_errormsg = "No such watchlist in the database!";
+		String user_errormsg2 = "The watchlist is already in the database!";
+		String rwl = watchlistname + " " + "is successfully removed from the database!";
+		String awl = watchlistname + " " + "is successfully added into the database!";
 		
 		switch(editwatchlist) {
 		case "+":{
-			result = bal + fund;
 			try {
-				UserDAO.addBalance(userId, fund);
-			} catch (Exception e) {
+				if(watchlist.retrieveWatchlist(userId).containsValue(watchlistname)) {
+					 System.out.println("The watchlist is already in the database! Try again!");
+					 request.setAttribute("errorMessage2", user_errormsg2);
+					 request.getRequestDispatcher("/WatchList.jsp").forward(request, response);
+				     break;
+				}
+				else {
+					watchlist.createWatchlist(userId, watchlistname);
+					System.out.println(watchlistname+" is successfully added into the database!");
+				    request.setAttribute("addwatchlist", awl); 	
+				    request.getRequestDispatcher("/balancePage.jsp").forward(request, response); 
+				    break;
+				}
+			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			break;
 		}
 		case "-":{	
-			if (watchlist.retrieveWatchlist(userId).containsValue(watchlistname)) {
-				 for(String s : watchlist.retrieveWatchlist(userId).values()){
-					 if(s.equals(watchlistname)){
-						 String rwl= watchlist.retrieveWatchlist(userId).get(s);
-					 }
-				 };	
-				 String rwl = watchlistname + " " + "is successfully removed from the database!";
-		         request.setAttribute("removewatchlist", rwl); 	
-		         request.getRequestDispatcher("/balancePage.jsp").forward(request, response); 
-		         break;
-		    } 
-		    else {
-		    	 System.out.println("No such Watchlist in the database! Try again!");
-		    	 request.setAttribute("errorMessage", user_errormsg);
-		    	 request.getRequestDispatcher("/WatchList.jsp").forward(request, response);
-		         break;
-		         }	
+			try {
+				if (watchlist.retrieveWatchlist(userId).containsValue(watchlistname)) {
+					 for(String s : watchlist.retrieveWatchlist(userId).values()){
+						 if(s.equals(watchlistname)){
+							 String rkey = watchlist.retrieveWatchlist(userId).get(s);
+							 watchlist.removeWatchlist(rkey);
+							 break;
+						 }
+					 };	
+					 System.out.println(watchlistname+" is successfully removed from the database!");
+				     request.setAttribute("removewatchlist", rwl); 	
+				     request.getRequestDispatcher("/balancePage.jsp").forward(request, response); 
+				     break;
+				} 
+				else {
+					 System.out.println("No such watchlist in the database! Try again!");
+					 request.setAttribute("errorMessage", user_errormsg);
+					 request.getRequestDispatcher("/WatchList.jsp").forward(request, response);
+				     break;
+				     }
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
 		}
 		}
 		
