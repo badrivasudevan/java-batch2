@@ -52,25 +52,16 @@
 	  		   <script>alert("addwatchlist");</script>
 	    <%		}
 		%>
-		<%	if(request.getAttribute("errorMessage3") != null) {	 %>
-	  		     <!-- out.println(request.getAttribute("errorMessage")); -->
-	  		   <script>alert("No such Stock in the Singapore Stock Exchange (SGX) to be added!");</script>
-	    <%		}
-		%>
-		<%	if(request.getAttribute("errorMessage4") != null) {	 %>
-	  		     <!-- out.println(request.getAttribute("errorMessage")); -->
-	  		   <script>alert("No such Stock in the Singapore Stock Exchange (SGX) to be removed!");</script>
-	    <%		}
-		%>
 		<legend><strong>Watchlist Tools Bar</strong></legend>
 			<div id = "watchlist">
 			Watchlist Name: <input type = "text" name = "WatchListName">
 			 <select name="addorremove">
-			 	<option>Please Choose</option>
+			 	<option selected disabled>Please Choose</option>
 				<option value="+">Add WatchList</option>
 				<option value="-">Remove WatchList</option>
 			</select>
 			<button type="submit">Submit</button> <br><br>
+		</form>
 			Stocks: <input type = "text" name = "stockname">  
 			<select name="addorremovestock">
 				<option value="+">Add to WatchList</option>
@@ -88,7 +79,6 @@
 			<button type="submit">Submit</button> <br><br>
 			</div> <br>
 	</fieldset>
-	</form>
 	<fieldset>
 	Select Watchlist:
 	<select name="Watchlist">
