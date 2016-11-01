@@ -68,7 +68,7 @@
 	 for(String s : watchlist.retrieveWatchlist(user).values()) { %>
 	<tr>
 		<%-- <td><%= s %> </td> <br> --%>
-		<option value=<%=s %> style="width:100px;" onclick="javascript:alert("Hello")"> <%=s %> </option>
+		<option value=<%=s %> style="width:100px;" onclick=javascript:alert("Hello");> <%=s %> </option>
 	</tr>	
 	<% } %>
 	</select>
