@@ -43,7 +43,8 @@ public class WatchListController extends HttpServlet {
 		String user_errormsg2 = "The watchlist is already in the database!";
 		String rwl = watchlistname + " " + "is successfully removed from the database!";
 		String awl = watchlistname + " " + "is successfully added into the database!";
-		System.out.println("Hello"+watchlistname);
+	
+		//store the watchlistdao.retrievewatchlist(userid) to hashmap<String,String> = new HashMap<>();
 		switch(editwatchlist) {
 		case "+":{
 			try {
@@ -70,13 +71,13 @@ public class WatchListController extends HttpServlet {
 		case "-":{	
 			try {
 				if (WatchListDAO.retrieveWatchlist(userId).containsValue(watchlistname)) {
-					 for(String s : WatchListDAO.retrieveWatchlist(userId).values()){
-						 if(s.equals(watchlistname)){
-							 String rkey = WatchListDAO.retrieveWatchlist(userId).get(s);
-							 WatchListDAO.removeWatchlist(rkey);
-							 break;
-						 }
-					 };	
+					for(String s : WatchListDAO.retrieveWatchlist(userId).keySet()){
+						if(WatchListDAO.retrieveWatchlist(userId).get(s).equals(watchlistname)){
+							WatchListDAO.removeWatchlist(s);
+							break;
+						}
+						
+					}
 					 System.out.println(watchlistname+" is successfully removed from the database!");
 				     request.setAttribute("removewatchlist", rwl); 	
 				     request.getRequestDispatcher("/WatchList.jsp").forward(request, response); 
