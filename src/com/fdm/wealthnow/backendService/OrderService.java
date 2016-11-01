@@ -59,8 +59,8 @@ public class OrderService{
 		System.out.println("Owned quantity: " + ownedQuantity);
 		if (order.getOrderQuantity() > ownedQuantity)
 			return false;
-
-		return true;
+		else
+			return true;
 
 	}
 	
@@ -70,9 +70,9 @@ public class OrderService{
 		
 			for(Holding holding : holdingList){
 			
-			if(order.getStockSymbol().equals(holding.getStockSymbol()))
-				return true;
-		}
+				if(order.getStockSymbol().equals(holding.getStockSymbol()))
+					return true;
+			}
 			
 			return false;
 		
