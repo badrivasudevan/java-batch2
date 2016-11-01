@@ -60,7 +60,7 @@
 				<option value="-">Remove WatchList</option>
 			</select>
 			<button type="submit">Submit</button> <br><br>
-		
+		</form>
 			Stocks: <input type = "text" name = "stockname" value = ""> 
 			<input type = "button" value = "Add to Current WatchList" onclick = ""> 
 			<input type = "button" value = "Remove from Current WatchList" onclick=""> <br><br>
@@ -76,7 +76,6 @@
 			</select>
 			</div> <br>
 	</fieldset>
-	</form>
 	<fieldset>
 	Select Watchlist:
 	<select name="Watchlist">
