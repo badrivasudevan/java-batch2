@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,14 +35,22 @@ public class HoldingController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {			
-			List<Holding> holdingList = new ArrayList<>();
-			long userId = 0;
-			holdingList = HoldingDAO.retrieveHolding(userId); 
+				
 			
-			HttpSession session = request.getSession(true);
+		try {
+			List<Holding> holdingList = new ArrayList<>();
 
-			request.getRequestDispatcher("PortfolioView.jsp").forward(request, response); 
+			HttpSession session = request.getSession(true);
+			System.out.println("stock_holding");
+			User currentUser = (User) session.getAttribute("loggedInUser");
+			long userID = currentUser.getUserId();
+			holdingList = HoldingDAO.retrieveHolding(userID); 
+			
+			request.setAttribute("holdingList", holdingList);
+			System.out.println(holdingList);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/PortfolioView.jsp");
+			dispatcher.forward(request,response);
+			
 		}
 		catch (Exception e) {
 			throw new ServletException(e);
