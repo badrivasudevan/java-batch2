@@ -1,7 +1,9 @@
 package com.fdm.wealthnow.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fdm.wealthnow.common.User;
-import com.fdm.wealthnow.common.WatchlistService;
 import com.fdm.wealthnow.dao.WatchListDAO;
 
 /**
@@ -17,6 +18,7 @@ import com.fdm.wealthnow.dao.WatchListDAO;
  */
 @WebServlet("/WatchListController")
 public class WatchListController extends HttpServlet {
+	private WatchListDAO watchlist;
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -35,16 +37,19 @@ public class WatchListController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User currentUser = (User) (session.getAttribute("loggedInUser"));	//Check for log in users
-		long userID =  currentUser.getUserId();
+
+		long userId = Long.parseLong(request.getParameter("userid"));
+		//String watchListName = request.getParameter("WatchListName");		//Get watchlist name from jsp
+		//System.out.println("WatchList Name: " + watchListName);
+		HashMap<String, String> watchlistforuserid = new HashMap<>();
 		
-		String watchListName = request.getParameter("WatchListName");		//Get watchlist name from jsp
-		System.out.println("WatchList Name: " + watchListName);
+		watchlist = new WatchListDAO();
+		watchlistforuserid=watchlist.retrieveWatchlist(userId);		//get watchlist ID 
 	
-	WatchlistService watchList = WatchListDAO.retrieveWatchlist(w_id);		//get watchlist ID 
-	if(watchList != null) {													//if watchlist ID is not null
-																			//create new watchlist using loop to check for hasnext() in sql
-		WatchlistService.createNewWatchlist									//Add new watchlist/watchlistname into sql
+		if(watchlistforuserid.isEmpty()) {													//if watchlist ID is not null //create new watchlist using loop to check for hasnext() in sql
+			
+			
+			WatchlistService.createNewWatchlist									//Add new watchlist/watchlistname into sql
 		
 																				
 		WatchlistService.editWatchlistName									//Replace watchlist name to sql
@@ -57,4 +62,9 @@ public class WatchListController extends HttpServlet {
 																			//add stocks into sql
 									
 	}
+//	request.setAttribute("result", result);
+	request.setAttribute("watchlistid", watchlistid);	
+	request.setAttribute("watchlistname", watchlistname);	
+	RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WatchList.jsp");
+	dispatcher.forward(request, response);
 }

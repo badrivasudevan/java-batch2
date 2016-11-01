@@ -15,7 +15,7 @@ public class WatchListDAO {
 	//extract information and update the information based on the method being called in java
 	//
 	
-	public static HashMap<String, String> retrieveWatchlist(int userId) throws SQLException{
+	public static HashMap<String, String> retrieveWatchlist(long userId) throws SQLException{
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -25,7 +25,7 @@ public class WatchListDAO {
 		try{
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(retrieveWatchlistSQL);
-			ps.setInt(1, userId);
+			ps.setLong(1, userId);
 			rs = ps.executeQuery();
 			
 			HashMap<String, String> watchlistforuserid = new HashMap<>();

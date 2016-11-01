@@ -1,3 +1,12 @@
+ <%@ page 
+	import="com.fdm.wealthnow.common.User" %>
+ <%@ page 
+	import="com.fdm.wealthnow.common.Stock" %>
+ <%@ page 
+	import="com.fdm.wealthnow.common.StockService" %>	
+ <%@ page 
+ 	import="com.fdm.wealthnow.dao.WatchListDAO" %>	
+ <%@ page import="com.fdm.wealthnow.dao.UserDAO"%>
 <html>
 <head>
 	<style>
@@ -6,7 +15,9 @@
 </head>
 <body>
 	<h1>Watchlist</h1>
-	
+	<% User currentUser = (User) (session.getAttribute("loggedInUser"));%>
+	<H2>User: <%= currentUser.getFullName() %></H2>
+	<H3>Balance : $<%= UserDAO.getBalance(currentUser.getUserId()) %></H3>
 	<fieldset id style = "width: 210px">
 			<legend><strong>Trading Platform Quick Links</strong></legend>
 					<form action = post method >
@@ -17,7 +28,8 @@
 						<a href="logout.jsp">Logout</a>
 					</form>
 			</fieldset>
-			
+	<% long user = currentUser.getUserId(); %>
+	<input type="hidden" name="userid" value="<%=user%>" /> 	
 	<fieldset>
 		Current WatchList: ${watchlist} <br>
 		Current WatchList Name: ${WatchListName} 
