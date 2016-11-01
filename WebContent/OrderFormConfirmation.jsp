@@ -55,7 +55,7 @@ Term: <% if (order.getTerm().toString().equalsIgnoreCase("GoodForDay"))
 
 </p>
 
-<form method="POST" action="OrderConfirmation" >
+<form method="POST" action="OrderController" >
 <input type="hidden" id="OrderParameter1" name="userID" value="<%=currentUser.getUserId()%>">
 <input type="hidden" id="OrderParameter2" name="transacType" value="<%=order.getTransacType()%>">
 <input type="hidden" id="OrderParameter3" name="orderQuantity" value="<%=order.getOrderQuantity()%>">

@@ -1,4 +1,4 @@
-package com.fdm.wealthnow.backendService;
+package com.fdm.wealthnow.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.fdm.wealthnow.backendService.Formatter;
 
 import com.fdm.wealthnow.common.Order;
 import com.fdm.wealthnow.common.OrderStatus;
@@ -20,14 +21,14 @@ import com.fdm.wealthnow.dao.OrderDAO;
 /**
  * Servlet implementation class OrderConfirmation
  */
-@WebServlet("/OrderConfirmation")
-public class OrderConfirmation extends HttpServlet {
+@WebServlet("/OrderController")
+public class OrderController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OrderConfirmation() {
+    public OrderController() {
         super();
         // TODO Auto-generated constructor stub
     }
