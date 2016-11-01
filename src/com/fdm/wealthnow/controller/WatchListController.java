@@ -91,6 +91,7 @@ public class WatchListController extends HttpServlet {
 	request.setAttribute("watchListId",watchListId);	
 	request.setAttribute("watchListName",watchListName);	
 	RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WatchList.jsp");
+	//request.getRequestDispatcher("/WatchList.jsp").forward(request, response);
 	dispatcher.forward(request, response);
 	}
 	
