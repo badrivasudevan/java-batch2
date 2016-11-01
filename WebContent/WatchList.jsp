@@ -76,7 +76,7 @@
 			</select>
 			</div> <br>
 	</fieldset>
-	
+	</form>
 	<fieldset>
 	Select Watchlist:
 	<select name="Watchlist">
