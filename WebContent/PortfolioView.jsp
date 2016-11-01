@@ -38,7 +38,7 @@
 			<tr>
 				<th>Stock Symbol</th>
 				<th>Quantity</th>
-				<th>Price Paid</th>
+				<th>Price Paid Per Share</th>
 				<th>Currency</th>
 
 			</tr>
