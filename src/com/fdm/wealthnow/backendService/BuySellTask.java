@@ -22,7 +22,7 @@ public class BuySellTask implements Runnable {
 	public void run() {
 		// TODO Auto-generated method stub
 		
-		System.out.println("BuySellTask is executing");
+		System.out.println("Buy/Sell Task is executing");
 
 		TransactionType type = order.getTransacType();
 
@@ -50,13 +50,13 @@ public class BuySellTask implements Runnable {
 
 	private void BuyTask(Order order) throws Exception {
 		
-		System.out.println("I am buying stock");
+		System.out.println("Buying stock");
 
 		Stock stock = StockService.getInfo(order.getStockSymbol());
 
 		if (OrderService.validateCashBalance(order)) {
 			
-			System.out.println("There is enough cash to buy stock!");
+			System.out.println("Sufficent funds.");
 
 			if (order.getPriceType() == PriceType.Market) {
 				order.setPriceExecuted(stock.getAskprice());
@@ -84,13 +84,13 @@ public class BuySellTask implements Runnable {
 
 	private void SellTask(Order order) throws Exception {
 		
-		System.out.println("I am selling stock");
+		System.out.println("Selling stock");
 
 		Stock stock = StockService.getInfo(order.getStockSymbol());
 
 		if (OrderService.validateOwnedQuantity(order) && OrderService.hasHolding(order)) {
 			
-			System.out.println("I am have the stock and quantity");
+			System.out.println("Stock quantity verified.");
 			
 			System.out.println("Cash Balance: " + UserDAO.getBalance(order.getUserID()));
 
