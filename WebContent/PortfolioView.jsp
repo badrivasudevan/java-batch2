@@ -38,9 +38,6 @@
 					</form>
 			</fieldset>
 
-	<form action="${pageContext.request.contextPath}/HoldingController"
-		method="GET">
-		>
 		<table id="portfolio_holdings" class="table table-striped">
 
 			<tr>
