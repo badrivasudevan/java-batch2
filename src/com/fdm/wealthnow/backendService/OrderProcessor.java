@@ -1,17 +1,12 @@
 package com.fdm.wealthnow.backendService;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 
 import com.fdm.wealthnow.common.OrderStatus;
 import com.fdm.wealthnow.common.PriceType;
 import com.fdm.wealthnow.common.Term;
 import com.fdm.wealthnow.common.TransactionType;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,6 +23,7 @@ import com.fdm.wealthnow.common.PriceType;
 import com.fdm.wealthnow.common.Term;
 import com.fdm.wealthnow.common.TransactionType;
 import com.fdm.wealthnow.common.User;
+import com.fdm.wealthnow.common.UserAuth;
 
 /**
  * Servlet implementation class OrderProcessor
@@ -59,7 +55,9 @@ public class OrderProcessor extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
 //      session.setAttribute("loggedInUser", user);
-		long userID = 1234;
+		
+		User currentUser = (User) session.getAttribute("loggedInUser");
+		long userID = currentUser.getUserId();
 		TransactionType transacType = Formatter.formatTransacType(request.getParameter("transactionType"));
 		String stockSymbol = request.getParameter("symbol");
 		Term term = Formatter.formatTerm(request.getParameter("term"));
@@ -111,6 +109,7 @@ public class OrderProcessor extends HttpServlet {
 		
 		request.setAttribute("fieldList", newOrder);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/OrderFormConfirmation.jsp");
+		
 		dispatcher.forward(request, response);
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
