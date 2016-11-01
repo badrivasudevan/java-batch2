@@ -66,7 +66,7 @@
 			<div id = "watchlist">
 			Watchlist Name: <input type = "text" name = "WatchListName">
 			 <select name="addorremove">
-			 	<option value="disable" disabled>Please Choose</option>
+			 	<option>Please Choose</option>
 				<option value="+">Add WatchList</option>
 				<option value="-">Remove WatchList</option>
 			</select>
