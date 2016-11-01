@@ -34,7 +34,7 @@
 	<fieldset>
 		<%	if(request.getAttribute("errorMessage") != null) {	 %>
 	  		     <!-- out.println(request.getAttribute("errorMessage")); -->
-	  		   <script>alert("Not Enough Funds to withdraw!");</script>
+	  		   <script>alert("No such watchlist in the database!");</script>
 	    <%		}
 		%>
 		<%	if(request.getAttribute("removewatchlist") != null) {	 %>
@@ -44,7 +44,7 @@
 		%>
 		<%	if(request.getAttribute("errorMessage2") != null) {	 %>
 	  		     <!-- out.println(request.getAttribute("errorMessage")); -->
-	  		   <script>alert("Not Enough Funds to withdraw!");</script>
+	  		   <script>alert("The watchlist is already in the database!");</script>
 	    <%		}
 		%>
 		<%	if(request.getAttribute("addwatchlist") != null) {	 %>
