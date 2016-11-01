@@ -56,30 +56,26 @@ public class BuySellTask implements Runnable {
 	private void BuyTask(Order order) throws Exception {
 		
 		System.out.println("Buying stock");
-		
-		//Stock stock = new Stock("Apple", "AAPL", 100.00d,100d,100d, "15:00");
 
 		StockService s1 = new StockService();
 		List<String> list = new ArrayList<>();
 		list.add(order.getStockSymbol());
-		System.out.println("Price of "+order.getStockSymbol() +"is "+ s1.stockStorage(s1.getStockFromWeb(list)).get(0).getAskprice());
-		//Stock stock = StockService.getInfo(order.getStockSymbol());
-		double askPrice= s1.stockStorage(s1.getStockFromWeb(list)).get(0).getAskprice();
 		
-//		System.out.println("Printing stock: "+stock);
+		double askPrice= s1.stockStorage(s1.getStockFromWeb(list)).get(0).getAskprice();
 
 		if (OrderService.validateCashBalance(order)) {
 			
 			System.out.println("Sufficent funds.");
 			if (order.getPriceType() == PriceType.Market) {
-//				System.out.println("Price of stock: " +stock.getAskprice());
+
+				System.out.println("Buy price of " + order.getStockSymbol() +" is "+ s1.stockStorage(s1.getStockFromWeb(list)).get(0).getAskprice());
 				
 				order.setPriceExecuted(askPrice);
-				
 				OrderService.updatePriceExecuted(order);
 				order.setOrderStatus(OrderStatus.Completed);
 				
-				System.out.println(order);
+				System.out.println("----------------Stock is bought-----------" + order);
+				System.out.println("---------------------------------");
 
 			} else if (order.getPriceType() == PriceType.Limit) {
 
@@ -87,27 +83,23 @@ public class BuySellTask implements Runnable {
 					order.setOrderStatus(OrderStatus.Completed);
 
 			}
-
 		}
 
 		if (order.getOrderStatus() == OrderStatus.Completed){
 			HoldingService.updatePortfolio(order);
 			OrderService.updateCompletedOrder(order);
 		}
-		
-
+		System.out.println("Cash Balance: " + UserDAO.getBalance(order.getUserID()));
 	}
 
 	private static void SellTask(Order order) throws Exception {
 		
 		System.out.println("Selling stock");
-		//Stock stock = new Stock("Apple", "AAPL", 100.00d,100d,100d, "15:00");
 		
 		StockService s1 = new StockService();
 		List<String> list = new ArrayList<>();
 		list.add(order.getStockSymbol());
-		System.out.println("Price of "+order.getStockSymbol() +"is "+ s1.stockStorage(s1.getStockFromWeb(list)).get(0).getBidprice());
-		//Stock stock = StockService.getInfo(order.getStockSymbol());
+		
 		double bidPrice= s1.stockStorage(s1.getStockFromWeb(list)).get(0).getBidprice();
 
 		if (OrderService.validateOwnedQuantity(order) && OrderService.hasHolding(order)) {
@@ -118,12 +110,15 @@ public class BuySellTask implements Runnable {
 
 			if (order.getPriceType() == PriceType.Market) {
 				
+				System.out.println("Sell price of " + order.getStockSymbol() +" is "+ s1.stockStorage(s1.getStockFromWeb(list)).get(0).getBidprice());
+				
 				System.out.println("Price before" + order.getPriceExecuted());
 				order.setPriceExecuted(bidPrice);
 				OrderService.updatePriceExecuted(order);
 				System.out.println("Price after" + order.getPriceExecuted());
 				order.setOrderStatus(OrderStatus.Completed);
-				System.out.println("Stocks sold");
+				System.out.println("----------------Stock is sold-----------" + order);
+				System.out.println("---------------------------------");
 
 			} else if (order.getPriceType() == PriceType.Limit || order.getPriceType() == PriceType.StopLoss) {
 				if (bidPrice >= order.getPriceExecuted())
@@ -136,14 +131,12 @@ public class BuySellTask implements Runnable {
 			HoldingService.updatePortfolio(order);
 			OrderService.updateCompletedOrder(order);
 		}
-		
 		System.out.println("Cash Balance: " + UserDAO.getBalance(order.getUserID()));
-
 	}
 	
 
-	public static void main(String[] args) throws Exception {
+	/*public static void main(String[] args) throws Exception {
 		Order order = new Order(1,TransactionType.Buy,1,"S51",Term.GoodForDay,PriceType.Market,0,OrderStatus.Pending);
 		SellTask(order);
-	}
+	}*/
 }
