@@ -1,6 +1,7 @@
 package com.fdm.wealthnow.backendService;
 
 import java.util.List;
+
 import com.fdm.wealthnow.common.Holding;
 import com.fdm.wealthnow.common.Order;
 import com.fdm.wealthnow.common.OrderStatus;
@@ -22,6 +23,11 @@ public class HoldingService{
 		return holding;
 	}
 	
+	public static List<Holding> callDAO(long userId) throws Exception{
+		List<Holding> holding = HoldingDAO.retrieveHolding(userId); 
+		return holding;
+
+	}
 	
 	private static double calculatePurchasePrice(List<Holding> holdingList, Order order){	
 		
