@@ -5,32 +5,37 @@
 
 
 <html>
-<head>
-<title>Holdings</title>
-</head>
-<body>
-			<% HttpSession session = request.getSession(true);%>
 
 
-	<% User currentUser = (User) (session.getAttribute("loggedInUser"));
-	
-	long userId = currentUser.getUserId();%>
-	
-	<form 
-	
-	<H1>
-		Welcome
-		<%= currentUser.getFullName() %></H1>
-	<H2>
-		Balance : $<%= UserDAO.getBalance(currentUser.getUserId()) %></H2>
-	<H2>
-		Stocks : $<%= HoldingDAO.retrieveHolding(currentUser.getUserId().getStockSymbol() %></H2>
-	<H2>
-		Quantity : $<%= HoldingDAO.retrieveHolding(currentUser.getUserId()getR %></H2>
-	<H2>
-		Price : $<%= HoldingDAO.retrieveHolding(currentUser.getUserId()).get(1).getPricePaid() %></H2>
+<form action="PortfolioViewerController" method="post">
 
-</body>
+<table id="portfolio_stocks" class="table table-striped">
+ 
+<tr>
+<th colspan="2">Stock Symbol</th>
+<th>Quantity</th>
+<th>Price Paid</th>
+<th>Currency</th>
+
+</tr>
+<tr>
+<th></th>
+<th></th>
+<th>$</th>
+<th>$</th>
+</tr>
+
+<%
+List<StockHolding> shList = pfs.getPortfolioInStockHolding(user_id);
+for (StockHolding newShList : shList) {
+System.out.println("List $$$$$$$$" + newShList);
+
+String stock_symbol = newShList.getStock_symbol();
+Integer order_id = newShList.getOrder_id();
+Integer quantity = newShList.getRemaining_quantity();
+%>
+
+</table>
+</form>
 </html>
-
 	
