@@ -61,15 +61,16 @@ public class OrderConfirmation extends HttpServlet {
 		Order newOrder = new Order(userID, transacType, orderQuantity, stockSymbol, term, priceType, priceExecuted, orderStatus);
 		System.out.println(newOrder);
 		
-		//request.getRequestDispatcher("/OrderFormConfirmation.jsp").forward(request, response);
 		
 		try {
 		System.out.println("doing try");	
 		OrderDAO.storeOrder(newOrder);
 		}
-		catch (SQLException e) {		System.out.println("doing catch");	
+		catch (SQLException e) {System.out.println("doing catch");	
 }
-		System.out.println("Execucting OrderDAO Store Order.");
+		System.out.println("Executing OrderDAO Store Order.");
+		request.getRequestDispatcher("/homePage.jsp").forward(request, response);
+
 	}
 	
 }
