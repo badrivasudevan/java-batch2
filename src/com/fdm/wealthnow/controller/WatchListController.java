@@ -23,7 +23,7 @@ import com.fdm.wealthnow.dao.WatchListDAO;
  */
 @WebServlet("/WatchListController")
 public class WatchListController extends HttpServlet {
-	private WatchListDAO watchlist;
+//	private WatchListDAO watchlist;
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -48,7 +48,6 @@ public class WatchListController extends HttpServlet {
 		WatchListDAO watchlist = new WatchListDAO();
 		String watchlistname = request.getParameter("WatchListName");
 		String editwatchlist = request.getParameter("addorremove");
-		long id = 0;
 		String user_errormsg = "No such watchlist in the database!";
 		String user_errormsg2 = "The watchlist is already in the database!";
 		String rwl = watchlistname + " " + "is successfully removed from the database!";
@@ -67,9 +66,10 @@ public class WatchListController extends HttpServlet {
 					watchlist.createWatchlist(userId, watchlistname);
 					System.out.println(watchlistname+" is successfully added into the database!");
 				    request.setAttribute("addwatchlist", awl); 	
-				    request.getRequestDispatcher("/balancePage.jsp").forward(request, response); 
+				    request.getRequestDispatcher("/WatchList.jsp").forward(request, response); 
 				    break;
 				}
+				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -87,7 +87,7 @@ public class WatchListController extends HttpServlet {
 					 };	
 					 System.out.println(watchlistname+" is successfully removed from the database!");
 				     request.setAttribute("removewatchlist", rwl); 	
-				     request.getRequestDispatcher("/balancePage.jsp").forward(request, response); 
+				     request.getRequestDispatcher("/WatchList.jsp").forward(request, response); 
 				     break;
 				} 
 				else {
