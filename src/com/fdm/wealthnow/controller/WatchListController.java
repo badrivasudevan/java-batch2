@@ -55,14 +55,14 @@ public class WatchListController extends HttpServlet {
 				if(WatchListDAO.retrieveWatchlist(userId).containsValue(watchlistname)) {
 					 System.out.println("The watchlist is already in the database! Try again!");
 					 request.setAttribute("errorMessage2", user_errormsg2);
-					 request.getRequestDispatcher("/WatchList.jsp").forward(request, response);
+					 request.getRequestDispatcher("/WatchListAdd.jsp").forward(request, response);
 				     //break;
 				}
 				else {
 					WatchListDAO.createWatchlist(userId, watchlistname);
 					System.out.println(watchlistname+" is successfully added into the database!");
 				    request.setAttribute("addwatchlist", awl); 	
-				    request.getRequestDispatcher("/WatchList.jsp").forward(request, response); 
+				    request.getRequestDispatcher("/WatchListAdd.jsp").forward(request, response); 
 				   // break;
 				}
 				
@@ -84,13 +84,13 @@ public class WatchListController extends HttpServlet {
 					}
 					 System.out.println(watchlistname+" is successfully removed from the database!");
 				     request.setAttribute("removewatchlist", rwl); 	
-				     request.getRequestDispatcher("/WatchList.jsp").forward(request, response); 
+				     request.getRequestDispatcher("/WatchListAdd.jsp").forward(request, response); 
 				    // break;
 				} 
 				else {
 					 System.out.println("No such watchlist in the database! Try again!");
 					 request.setAttribute("errorMessage", user_errormsg);
-					 request.getRequestDispatcher("/WatchList.jsp").forward(request, response);
+					 request.getRequestDispatcher("/WatchListAdd.jsp").forward(request, response);
 				    // break;
 				     }
 			} catch (SQLException e) {
@@ -101,7 +101,7 @@ public class WatchListController extends HttpServlet {
 		}
 		}
 		
-		 request.getRequestDispatcher("/WatchList.jsp").forward(request, response);
+		 request.getRequestDispatcher("/WatchListAdd.jsp").forward(request, response);
 		 
 //		request.setAttribute("result", result);
 //		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WatchList.jsp");
