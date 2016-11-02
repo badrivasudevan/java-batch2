@@ -34,7 +34,7 @@
 						<a href="OrderForm.jsp">Order Form</a> <br>
 						<a href="logout.jsp">Logout</a>
 					</form>
-	</fieldset>
+	</fieldset> 
 
 		<table id="portfolio_holdings" class="table table-striped" border="1">
 

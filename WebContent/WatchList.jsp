@@ -38,7 +38,7 @@
 			<% WatchListDAO watchlist = new WatchListDAO();
 			 for(String s : watchlist.retrieveWatchlist(user).values()) { %>
 			<tr>
-				<option value="<%=s %>" style="width:100px;" > <%=s %> </option>
+				<option value="<%=s %>" style="width:100px;" > <%=s %> </option >
 			</tr>	
 			<% } %>
 		</select>

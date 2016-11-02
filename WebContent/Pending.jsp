@@ -33,7 +33,7 @@
 						<a href="OrderForm.jsp">Order Form</a> <br>
 						<a href="logout.jsp">Logout</a>
 					</form>
-	</fieldset>
+	</fieldset> 
 
 <% 		User currentUser = (User) (session.getAttribute("loggedInUser"));
 		List<Order> pendingList = PendingService.callDAO(currentUser.getUserId());

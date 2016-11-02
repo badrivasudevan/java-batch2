@@ -32,7 +32,7 @@
 						<a href="OrderForm.jsp">Order Form</a> <br>
 						<a href="logout.jsp">Logout</a>
 					</form>
-	</fieldset>
+	</fieldset> 
 	<h3> Details of Order </h3>	
 <p>
 Stock: <%= order.getStockSymbol() %> <br>
