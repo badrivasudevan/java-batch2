@@ -3,6 +3,7 @@ package com.fdm.wealthnow.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -20,6 +21,7 @@ import com.fdm.wealthnow.dao.WatchListDAO;
 @WebServlet("/StockController")
 public class StockController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final Object[] String = null;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -51,6 +53,8 @@ public class StockController extends HttpServlet {
 		StockService stocksvc = new StockService();
 		String user_errormsg3 = "The stock is not available in the Singapore Stock Exchange (SGX) to be added into the watchlist!";
 		String user_errormsg4 = "The stock is not available in the Singapore Stock Exchange (SGX) to be removed from the watchlist!";
+		String user_addMessage = "The stock is successfully added into the watchlist";
+		String user_rmMessage = "The stock is successfully removed from the watchlist";
 		
 		switch(editstocklist){
 		case "+":{
@@ -65,6 +69,9 @@ public class StockController extends HttpServlet {
 					for(String s : WatchListDAO.retrieveWatchlist(userId).keySet()){
 						if(WatchListDAO.retrieveWatchlist(userId).get(s).equals(allwatchlistforuser)){
 							WatchListDAO.addStock(s, stocksymbol);
+							System.out.println(stocksymbol + " is successfully added into "+allwatchlistforuser +"!");
+							request.setAttribute("addMessage", user_addMessage);
+							request.getRequestDispatcher("/WatchListAddStocks.jsp").forward(request, response);
 							break;
 						}	
 					}
@@ -77,23 +84,44 @@ public class StockController extends HttpServlet {
 		}
 		case "-":{
 			list.add(stocksymbol);
-			if(stocksvc.getStockFromWeb(list).get(0).equals("N/A") ||stocksvc.getStockFromWeb(list).get(0)==null||stocksvc.getStockFromWeb(list).get(0).isEmpty()){
-				 System.out.println("No such stock in the Singapore Stock Exchange (SGX) to remove from the watchlist! Try again!");
-				 request.setAttribute("errorMessage4", user_errormsg4);
-				 request.getRequestDispatcher("/WatchListAddStocks.jsp").forward(request, response);
-			}
-			else {
-				try {
-					for(String s : WatchListDAO.retrieveWatchlist(userId).keySet()){
-						if(WatchListDAO.retrieveWatchlist(userId).get(s).equals(allwatchlistforuser)){
-							WatchListDAO.removeStock(s, stocksymbol);
-							break;
-						}	
-					}
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			String w_id = "";
+			try {
+				for(String s : WatchListDAO.retrieveWatchlist(userId).keySet()){
+					if(WatchListDAO.retrieveWatchlist(userId).get(s).equals(allwatchlistforuser)){
+						w_id = s;
+						break;
+					}	
 				}
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			try {
+				if(!WatchListDAO.retrieveAllStockForWatchlist(w_id).contains(stocksymbol)){
+					 System.out.println("No such stock in the watchlist to remove! Try again!");
+					 request.setAttribute("errorMessage4", user_errormsg4);
+					 request.getRequestDispatcher("/WatchListAddStocks.jsp").forward(request, response);
+				}
+				else {
+					try {
+						for(String s : WatchListDAO.retrieveWatchlist(userId).keySet()){
+							if(WatchListDAO.retrieveWatchlist(userId).get(s).equals(allwatchlistforuser)){
+								WatchListDAO.removeStock(s, stocksymbol);
+								System.out.println(stocksymbol + " is successfully removed from "+allwatchlistforuser +"!");
+								request.setAttribute("rmMessage", user_rmMessage);
+								request.getRequestDispatcher("/WatchListAddStocks.jsp").forward(request, response);
+								break;
+							}	
+						}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			break;
 		}

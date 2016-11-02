@@ -46,6 +46,17 @@
 	<%		}
 	%>
 	
+	<%	if(request.getAttribute("addMessage") != null) {	 %>
+	     <!-- out.println(request.getAttribute("errorMessage")); -->
+	   <script>alert("The stock is added into the watchlist!");</script>
+	<%		}
+	%>
+	<%	if(request.getAttribute("rmMessage") != null) {	 %>
+	     <!-- out.println(request.getAttribute("errorMessage")); -->
+	   <script>alert("The stock is removed from the watchlist!");</script>
+	<%		}
+	%>
+	
 		<legend><strong>Watchlist Stocks Tool</strong></legend>
 		Stocks: <input type = "text" name = "stockname">  
 			<select name="addorremovestock">
