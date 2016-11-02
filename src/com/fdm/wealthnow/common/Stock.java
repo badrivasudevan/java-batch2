@@ -1,18 +1,17 @@
-package com.fdm.wealthnow.common;
 
-import java.util.Date;
+package com.fdm.wealthnow.common;
 
 public class Stock {
 	private String name;
 	private String symbol;
-	private double bidprice;
-	private double askprice;
-	private double currentmarketprice;
+	private String bidprice;
+	private String askprice;
+	private String currentmarketprice;
 //	private String bidvol;
 //	private String askvol;
 	public String updatedtime;
 	
-	public Stock(String name, String symbol, double bidprice, double askprice, double currentmarketprice, String updatedtime) {
+	public Stock(String name, String symbol, String bidprice, String askprice, String currentmarketprice, String updatedtime) {
 		super();
 		this.name = name;
 		this.symbol = symbol;
@@ -38,27 +37,27 @@ public class Stock {
 		this.symbol = symbol;
 	}
 
-	public double getBidprice() {
+	public String getBidprice() {
 		return bidprice;
 	}
 
-	public void setBidprice(double bidprice) {
+	public void setBidprice(String bidprice) {
 		this.bidprice = bidprice;
 	}
 
-	public double getAskprice() {
+	public String getAskprice() {
 		return askprice;
 	}
 
-	public void setAskprice(double askprice) {
+	public void setAskprice(String askprice) {
 		this.askprice = askprice;
 	}
 
-	public double getCurrentmarketprice() {
+	public String getCurrentmarketprice() {
 		return currentmarketprice;
 	}
 
-	public void setCurrentmarketprice(double currentmarketprice) {
+	public void setCurrentmarketprice(String currentmarketprice) {
 		this.currentmarketprice = currentmarketprice;
 	}
 
@@ -95,3 +94,4 @@ public class Stock {
 	
 
 }
+

@@ -45,6 +45,12 @@
 	   <script>alert("No such Stock in the watchlist! It cannot be removed! Try again!");</script>
 	<%		}
 	%>
+
+	<%	if(request.getAttribute("errorMessage5") != null) {	 %>
+	     <!-- out.println(request.getAttribute("errorMessage")); -->
+	   <script>alert("The stock is already in the watchlist! It cannot be added! Try again!");</script>
+	<%		}
+	%>
 	
 	<%	if(request.getAttribute("addMessage") != null) {	 %>
 	     <!-- out.println(request.getAttribute("errorMessage")); -->

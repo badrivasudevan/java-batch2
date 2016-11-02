@@ -83,10 +83,11 @@ public class StockService {
 			}
 			//double bid = Double.parseDouble(stockdetails[2]);
 			//double ask = Double.parseDouble(stockdetails[3]);
-			double bid = stringToDouble(stockdetails[2]);
-			double ask = stringToDouble(stockdetails[3]);
-			double current = Double.parseDouble(stockdetails[4]);
-			stock = new Stock(stockdetails[0],stockdetails[1],bid,ask,current,stockdetails[5]);
+			//double bid = stringToDouble(stockdetails[2]);
+			//double ask = stringToDouble(stockdetails[3]);
+			//String current = stockdetails[5];
+			//double current = Double.parseDouble(stockdetails[4]);
+			stock = new Stock(stockdetails[0],stockdetails[1],stockdetails[2],stockdetails[3],stockdetails[4],stockdetails[5]);
 			stocklist.add(stock);
 
 		}	
@@ -104,7 +105,7 @@ public class StockService {
 		return hm;
 	}
 	
-	private static Double stringToDouble(String s) {
+	public static Double stringToDouble(String s) {
 		Double d = 0.0;
 		
 		try {
@@ -146,5 +147,3 @@ public class StockService {
 		//find a way to remove double quotes from key
 	}
 }
-
- 

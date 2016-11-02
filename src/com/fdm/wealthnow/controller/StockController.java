@@ -1,9 +1,9 @@
+
 package com.fdm.wealthnow.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -21,8 +21,7 @@ import com.fdm.wealthnow.dao.WatchListDAO;
 @WebServlet("/StockController")
 public class StockController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final Object[] String = null;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -55,27 +54,52 @@ public class StockController extends HttpServlet {
 		String user_errormsg4 = "The stock is not in the watchlist! It cannot be removed! Try again!";
 		String user_addMessage = "The stock is successfully added into the watchlist";
 		String user_rmMessage = "The stock is successfully removed from the watchlist";
+		String user_errormsg5 = "The stock is already in the watchlist! It cannot be added! Try again!";
 		
 		switch(editstocklist){
 		case "+":{
 			list.add(stocksymbol);
-			System.out.println(stocksvc.stockStorage(stocksvc.getStockFromWeb(list)).get(0).getName());
-			if(stocksvc.getStockFromWeb(list).get(0)==null||stocksvc.getStockFromWeb(list).get(0).isEmpty()||stocksvc.getStockFromWeb(list).get(0).equals("N/A")){
+			String w_idp = "";
+			try {
+				for(String s : WatchListDAO.retrieveWatchlist(userId).keySet()){
+					if(WatchListDAO.retrieveWatchlist(userId).get(s).equals(allwatchlistforuser)){
+						w_idp = s;
+						break;
+					}	
+				}
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			//String Str1=new String("N/A");
+			List<String> lists = new ArrayList<>();
+			lists = stocksvc.getStockFromWeb(list);
+			if(stocksvc.stringToDouble(stocksvc.stockStorage(lists).get(0).getCurrentmarketprice())== 0.0){
+			//if(stocksvc.stockStorage(lists).get(0).getCurrentmarketprice().is)
+			//if((stocksvc.stockStorage(stocksvc.getStockFromWeb(list)).get(0).getName()==null)||(stocksvc.stockStorage(stocksvc.getStockFromWeb(list)).get(0).getName().isEmpty())||(stocksvc.stockStorage(stocksvc.getStockFromWeb(list)).get(0).getName()=="N/A")){
+			//	if(stocksvc.stockStorage(stocksvc.getStockFromWeb(list)).get(0).getName().equals(Str1)){
 				 System.out.println("No such stock in the Singapore Stock Exchange (SGX) to add into the watchlist! Try again!");
 				 request.setAttribute("errorMessage3", user_errormsg3);
 				 request.getRequestDispatcher("/WatchListAddStocks.jsp").forward(request, response);
 			}
 			else {
 				try {
-					for(String s : WatchListDAO.retrieveWatchlist(userId).keySet()){
-						if(WatchListDAO.retrieveWatchlist(userId).get(s).equals(allwatchlistforuser)){
-							WatchListDAO.addStock(s, stocksymbol);
-							System.out.println(stocksymbol + " is successfully added into "+allwatchlistforuser +"!");
-							request.setAttribute("addMessage", user_addMessage);
-							request.getRequestDispatcher("/WatchListAddStocks.jsp").forward(request, response);
-							break;
-						}	
+					if(WatchListDAO.retrieveAllStockForWatchlist(w_idp).contains(stocksymbol)){
+						System.out.println(stocksymbol + " is already in the "+allwatchlistforuser +"!");
+						request.setAttribute("errorMessage5", user_errormsg5);
+						request.getRequestDispatcher("/WatchListAddStocks.jsp").forward(request, response);
 					}
+					else {
+						for(String s : WatchListDAO.retrieveWatchlist(userId).keySet()){
+							if(WatchListDAO.retrieveWatchlist(userId).get(s).equals(allwatchlistforuser)){
+								WatchListDAO.addStock(s, stocksymbol);
+								System.out.println(stocksymbol + " is successfully added into "+allwatchlistforuser +"!");
+								request.setAttribute("addMessage", user_addMessage);
+								request.getRequestDispatcher("/WatchListAddStocks.jsp").forward(request, response);
+								break;
+							}	
+						}
+					}	
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -128,7 +152,7 @@ public class StockController extends HttpServlet {
 		}
 		}
 	
-		request.getRequestDispatcher("/WatchListAddStocks.jsp").forward(request, response);
+		//request.getRequestDispatcher("/WatchListAddStocks.jsp").forward(request, response);
 	}
 	
 //	request.setAttribute("result", result);
