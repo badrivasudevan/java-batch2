@@ -85,4 +85,23 @@ public class StockController extends HttpServlet {
 //	   <script>alert("No such Stock in the Singapore Stock Exchange (SGX) to be removed!");</script>
 //<%		}
 //%>
+	
+//	request.setAttribute("result", result);
+//	RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WatchList.jsp");
+//	dispatcher.forward(request, response);
+
+	
+	//	WatchlistService.createNewWatchlist									//Add new watchlist/watchlistname into sql
+	
+																			
+	//WatchlistService.editWatchlistName									//Replace watchlist name to sql
+	
+	
+	//WatchlistService.selectWatchlist									//Select watchlist from drop down list
+		
+	//String stockName = request.getParameter("stockname");				//add stocks into watchlist
+	//System.out.println("WatchList Name: " + stockName);					
+																		//add stocks into sql
+				
+	
 }

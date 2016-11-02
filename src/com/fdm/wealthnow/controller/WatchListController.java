@@ -102,26 +102,7 @@ public class WatchListController extends HttpServlet {
 		}
 		
 		 request.getRequestDispatcher("/WatchListAdd.jsp").forward(request, response);
-		 
-//		request.setAttribute("result", result);
-//		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WatchList.jsp");
-//		dispatcher.forward(request, response);
-
-		
-		//	WatchlistService.createNewWatchlist									//Add new watchlist/watchlistname into sql
-		
-																				
-		//WatchlistService.editWatchlistName									//Replace watchlist name to sql
-		
-		
-		//WatchlistService.selectWatchlist									//Select watchlist from drop down list
-			
-		//String stockName = request.getParameter("stockname");				//add stocks into watchlist
-		//System.out.println("WatchList Name: " + stockName);					
-																			//add stocks into sql
-									
+		 				
 	}
-	
-	
 	
 }
