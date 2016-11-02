@@ -47,7 +47,7 @@
 	<% List<String> liststockfmyahoo = (List<String>) StockService.getStockFromWeb(listsymbol); %>
 	<% List<Stock> liststock = StockService.stockStorage(liststockfmyahoo);%>
 	<% HashMap<String,Stock> stockhashmap = StockService.createHashMap(liststock); %>
-	
+	<% %>
 	<%= w_id %>
 
 			<% for(String s : stockhashmap.keySet()) { %>
