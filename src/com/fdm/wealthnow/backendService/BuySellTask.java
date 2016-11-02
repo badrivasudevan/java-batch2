@@ -131,10 +131,15 @@ public class BuySellTask implements Runnable {
 				System.out.println("----------------Stock is sold-----------" + order);
 				System.out.println("---------------------------------");
 
-			} else if (order.getPriceType() == PriceType.Limit || order.getPriceType() == PriceType.StopLoss) {
+			} else if (order.getPriceType() == PriceType.Limit) {
 				if (bidPrice >= order.getPriceExecuted())
 					order.setOrderStatus(OrderStatus.Completed);
-
+			}
+			
+			else{
+				
+				if (bidPrice == order.getPriceExecuted())
+					order.setOrderStatus(OrderStatus.Completed);
 			}
 		}
 
