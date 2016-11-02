@@ -47,10 +47,14 @@
 			<% } %>
 		</select>
 	</fieldset>
-			<% for(Student s : list) { %>
+			<% for(String s : stockhashmap.keySet()) { %>
 		<tr>
-			<td><%= s.getName() %> </td>
-			<td><%= s.getAge() %> </td>
+			<td><%= stockhashmap.get(s).getName() %> </td>
+			<td><%= stockhashmap.get(s).getSymbol() %> </td>
+			<td><%= stockhashmap.get(s).getBidprice() %> </td>
+			<td><%= stockhashmap.get(s).getAskprice() %> </td>
+			<td><%= stockhashmap.get(s).getCurrentmarketprice() %> </td>
+			<td><%= stockhashmap.get(s).getUpdatedtime() %> </td>		
 		</tr>	
 			<% } %>
 	
