@@ -1,6 +1,7 @@
 package com.fdm.wealthnow.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fdm.wealthnow.common.StockService;
+import com.fdm.wealthnow.dao.WatchListDAO;
 
 /**
  * Servlet implementation class StockController
@@ -40,6 +42,8 @@ public class StockController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		long userId = Long.parseLong(request.getParameter("userid"));
 		String stocksymbol = request.getParameter("stockname");
 		String editstocklist = request.getParameter("addorremovestock");
 		String allwatchlistforuser = request.getParameter("watchlist");
@@ -57,7 +61,17 @@ public class StockController extends HttpServlet {
 				 request.getRequestDispatcher("/WatchList.jsp").forward(request, response);
 			}
 			else {
-				//add stock into the sql database
+				try {
+					for(String s : WatchListDAO.retrieveWatchlist(userId).keySet()){
+						if(WatchListDAO.retrieveWatchlist(userId).get(s).equals(allwatchlistforuser)){
+							WatchListDAO.addStock(s, stocksymbol);
+							break;
+						}	
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			
 		}
@@ -67,6 +81,19 @@ public class StockController extends HttpServlet {
 				 System.out.println("No such stock in the Singapore Stock Exchange (SGX) to remove from the watchlist! Try again!");
 				 request.setAttribute("errorMessage4", user_errormsg4);
 				 request.getRequestDispatcher("/WatchList.jsp").forward(request, response);
+			}
+			else {
+				try {
+					for(String s : WatchListDAO.retrieveWatchlist(userId).keySet()){
+						if(WatchListDAO.retrieveWatchlist(userId).get(s).equals(allwatchlistforuser)){
+							WatchListDAO.removeStock(s, stocksymbol);
+							break;
+						}	
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	}
