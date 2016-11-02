@@ -6,13 +6,10 @@ import java.util.List;
 import com.fdm.wealthnow.common.Order;
 import com.fdm.wealthnow.common.OrderStatus;
 import com.fdm.wealthnow.common.PriceType;
-import com.fdm.wealthnow.common.Stock;
 import com.fdm.wealthnow.common.StockService;
-import com.fdm.wealthnow.common.Term;
 import com.fdm.wealthnow.common.TransactionType;
 import com.fdm.wealthnow.common.User;
 import com.fdm.wealthnow.dao.UserDAO;
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 
 public class BuySellTask implements Runnable {
 
@@ -127,10 +124,9 @@ public class BuySellTask implements Runnable {
 				System.out.println("Sell price of " + order.getStockSymbol() + " is "
 						+ StockService.stringToDouble(s1.stockStorage(s1.getStockFromWeb(list)).get(0).getBidprice()));
 
-				System.out.println("Price before" + order.getPriceExecuted());
 				order.setPriceExecuted(bidPrice);
 				OrderService.updatePriceExecuted(order);
-				System.out.println("Price after" + order.getPriceExecuted());
+
 				order.setOrderStatus(OrderStatus.Completed);
 				System.out.println("----------------Stock is sold-----------" + order);
 				System.out.println("---------------------------------");
