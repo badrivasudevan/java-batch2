@@ -104,7 +104,7 @@ public class StockService {
 		return hm;
 	}
 	
-	private Double stringToDouble(String s) {
+	private static Double stringToDouble(String s) {
 		Double d = 0.0;
 		
 		try {
