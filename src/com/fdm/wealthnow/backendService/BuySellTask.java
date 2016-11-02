@@ -86,14 +86,18 @@ public class BuySellTask implements Runnable {
 				OrderService.updatePriceExecuted(order);
 				order.setOrderStatus(OrderStatus.Completed);
 
-				System.out.println("----------------Stock is bought-----------" + order);
+				System.out.println("----------------Stock is bought (Market)---------------");
+				System.out.println(order);
 				System.out.println("---------------------------------");
 
 			} else if (order.getPriceType() == PriceType.Limit) {
 
-				if (askPrice <= order.getPriceExecuted())
+				if (askPrice <= order.getPriceExecuted()){
 					order.setOrderStatus(OrderStatus.Completed);
-
+					System.out.println("----------------Stock is bought (Limit)---------------");
+					System.out.println(order);
+					System.out.println("---------------------------------");
+				}
 			}
 		}
 
@@ -130,16 +134,28 @@ public class BuySellTask implements Runnable {
 				OrderService.updatePriceExecuted(order);
 
 				order.setOrderStatus(OrderStatus.Completed);
+				
+				System.out.println("----------------Stock is sold (Market)---------------");
+				System.out.println(order);
+				System.out.println("---------------------------------");
 
 			} else if (order.getPriceType() == PriceType.Limit) {
-				if (bidPrice >= order.getPriceExecuted())
+				if (bidPrice >= order.getPriceExecuted()){
 					order.setOrderStatus(OrderStatus.Completed);
+					System.out.println("----------------Stock is sold (Limit)---------------");
+					System.out.println(order);
+					System.out.println("---------------------------------");
+				}
 			}
 			
 			else if(order.getPriceType() == PriceType.StopLoss){
 				
-				if (bidPrice == order.getPriceExecuted())
+				if (bidPrice <= order.getPriceExecuted()){
 					order.setOrderStatus(OrderStatus.Completed);
+					System.out.println("----------------Stock is sold (Stop Loss)---------------");
+					System.out.println(order);
+					System.out.println("---------------------------------");
+				}
 			}
 		}
 
@@ -148,8 +164,7 @@ public class BuySellTask implements Runnable {
 			OrderService.updateCompletedOrder(order);
 		}
 		System.out.println("Cash Balance: " + UserDAO.getBalance(order.getUserID()));
-		System.out.println("----------------Stock is sold-----------" + order);
-		System.out.println("---------------------------------");
+		
 	}
 
 }
