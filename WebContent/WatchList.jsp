@@ -27,13 +27,12 @@
 						<a href="logout.jsp">Logout</a>
 					</form>
 	</fieldset>
-	
-	<fieldset>
-		<form action="${pageContext.request.contextPath}/ViewWatchListController" method="POST">		
+		<form action="${pageContext.request.contextPath}/ViewWatchListController" method="POST">
+	<fieldset>		
 		<% long user = currentUser.getUserId(); %>
 		<input type="hidden" name="userid" value="<%=user%>" />
 		
-		Select Watchlist : <select name="Watchlist">
+		Select Watchlist : <select name="Watchlist" onchange=alert(this.value);>
 			<% WatchListDAO watchlist = new WatchListDAO();
 			 for(String s : watchlist.retrieveWatchlist(user).values()) { %>
 			<tr>
@@ -48,6 +47,8 @@
 	<% List<Stock> liststock = StockService.stockStorage(liststockfmyahoo);%>
 	<% HashMap<String,Stock> stockhashmap = StockService.createHashMap(liststock); %>
 	
+	<%= w_id %>
+
 			<% for(String s : stockhashmap.keySet()) { %>
 		<tr>
 			<td><%= stockhashmap.get(s).getName() %> </td>
@@ -58,7 +59,7 @@
 			<td><%= stockhashmap.get(s).getUpdatedtime() %> </td>		
 		</tr>	
 			<% } %>
-	
+	</form>
 	<a href="WatchListAdd.jsp">WatchList - Add</a> <br>
 	<a href="WatchListAddStocks.jsp">Watchlists - Add Stocks</a>
 	
