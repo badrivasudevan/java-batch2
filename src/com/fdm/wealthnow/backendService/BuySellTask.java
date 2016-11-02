@@ -82,7 +82,7 @@ public class BuySellTask implements Runnable {
 			if (order.getPriceType() == PriceType.Market) {
 
 				System.out.println("Buy price of " + order.getStockSymbol() + " is "
-						+ s1.stockStorage(s1.getStockFromWeb(list)).get(0).getAskprice());
+						+ StockService.stringToDouble(s1.stockStorage(s1.getStockFromWeb(list)).get(0).getAskprice()));
 
 				order.setPriceExecuted(askPrice);
 				OrderService.updatePriceExecuted(order);
@@ -125,7 +125,7 @@ public class BuySellTask implements Runnable {
 			if (order.getPriceType() == PriceType.Market) {
 
 				System.out.println("Sell price of " + order.getStockSymbol() + " is "
-						+ s1.stockStorage(s1.getStockFromWeb(list)).get(0).getBidprice());
+						+ StockService.stringToDouble(s1.stockStorage(s1.getStockFromWeb(list)).get(0).getBidprice()));
 
 				System.out.println("Price before" + order.getPriceExecuted());
 				order.setPriceExecuted(bidPrice);
