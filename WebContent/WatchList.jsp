@@ -2,10 +2,18 @@
 <%@ page import="com.fdm.wealthnow.dao.UserDAO"%>
 <%@ page import="com.fdm.wealthnow.dao.WatchListDAO" %>	
 <%@ page import="com.fdm.wealthnow.common.Stock" %>
-<%@ page import="com.fdm.wealthnow.common.StockService" %>	
+<%@ page import="com.fdm.wealthnow.common.StockService" %>
+<%@ page import="com.fdm.wealthnow.controller.ViewWatchListController" %>	
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.HashMap" %>
 <!DOCTYPE>
 <html>
 <head>
+<% String w_id = (String) request.getAttribute("watchlistid"); %>
+<% List<String> listsymbol = (List<String>) WatchListDAO.retrieveAllStockForWatchlist(w_id); %>
+<% List<String> liststockfmyahoo = (List<String>) StockService.getStockFromWeb(listsymbol); %>
+<% List<Stock> liststock = StockService.stockStorage(liststockfmyahoo);%>
+<% HashMap<String,Stock> stockhashmap = StockService.createHashMap(liststock); %>
 </head>
 <body>
 	<h1>Watchlist - Stocks</h1>
@@ -39,6 +47,12 @@
 			<% } %>
 		</select>
 	</fieldset>
+			<% for(Student s : list) { %>
+		<tr>
+			<td><%= s.getName() %> </td>
+			<td><%= s.getAge() %> </td>
+		</tr>	
+			<% } %>
 	
 	<a href="WatchListAdd.jsp">WatchList - Add</a> <br>
 	<a href="WatchListAddStocks.jsp">Watchlists - Add Stocks</a>
