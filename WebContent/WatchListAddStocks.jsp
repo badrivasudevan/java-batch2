@@ -30,7 +30,7 @@
 	
 	
 	<fieldset>
-		<form action="${pageContext.request.contextPath}/StockController" method="POST">		
+	<form action="${pageContext.request.contextPath}/StockController" method="POST">
 		<% long user = currentUser.getUserId(); %>
 		<input type="hidden" name="userid" value="<%=user%>" /> 
 		
@@ -64,6 +64,6 @@
 		</select>
 			<button type="submit">Submit</button> <br><br>
 	</fieldset>
-		
+	</form>	
 </body>
 </html>

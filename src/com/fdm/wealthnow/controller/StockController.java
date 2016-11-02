@@ -58,7 +58,7 @@ public class StockController extends HttpServlet {
 			if(stocksvc.getStockFromWeb(list).get(0)==null||stocksvc.getStockFromWeb(list).get(0).isEmpty()||stocksvc.getStockFromWeb(list).get(0).equals("N/A")){
 				 System.out.println("No such stock in the Singapore Stock Exchange (SGX) to add into the watchlist! Try again!");
 				 request.setAttribute("errorMessage3", user_errormsg3);
-				 request.getRequestDispatcher("/WatchList.jsp").forward(request, response);
+				 request.getRequestDispatcher("/WatchListAddStocks.jsp").forward(request, response);
 			}
 			else {
 				try {
@@ -73,14 +73,14 @@ public class StockController extends HttpServlet {
 					e.printStackTrace();
 				}
 			}
-			
+			break;	
 		}
 		case "-":{
 			list.add(stocksymbol);
 			if(stocksvc.getStockFromWeb(list).get(0).equals("N/A") ||stocksvc.getStockFromWeb(list).get(0)==null||stocksvc.getStockFromWeb(list).get(0).isEmpty()){
 				 System.out.println("No such stock in the Singapore Stock Exchange (SGX) to remove from the watchlist! Try again!");
 				 request.setAttribute("errorMessage4", user_errormsg4);
-				 request.getRequestDispatcher("/WatchList.jsp").forward(request, response);
+				 request.getRequestDispatcher("/WatchListAddStocks.jsp").forward(request, response);
 			}
 			else {
 				try {
@@ -95,11 +95,11 @@ public class StockController extends HttpServlet {
 					e.printStackTrace();
 				}
 			}
+			break;
 		}
-	}
+		}
 	
-	 request.getRequestDispatcher("/WatchList.jsp").forward(request, response);
-	 
+		request.getRequestDispatcher("/WatchListAddStocks.jsp").forward(request, response);
 	}
 	
 //	request.setAttribute("result", result);
