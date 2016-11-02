@@ -82,35 +82,24 @@ public class OrderProcessor extends HttpServlet {
 
 		}
 	
-		
 		String limitBuy = request.getParameter("limitBuy");
 		String limitSell = request.getParameter("limitSell");
 		String stopLoss = request.getParameter("stopLoss");
 	
 		int orderQuantity = Integer.parseInt(request.getParameter("quantity"));
-	
 
 		try { 
 		if (limitBuy !="") {
-			System.out.println("Executing limitBuy.");
-
 			priceExecuted = Double.parseDouble(limitBuy);
-			
 		}
 	
 		if (limitSell != "") {
-			System.out.println("Executing limitSell.");
 			priceExecuted = Double.parseDouble(limitSell);
 		}
 		
 		if (stopLoss != "") {
-			System.out.println("Executing stopLoss.");
-
 			priceExecuted = Double.parseDouble(stopLoss);
-			
 		}
-		
-		System.out.println("Price executed:  " + priceExecuted);
 		
 		}
 		catch (NumberFormatException e) {};
@@ -120,7 +109,6 @@ public class OrderProcessor extends HttpServlet {
 		
 		Order newOrder = new Order(userID, transacType, orderQuantity, stockSymbol, term, priceType, priceExecuted, orderStatus);
 		
-		System.out.println("Price executed: " + newOrder.getPriceExecuted());
 		Boolean enoughCash = false;
 		Boolean enoughQuantity = false;
 		Boolean hasHolding = false;
@@ -174,9 +162,6 @@ public class OrderProcessor extends HttpServlet {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/OrderFormConfirmation.jsp");
 			dispatcher.forward(request, response);
 		}
-			
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
 	}
 	
