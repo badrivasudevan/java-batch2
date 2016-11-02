@@ -41,14 +41,16 @@
 			</tr>	
 			<% } %>
 		</select>
-	</fieldset>
+		<button type="submit">Submit</button> <br><br>
+	</form>
+	
+	
 	<% String w_id = (String) request.getAttribute("watchlistid"); %>
+	
 	<% List<String> listsymbol = (List<String>) WatchListDAO.retrieveAllStockForWatchlist(w_id); %>
 	<% List<String> liststockfmyahoo = (List<String>) StockService.getStockFromWeb(listsymbol); %>
 	<% List<Stock> liststock = StockService.stockStorage(liststockfmyahoo);%>
 	<% HashMap<String,Stock> stockhashmap = StockService.createHashMap(liststock); %>
-	<% %>
-	<%= w_id %>
 
 			<% for(String s : stockhashmap.keySet()) { %>
 		<tr>
@@ -57,10 +59,12 @@
 			<td><%= stockhashmap.get(s).getBidprice() %> </td>
 			<td><%= stockhashmap.get(s).getAskprice() %> </td>
 			<td><%= stockhashmap.get(s).getCurrentmarketprice() %> </td>
-			<td><%= stockhashmap.get(s).getUpdatedtime() %> </td>		
+			<td><%= stockhashmap.get(s).getUpdatedtime() %> </td>	
+			<br>	
 		</tr>	
 			<% } %>
-	</form>
+		</fieldset>	
+	<br>		
 	<a href="WatchListAdd.jsp">WatchList - Add</a> <br>
 	<a href="WatchListAddStocks.jsp">Watchlists - Add Stocks</a>
 	
