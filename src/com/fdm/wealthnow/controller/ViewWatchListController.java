@@ -1,11 +1,18 @@
 package com.fdm.wealthnow.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.fdm.wealthnow.common.StockService;
+import com.fdm.wealthnow.dao.WatchListDAO;
 
 /**
  * Servlet implementation class ViewWatchListController
@@ -37,6 +44,29 @@ public class ViewWatchListController extends HttpServlet {
 		// TODO Auto-generated method stub
 		long userId = Long.parseLong(request.getParameter("userid"));
 		String allwatchlistforuser = request.getParameter("Watchlist");
+		List<String> listsymbol = new ArrayList<>();
+		List<String> liststockfmyahoo = new ArrayList<>();
+		String w_id = "";
+		try {
+			for(String s : WatchListDAO.retrieveWatchlist(userId).keySet()){
+				 if(WatchListDAO.retrieveWatchlist(userId).get(s).equals(allwatchlistforuser)){
+						w_id = s;
+						break;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			listsymbol = WatchListDAO.retrieveAllStockForWatchlist(w_id);
+			liststockfmyahoo = StockService.getStockFromWeb(listsymbol);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 

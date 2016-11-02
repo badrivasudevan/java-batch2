@@ -42,7 +42,7 @@ public class StockService {
 	
 
 //	public String getStockFromWeb(List<String> symbolList){
-	public List<String> getStockFromWeb(List<String> symbolList) throws MalformedURLException, IOException{	
+	public static List<String> getStockFromWeb(List<String> symbolList) throws MalformedURLException, IOException{	
 		List<String> list = new ArrayList<>();
 		int i=0;
 
@@ -72,7 +72,7 @@ public class StockService {
 		return list;
 	}
 	
-	public List<Stock> stockStorage(List<String> list) {
+	public static List<Stock> stockStorage(List<String> list) {
 		List<Stock> stocklist = new ArrayList<>();
 		for(int i=0;i<list.size();i++){
 			String[] stockdetails = list.get(i).split(",");
@@ -96,7 +96,7 @@ public class StockService {
 		//store it in hashmap
 	}
 	
-	public HashMap<String,Stock> createHashMap(List<Stock> list) {
+	public static HashMap<String,Stock> createHashMap(List<Stock> list) {
 		HashMap<String,Stock> hm = new HashMap<>();
 		for(int i=0; i<list.size();i++){
 			stock = new Stock(list.get(i).getName(),list.get(i).getSymbol(),list.get(i).getBidprice(),list.get(i).getAskprice(),list.get(i).getCurrentmarketprice(),list.get(i).getUpdatedtime());
