@@ -122,6 +122,47 @@ public class OrderDAO {
 		}
 	}
 	
+	public static List<Order> fetchPending(long userId) throws SQLException{
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String orderStatus = null;
+		List<Order> orderList = new ArrayList<>();
+
+		final String fetchOrderSQL = "Select STOCK_SYMBOL,ORDER_ID,USER_ID,ORDER_DATE,TRANSACTION_TYPE,PURCHASED_QUANTITY,TERM,PRICE_TYPE,PRICE_EXECUTED,ORDER_STATUS from " +
+				STOCK_ORDER + " where user_id = ?" + " and order_status = 'Pending'";
+
+
+
+	
+		try {
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(fetchOrderSQL);
+			ps.setLong(1, userId);
+			rs = ps.executeQuery();
+			Order order = null;
+			while (rs.next()){
+				order = new Order(rs.getLong("order_id"),
+						rs.getLong("user_id"),
+						rs.getDate("order_date"),
+						TransactionType.valueOf(rs.getString("transaction_type")),
+						rs.getInt("purchased_quantity"),
+						rs.getString("stock_symbol"),
+						Term.valueOf(rs.getString("term")),
+						PriceType.valueOf(rs.getString("price_type")),
+						rs.getDouble("price_executed"),
+						OrderStatus.valueOf(rs.getString("order_status")));		
+
+				orderList.add(order);
+			}
+
+			return orderList;	
+		} 
+		finally{
+			DBUtil.closeConnection(rs, ps, con);
+		}
+	}
+	
 	public static void updateOrderStatus(Order order) throws SQLException{
 		
 		Connection con = null;
