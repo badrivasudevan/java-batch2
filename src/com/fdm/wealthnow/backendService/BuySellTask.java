@@ -66,11 +66,10 @@ public class BuySellTask implements Runnable {
 
 		System.out.println("Buying stock");
 
-		StockService s1 = new StockService();
 		List<String> list = new ArrayList<>();
 		list.add(order.getStockSymbol());
 
-		double askPrice = StockService.stringToDouble(s1.stockStorage(s1.getStockFromWeb(list)).get(0).getAskprice());
+		double askPrice = StockService.stringToDouble(StockService.stockStorage(StockService.getStockFromWeb(list)).get(0).getAskprice());
 		
 		System.out.println("----------Ask price is " + askPrice + " ----------");
 
@@ -81,7 +80,7 @@ public class BuySellTask implements Runnable {
 			if (order.getPriceType() == PriceType.Market) {
 
 				System.out.println("Buy price of " + order.getStockSymbol() + " is "
-						+ StockService.stringToDouble(s1.stockStorage(s1.getStockFromWeb(list)).get(0).getAskprice()));
+						+ StockService.stringToDouble(StockService.stockStorage(StockService.getStockFromWeb(list)).get(0).getAskprice()));
 
 				order.setPriceExecuted(askPrice);
 				OrderService.updatePriceExecuted(order);
@@ -109,11 +108,10 @@ public class BuySellTask implements Runnable {
 
 		System.out.println("Selling stock");
 
-		StockService s1 = new StockService();
 		List<String> list = new ArrayList<>();
 		list.add(order.getStockSymbol());
 
-		double bidPrice = StockService.stringToDouble(s1.stockStorage(s1.getStockFromWeb(list)).get(0).getBidprice());
+		double bidPrice = StockService.stringToDouble(StockService.stockStorage(StockService.getStockFromWeb(list)).get(0).getBidprice());
 		
 		System.out.println("----------Bid price is " + bidPrice + " ----------");
 
@@ -126,21 +124,19 @@ public class BuySellTask implements Runnable {
 			if (order.getPriceType() == PriceType.Market) {
 
 				System.out.println("Sell price of " + order.getStockSymbol() + " is "
-						+ StockService.stringToDouble(s1.stockStorage(s1.getStockFromWeb(list)).get(0).getBidprice()));
+						+ StockService.stringToDouble(StockService.stockStorage(StockService.getStockFromWeb(list)).get(0).getBidprice()));
 
 				order.setPriceExecuted(bidPrice);
 				OrderService.updatePriceExecuted(order);
 
 				order.setOrderStatus(OrderStatus.Completed);
-				System.out.println("----------------Stock is sold-----------" + order);
-				System.out.println("---------------------------------");
 
 			} else if (order.getPriceType() == PriceType.Limit) {
 				if (bidPrice >= order.getPriceExecuted())
 					order.setOrderStatus(OrderStatus.Completed);
 			}
 			
-			else{
+			else if(order.getPriceType() == PriceType.StopLoss){
 				
 				if (bidPrice == order.getPriceExecuted())
 					order.setOrderStatus(OrderStatus.Completed);
@@ -152,6 +148,8 @@ public class BuySellTask implements Runnable {
 			OrderService.updateCompletedOrder(order);
 		}
 		System.out.println("Cash Balance: " + UserDAO.getBalance(order.getUserID()));
+		System.out.println("----------------Stock is sold-----------" + order);
+		System.out.println("---------------------------------");
 	}
 
 }
