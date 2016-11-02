@@ -99,10 +99,7 @@ public class WatchListController extends HttpServlet {
 			}	
 			break;
 		}
-		}
-		
-		 request.getRequestDispatcher("/WatchListAdd.jsp").forward(request, response);
-		 				
+		} 				
 	}
 	
 }
