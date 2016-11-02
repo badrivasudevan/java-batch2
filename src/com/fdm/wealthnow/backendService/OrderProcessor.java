@@ -60,11 +60,14 @@ public class OrderProcessor extends HttpServlet {
 		double priceExecuted = 0;
 		StockService s1 = new StockService();
 		List<String> list = new ArrayList<>(); 
-		
+		String stockSymbol = null;
 		User currentUser = (User) session.getAttribute("loggedInUser");
 		long userID = currentUser.getUserId();
 		TransactionType transacType = Formatter.formatTransacType(request.getParameter("transactionType"));
-		String stockSymbol = request.getParameter("symbol");
+		if (transacType == TransactionType.Buy)
+		stockSymbol = request.getParameter("symbolBuy");
+		if (transacType == TransactionType.Sell)
+			stockSymbol = request.getParameter("symbolSell");
 		Term term = Formatter.formatTerm(request.getParameter("term"));
 		PriceType priceType = null;
 		if (request.getParameter("transactionType").equals("Buy")) {

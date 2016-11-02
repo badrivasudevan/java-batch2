@@ -121,7 +121,7 @@
 		</div> --%>
 		 
 		<div id="buyChecked">
-		<input type="text" id="symbol" name="symbol" value="<symbol>">
+		<input type="text" id="symbol" name="symbolBuy" value="<symbol>">
 			<select id="PriceTypeBuy" name="priceTypeBuy">
 				<option name="Market" value="Market">Market Price</option>
 				<option name="Limit" value="Limit" id="limit">Limit</option>
@@ -129,9 +129,9 @@
 		</div>
 		<div id="sellChecked">
 		
-			<select id="symbol" name="symbol">
+			<select id="symbol" name="symbolSell">
 			<%for(String stocksList:stockSymbols){ %>
-			<option><%=stocksList%></option><% } %> 
+			<option name=<%=stocksList%> value="<%=stocksList%>" id=<%=stocksList%>><%=stocksList%></option><% } %> 
 			</select>
 			
 			<select id="PriceTypeSell" name="priceTypeSell">

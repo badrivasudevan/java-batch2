@@ -37,7 +37,14 @@ public class ViewWatchListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		long userId = Long.parseLong(request.getParameter("userid"));
 		String allwatchlistforuser = request.getParameter("Watchlist");
 //		List<String> listsymbol = new ArrayList<>();
@@ -50,6 +57,7 @@ public class ViewWatchListController extends HttpServlet {
 			for(String s : WatchListDAO.retrieveWatchlist(userId).keySet()){
 				 if(WatchListDAO.retrieveWatchlist(userId).get(s).equals(allwatchlistforuser)){
 						w_id = s;
+						request.setAttribute("watchlistid", w_id);
 						break;
 				}
 			}
@@ -58,17 +66,10 @@ public class ViewWatchListController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		request.setAttribute("watchlistid", w_id);
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/list.jsp");
-		dispatcher.forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+//		request.setAttribute("watchlistid", w_id);
+		request.getRequestDispatcher("/WatchList.jsp").forward(request, response);
+//		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WatchList.jsp");
+//		dispatcher.forward(request, response);
 	}
 
 }
