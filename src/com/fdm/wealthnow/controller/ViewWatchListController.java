@@ -37,6 +37,7 @@ public class ViewWatchListController extends HttpServlet {
 		// TODO Auto-generated method stub
 		long userId = Long.parseLong(request.getParameter("userid"));
 		String allwatchlistforuser = request.getParameter("Watchlist");
+		
 	}
 
 }
