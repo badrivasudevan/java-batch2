@@ -64,15 +64,5 @@
 			<button type="submit">Submit</button> <br><br>
 	</fieldset>
 		
-	<fieldset>
-		Select Watchlist: <select name="Watchlist">
-			<% WatchListDAO watchlist = new WatchListDAO();
-			 for(String s : watchlist.retrieveWatchlist(user).values()) { %>
-			<tr>
-				<option value="<%=s %>" style="width:100px;" > <%=s %> </option>
-			</tr>	
-			<% } %>
-		</select>
-	</fieldset>
 </body>
 </html>
