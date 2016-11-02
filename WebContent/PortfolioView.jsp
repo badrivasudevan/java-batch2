@@ -26,12 +26,15 @@
 			<legend><strong>Trading Platform Quick Links</strong></legend>
 					<form action = post method >
 						<a href="balancePage.jsp">Account Balance</a> <br>
-						<a href="WatchList.jsp">Watchlists</a> <br>
+						<a href="WatchList.jsp">View Watchlists</a> <br>
+						<a href="WatchListAdd.jsp">WatchList - Add</a> <br>
+						<a href="WatchListAddStocks.jsp">Watchlists - Add Stocks</a> <br>
 						<a href="PortfolioView.jsp">User Portfolio Viewer</a> <br>
+						<a href="Pending.jsp">Pending Orders</a> <br>
 						<a href="OrderForm.jsp">Order Form</a> <br>
 						<a href="logout.jsp">Logout</a>
 					</form>
-			</fieldset>
+	</fieldset> 
 
 		<table id="portfolio_holdings" class="table table-striped" border="1">
 

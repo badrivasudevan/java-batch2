@@ -1,4 +1,15 @@
 <html>
+   <style>
+    html {
+        background: url(http://oi63.tinypic.com/ivzaio.jpg);
+        background-size: cover;
+    }
+     body {
+        font-size: 16px;
+        margin: 25;
+        color: white;
+    }
+    </style>
 	<head>
 			<title>Login Page</title>
 		</head>

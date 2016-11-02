@@ -57,6 +57,7 @@ public class ViewWatchListController extends HttpServlet {
 			for(String s : WatchListDAO.retrieveWatchlist(userId).keySet()){
 				 if(WatchListDAO.retrieveWatchlist(userId).get(s).equals(allwatchlistforuser)){
 						w_id = s;
+						System.out.println("watchlistid :" +w_id);
 						request.setAttribute("watchlistid", w_id);
 						break;
 				}
