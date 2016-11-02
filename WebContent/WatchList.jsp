@@ -52,7 +52,19 @@
 	<% List<Stock> liststock = StockService.stockStorage(liststockfmyahoo);%>
 	<% HashMap<String,Stock> stockhashmap = StockService.createHashMap(liststock); %>
 
+		<table id="WatchListTable" class="table table-striped" border="1">
+
+			<tr>
+				<th>Stock Name</th>
+				<th>Symbol</th>
+				<th>Bid Price</th>
+				<th>Ask Price</th>
+				<th>Current Price</th>
+				<th>Date</th>
+			</tr>
+			
 			<% for(String s : stockhashmap.keySet()) { %>
+		
 		<tr>
 			<td><%= stockhashmap.get(s).getName() %> </td>
 			<td><%= stockhashmap.get(s).getSymbol() %> </td>
