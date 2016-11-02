@@ -65,6 +65,29 @@ public class UserDAO {
 		}
 	} 
 	
+	public static User getUserUsingID(long userID) throws Exception {
+		Connection connection = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		final String connectSQL = "SELECT user_id, user_name, full_name FROM " + 
+								  USER_TABLE + " WHERE user_ID= ?";
+		
+		try {
+			connection = DBUtil.getConnection();
+			ps = connection.prepareStatement(connectSQL);
+			ps.setLong(1, userID);
+			rs = ps.executeQuery();
+			rs.next();
+			User user = new User(rs.getInt("user_id"), 
+			  				     rs.getString("user_name"), 
+							 	 rs.getString("full_name"));
+			return user;
+		}
+		finally {
+			DBUtil.closeConnection(rs,  ps, connection);
+		}
+	} 
+	
 	public static float getBalance(long user_id) throws Exception {
 		Connection connection = null;
 		PreparedStatement ps = null;
@@ -126,5 +149,5 @@ public class UserDAO {
 				DBUtil.closeConnection(rs,  ps, connection);
 			}
 	}
-		
+				
 }
