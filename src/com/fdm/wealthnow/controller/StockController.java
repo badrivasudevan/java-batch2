@@ -74,17 +74,6 @@ public class StockController extends HttpServlet {
 	 request.getRequestDispatcher("/WatchList.jsp").forward(request, response);
 	 
 	}
-
-//	<%	if(request.getAttribute("errorMessage3") != null) {	 %>
-//	     <!-- out.println(request.getAttribute("errorMessage")); -->
-//	   <script>alert("No such Stock in the Singapore Stock Exchange (SGX) to be added!");</script>
-//<%		}
-//%>
-//<%	if(request.getAttribute("errorMessage4") != null) {	 %>
-//	     <!-- out.println(request.getAttribute("errorMessage")); -->
-//	   <script>alert("No such Stock in the Singapore Stock Exchange (SGX) to be removed!");</script>
-//<%		}
-//%>
 	
 //	request.setAttribute("result", result);
 //	RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WatchList.jsp");

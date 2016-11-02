@@ -29,10 +29,22 @@
 	
 	
 	<fieldset>
-		<form action="${pageContext.request.contextPath}/WatchListController" method="POST">		
+		<form action="${pageContext.request.contextPath}/StockController" method="POST">		
 		<% long user = currentUser.getUserId(); %>
 		<input type="hidden" name="userid" value="<%=user%>" /> 
 		
+		
+	<%	if(request.getAttribute("errorMessage3") != null) {	 %>
+	     <!-- out.println(request.getAttribute("errorMessage")); -->
+	   <script>alert("No such Stock in the Singapore Stock Exchange (SGX) to be added!");</script>
+	<%		}
+	%>
+	<%	if(request.getAttribute("errorMessage4") != null) {	 %>
+	     <!-- out.println(request.getAttribute("errorMessage")); -->
+	   <script>alert("No such Stock in the Singapore Stock Exchange (SGX) to be removed!");</script>
+	<%		}
+	%>
+	
 		<legend><strong>Watchlist Stocks Tool</strong></legend>
 		Stocks: <input type = "text" name = "stockname">  
 			<select name="addorremovestock">
