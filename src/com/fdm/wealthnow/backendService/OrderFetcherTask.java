@@ -40,7 +40,7 @@ public class OrderFetcherTask implements Runnable {
 
 	}
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		
 		Stock stock = new Stock("Apple", "AAPL", 100.00d, 120.25d, 113.72d, "15:00");
 		StockService.storeStock(stock);
@@ -61,6 +61,6 @@ public class OrderFetcherTask implements Runnable {
 		
 		
 		
-	}
+	}*/
 
 }

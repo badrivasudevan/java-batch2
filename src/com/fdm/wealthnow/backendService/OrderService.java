@@ -14,6 +14,13 @@ import com.fdm.wealthnow.dao.UserDAO;
 
 
 public class OrderService{
+	
+	String errorMsg;
+
+	public OrderService(String errorMsg) {
+		super();
+		this.errorMsg = errorMsg;
+	}
 
 	public static List<Order> getPendingOrders() throws SQLException {
 		// TODO Auto-generated method stub
@@ -31,6 +38,12 @@ public class OrderService{
 		return orderList;
 	}
 	
+	public static ArrayList<String> callDAO(long userId) throws Exception{
+		ArrayList<String> stockSymbols = OrderDAO.fetchStockSymbol(userId); 
+		return stockSymbols;
+
+	}
+
 	public static void updateCompletedOrder(Order order) throws SQLException{
 		
 		OrderDAO.updateOrderStatus(order);
@@ -43,6 +56,7 @@ public class OrderService{
 	
 	public static boolean validateCashBalance(Order order) throws Exception{
 		
+		System.out.println("Price executed (in orderService): " + order.getPriceExecuted() + " of " + order.getStockSymbol());
 		double totalAmount = order.getOrderQuantity() * order.getPriceExecuted();
 		System.out.println("Total Amount: " + totalAmount);
 
@@ -76,6 +90,10 @@ public class OrderService{
 			
 			return false;
 		
+	}
+	
+	public String getErrorMsg(){
+		return errorMsg;
 	}
 	
 	

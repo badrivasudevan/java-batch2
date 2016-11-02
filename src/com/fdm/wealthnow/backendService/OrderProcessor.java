@@ -59,7 +59,7 @@ public class OrderProcessor extends HttpServlet {
 		
 		double priceExecuted = 0;
 		StockService s1 = new StockService();
-		List<String> list = new ArrayList<>();
+		List<String> list = new ArrayList<>(); 
 		
 		User currentUser = (User) session.getAttribute("loggedInUser");
 		long userID = currentUser.getUserId();
@@ -146,11 +146,35 @@ public class OrderProcessor extends HttpServlet {
 			e.printStackTrace();
 		}
 		
+		if(transacType == TransactionType.Buy){
+			if(!enoughCash){
+			OrderService errorOrder = new OrderService("not enough cash");
+			request.setAttribute("notenoughcash", errorOrder.getErrorMsg());
+			request.getRequestDispatcher("OrderForm.jsp").forward(request, response);
+			}
+		}
+		else{
+			
+			if(!hasHolding){
+			OrderService errorOrder = new OrderService("no holding");
+			request.setAttribute("noholding", errorOrder.getErrorMsg());
+			request.getRequestDispatcher("OrderForm.jsp").forward(request, response);
+			}
+			else if(hasHolding && !enoughQuantity){
+			OrderService errorOrder = new OrderService("not enough quantity");
+			request.setAttribute("notenoughquantity", errorOrder.getErrorMsg());
+			request.getRequestDispatcher("OrderForm.jsp").forward(request, response);
+		}
+	}
 
-		request.setAttribute("fieldList", newOrder);
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/OrderFormConfirmation.jsp");
-		
-		dispatcher.forward(request, response);
+		if((enoughCash && transacType == TransactionType.Buy)|| 
+				enoughQuantity && transacType == TransactionType.Sell || 
+				hasHolding && transacType == TransactionType.Sell){
+			request.setAttribute("fieldList", newOrder);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/OrderFormConfirmation.jsp");
+			dispatcher.forward(request, response);
+		}
+			
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
