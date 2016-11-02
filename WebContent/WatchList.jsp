@@ -16,6 +16,7 @@
 <% HashMap<String,Stock> stockhashmap = StockService.createHashMap(liststock); %>
 </head>
 <body>
+	<% out.println(stockhashmap.get(listsymbol.get(0))); %>
 	<h1>Watchlist - Stocks</h1>
 		<% User currentUser = (User) (session.getAttribute("loggedInUser"));%>
 	<H2>User: <%= currentUser.getFullName() %></H2>
