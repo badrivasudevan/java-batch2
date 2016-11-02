@@ -23,6 +23,7 @@
 						<a href="WatchListAdd.jsp">WatchList - Add</a> <br>
 						<a href="WatchListAddStocks.jsp">Watchlists - Add Stocks</a> <br>
 						<a href="PortfolioView.jsp">User Portfolio Viewer</a> <br>
+						<a href="Pending.jsp">Pending Orders</a> <br>
 						<a href="OrderForm.jsp">Order Form</a> <br>
 						<a href="logout.jsp">Logout</a>
 					</form>
@@ -36,7 +37,7 @@
 			<% WatchListDAO watchlist = new WatchListDAO();
 			 for(String s : watchlist.retrieveWatchlist(user).values()) { %>
 			<tr>
-				<option value="<%=s %>" style="width:100px;" > <%=s %> </option>
+				<option value="<%=s %>" style="width:100px;" > <%=s %> </option >
 			</tr>	
 			<% } %>
 		</select>
