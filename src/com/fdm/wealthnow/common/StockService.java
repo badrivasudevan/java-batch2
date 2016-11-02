@@ -24,7 +24,7 @@ public class StockService {
 	//private String symbol;
 	private static Stock stock;
 	
-	
+	//
 	public static void storeStock(Stock stock){
 		
 		stockholding.add(stock);
