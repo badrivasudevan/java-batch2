@@ -59,6 +59,7 @@ public class StockController extends HttpServlet {
 		switch(editstocklist){
 		case "+":{
 			list.add(stocksymbol);
+			System.out.println(stocksvc.getStockFromWeb(list).get(0));
 			if(stocksvc.getStockFromWeb(list).get(0)==null||stocksvc.getStockFromWeb(list).get(0).isEmpty()||stocksvc.getStockFromWeb(list).get(0).equals("N/A")){
 				 System.out.println("No such stock in the Singapore Stock Exchange (SGX) to add into the watchlist! Try again!");
 				 request.setAttribute("errorMessage3", user_errormsg3);
