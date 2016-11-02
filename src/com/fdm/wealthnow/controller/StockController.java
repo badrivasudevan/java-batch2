@@ -71,13 +71,9 @@ public class StockController extends HttpServlet {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			//String Str1=new String("N/A");
 			List<String> lists = new ArrayList<>();
 			lists = stocksvc.getStockFromWeb(list);
 			if(stocksvc.stringToDouble(stocksvc.stockStorage(lists).get(0).getCurrentmarketprice())== 0.0){
-			//if(stocksvc.stockStorage(lists).get(0).getCurrentmarketprice().is)
-			//if((stocksvc.stockStorage(stocksvc.getStockFromWeb(list)).get(0).getName()==null)||(stocksvc.stockStorage(stocksvc.getStockFromWeb(list)).get(0).getName().isEmpty())||(stocksvc.stockStorage(stocksvc.getStockFromWeb(list)).get(0).getName()=="N/A")){
-			//	if(stocksvc.stockStorage(stocksvc.getStockFromWeb(list)).get(0).getName().equals(Str1)){
 				 System.out.println("No such stock in the Singapore Stock Exchange (SGX) to add into the watchlist! Try again!");
 				 request.setAttribute("errorMessage3", user_errormsg3);
 				 request.getRequestDispatcher("/WatchListAddStocks.jsp").forward(request, response);

@@ -87,7 +87,7 @@ public class StockService {
 			//double ask = stringToDouble(stockdetails[3]);
 			//String current = stockdetails[5];
 			//double current = Double.parseDouble(stockdetails[4]);
-			stock = new Stock(stockdetails[0],stockdetails[1],stockdetails[2],stockdetails[3],stockdetails[4],stockdetails[5]);
+			stock = new Stock(stockdetails[0],stockdetails[1],stockdetails[2],stockdetails[3],stockdetails[4],stockdetails[6]);
 			stocklist.add(stock);
 
 		}	

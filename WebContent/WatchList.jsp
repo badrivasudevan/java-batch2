@@ -2,12 +2,21 @@
 <%@ page import="com.fdm.wealthnow.dao.UserDAO"%>
 <%@ page import="com.fdm.wealthnow.dao.WatchListDAO" %>	
 <%@ page import="com.fdm.wealthnow.common.Stock" %>
-<%@ page import="com.fdm.wealthnow.common.StockService" %>	
+<%@ page import="com.fdm.wealthnow.common.StockService" %>
+<%@ page import="com.fdm.wealthnow.controller.ViewWatchListController" %>	
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.HashMap" %>
 <!DOCTYPE>
 <html>
 <head>
+<% String w_id = (String) request.getAttribute("watchlistid"); %>
+<% List<String> listsymbol = (List<String>) WatchListDAO.retrieveAllStockForWatchlist(w_id); %>
+<% List<String> liststockfmyahoo = (List<String>) StockService.getStockFromWeb(listsymbol); %>
+<% List<Stock> liststock = StockService.stockStorage(liststockfmyahoo);%>
+<% HashMap<String,Stock> stockhashmap = StockService.createHashMap(liststock); %>
 </head>
 <body>
+	<% out.println(stockhashmap.get(listsymbol.get(0))); %>
 	<h1>Watchlist - Stocks</h1>
 		<% User currentUser = (User) (session.getAttribute("loggedInUser"));%>
 	<H2>User: <%= currentUser.getFullName() %></H2>
@@ -39,6 +48,16 @@
 			<% } %>
 		</select>
 	</fieldset>
+			<% for(String s : stockhashmap.keySet()) { %>
+		<tr>
+			<td><%= stockhashmap.get(s).getName() %> </td>
+			<td><%= stockhashmap.get(s).getSymbol() %> </td>
+			<td><%= stockhashmap.get(s).getBidprice() %> </td>
+			<td><%= stockhashmap.get(s).getAskprice() %> </td>
+			<td><%= stockhashmap.get(s).getCurrentmarketprice() %> </td>
+			<td><%= stockhashmap.get(s).getUpdatedtime() %> </td>		
+		</tr>	
+			<% } %>
 	
 	<a href="WatchListAdd.jsp">WatchList - Add</a> <br>
 	<a href="WatchListAddStocks.jsp">Watchlists - Add Stocks</a>
