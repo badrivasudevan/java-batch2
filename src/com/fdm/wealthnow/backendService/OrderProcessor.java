@@ -71,14 +71,14 @@ public class OrderProcessor extends HttpServlet {
 			priceType = Formatter.formatPriceType(request.getParameter("priceTypeBuy"));
 			
 			list.add(stockSymbol);
-			priceExecuted = s1.stockStorage(s1.getStockFromWeb(list)).get(0).getAskprice();
+			priceExecuted = StockService.stringToDouble(s1.stockStorage(s1.getStockFromWeb(list)).get(0).getAskprice());
 
 		}
 		if (request.getParameter("transactionType").equals("Sell")) {
 			priceType = Formatter.formatPriceType(request.getParameter("priceTypeSell"));
 			
 			list.add(stockSymbol);
-			priceExecuted = s1.stockStorage(s1.getStockFromWeb(list)).get(0).getBidprice();
+			priceExecuted = StockService.stringToDouble(s1.stockStorage(s1.getStockFromWeb(list)).get(0).getBidprice());
 
 		}
 	
