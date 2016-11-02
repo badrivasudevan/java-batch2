@@ -31,7 +31,7 @@ public class OrderDAO {
 		return date;
 	}
 	
-	public static ArrayList<String> fetchStockSymbol(Long userId) throws SQLException{ 
+	public static ArrayList<String> fetchStockSymbol(Long userId) throws SQLException{  
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;

@@ -119,7 +119,7 @@
 			<option><%=stocksList%></option><% } %> 
 			</select>
 		</div> --%>
-		
+		 
 		<div id="buyChecked">
 		<input type="text" id="symbol" name="symbol" value="<symbol>">
 			<select id="PriceTypeBuy" name="priceTypeBuy">
