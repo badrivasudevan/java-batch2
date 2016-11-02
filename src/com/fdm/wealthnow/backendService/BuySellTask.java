@@ -73,7 +73,7 @@ public class BuySellTask implements Runnable {
 		List<String> list = new ArrayList<>();
 		list.add(order.getStockSymbol());
 
-		double askPrice = s1.stockStorage(s1.getStockFromWeb(list)).get(0).getAskprice();
+		double askPrice = StockService.stringToDouble(s1.stockStorage(s1.getStockFromWeb(list)).get(0).getAskprice());
 
 		if (OrderService.validateCashBalance(order)) {
 
@@ -114,7 +114,7 @@ public class BuySellTask implements Runnable {
 		List<String> list = new ArrayList<>();
 		list.add(order.getStockSymbol());
 
-		double bidPrice = s1.stockStorage(s1.getStockFromWeb(list)).get(0).getBidprice();
+		double bidPrice = StockService.stringToDouble(s1.stockStorage(s1.getStockFromWeb(list)).get(0).getBidprice());
 
 		if (OrderService.validateOwnedQuantity(order) && OrderService.hasHolding(order)) {
 
