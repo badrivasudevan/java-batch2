@@ -16,7 +16,6 @@ public class HoldingService{
 	private static final double TRANSACTION_FEE = 9.99;
 	private static double purchasePrice;
 	private static int remainingQuantity;
-	static boolean isExist = false;
 	
 	private static List<Holding> retrieveHolding(Order order) throws Exception{
 		List<Holding> holding = HoldingDAO.retrieveHolding(order.getUserID()); 
@@ -29,7 +28,9 @@ public class HoldingService{
 
 	}
 	
-	private static double calculatePurchasePrice(List<Holding> holdingList, Order order){	
+	private static double calculatePurchasePrice(List<Holding> holdingList, Order order){
+		
+		boolean isExist = false;
 		
 		for(Holding holding : holdingList){
 
@@ -55,6 +56,8 @@ public class HoldingService{
 	}
 	
 	private static int calculateQuantity(List<Holding> holdingList, Order order){
+		
+		boolean isExist = false;
 		
 		for(Holding holding : holdingList){
 			
@@ -98,10 +101,13 @@ public class HoldingService{
 	}
 	
 	public static void updatePortfolio(Order order){
+		
+		boolean isExist = false;
 
 		try{
 			Holding newHolding = null;
 			List<Holding> holdingList = HoldingService.retrieveHolding(order);
+			System.out.println("HoldingList: " + holdingList + "Size: " + holdingList.size());
 			purchasePrice = HoldingService.calculatePurchasePrice(holdingList, order);
 			remainingQuantity = HoldingService.calculateQuantity(holdingList, order);
 
@@ -122,7 +128,7 @@ public class HoldingService{
 						break;
 					}
 				}
-
+				//System.out.println("isExist Boolean: " + isExist);
 				if(!isExist){
 					newHolding = new Holding(order.getUserID(), order.getStockSymbol(), remainingQuantity, purchasePrice, "SGD");
 					HoldingDAO.storeHolding(newHolding);

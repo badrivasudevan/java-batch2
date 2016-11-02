@@ -103,6 +103,7 @@ public class BuySellTask implements Runnable {
 
 		if (order.getOrderStatus() == OrderStatus.Completed) {
 			HoldingService.updatePortfolio(order);
+			System.out.println("Update portfolio completed");
 			OrderService.updateCompletedOrder(order);
 		}
 		System.out.println("Cash Balance: " + UserDAO.getBalance(order.getUserID()));
