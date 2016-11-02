@@ -20,8 +20,7 @@ public class StockService {
 	//extract all stock data from yahoo finance api and store it in the arraylist and update the values using list.set()
 	//or store data from yahoo finance api in SQL database and update the values from there
 	//by calling SQL statements in java 
-	private static List<Stock> stockholding = new ArrayList<>();;	//???
-	//private String symbol;
+	private static List<Stock> stockholding = new ArrayList<>();;	
 	private static Stock stock;
 	
 	//
@@ -40,8 +39,6 @@ public class StockService {
 		return stock;
 	}
 	
-
-//	public String getStockFromWeb(List<String> symbolList){
 	public static List<String> getStockFromWeb(List<String> symbolList) throws MalformedURLException, IOException{	
 		List<String> list = new ArrayList<>();
 		int i=0;
@@ -63,9 +60,6 @@ public class StockService {
 		while(scanner.hasNext()) {
 			list.add(scanner.next());
 			//System.out.println("Output: " + scanner.next());
-	
-		//	list = Arrays.asList(items);
-			//list.add("","","");
 		}
 	
 		response.close();
@@ -86,14 +80,11 @@ public class StockService {
 			//double bid = stringToDouble(stockdetails[2]);
 			//double ask = stringToDouble(stockdetails[3]);
 			//double current = Double.parseDouble(stockdetails[4]);
-//			stock = new Stock(stockdetails[0],stockdetails[1],stockdetails[2],stockdetails[3],stockdetails[4],stockdetails[5]);	
 			stock = new Stock(stockdetails[0].replace("\"", ""),(stockdetails[1].replace("\"", "")).replace(".si", ""),stockdetails[2],stockdetails[3],stockdetails[4],stockdetails[6].replace("\"", "")+" " +stockdetails[5].replace("\"", ""));
 			stocklist.add(stock);
 
 		}	
 		return stocklist;
-		
-		//store it in hashmap
 	}
 	
 	public static HashMap<String,Stock> createHashMap(List<Stock> list) {

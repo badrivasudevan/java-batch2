@@ -47,10 +47,6 @@ public class ViewWatchListController extends HttpServlet {
 		// TODO Auto-generated method stub
 		long userId = Long.parseLong(request.getParameter("userid"));
 		String allwatchlistforuser = request.getParameter("Watchlist");
-//		List<String> listsymbol = new ArrayList<>();
-//		List<String> liststockfmyahoo = new ArrayList<>();
-//		List<Stock> liststock = new ArrayList<>();
-//		HashMap<String,Stock> stockhashmap = new HashMap<>();
 		String w_id = "";
 		
 		try {
@@ -67,10 +63,8 @@ public class ViewWatchListController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-//		request.setAttribute("watchlistid", w_id);
 		request.getRequestDispatcher("/WatchList.jsp").forward(request, response);
-//		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WatchList.jsp");
-//		dispatcher.forward(request, response);
+
 	}
 
 }
