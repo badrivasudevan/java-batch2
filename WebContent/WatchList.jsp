@@ -14,6 +14,7 @@
 	<h1>Watchlist - Stocks</h1>
 		<% User currentUser = (User) (session.getAttribute("loggedInUser"));%>
 	<H2>User: <%= currentUser.getFullName() %></H2>
+	<H3>Balance : $<%= UserDAO.getBalance(currentUser.getUserId()) %></H3>
 	
 	<fieldset style = "width: 210px">
 			<legend><strong>Trading Platform Quick Links</strong></legend>
