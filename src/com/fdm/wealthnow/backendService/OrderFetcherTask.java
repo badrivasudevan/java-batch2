@@ -30,37 +30,13 @@ public class OrderFetcherTask implements Runnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		System.out.println("Order is being submitted");
+
 
 		for (Order order : orderList) {
-			System.out.println("Stock (" + order.getStockSymbol() + ") is submitted.");
 			workerPool.submit(new BuySellTask(order));
 		}
 
 	}
 
-	/*public static void main(String[] args) {
-		
-		Stock stock = new Stock("Apple", "AAPL", 100.00d, 120.25d, 113.72d, "15:00");
-		StockService.storeStock(stock);
-
-		final int WORKER_THREAD_POOL_SIZE = 5;
-
-		ScheduledExecutorService scheduledExecutorService;
-		ExecutorService executorService;
-
-		// Create worker thread pool that does stock trading
-		executorService = Executors.newFixedThreadPool(WORKER_THREAD_POOL_SIZE);
-		OrderFetcherTask task = new OrderFetcherTask(executorService);
-
-		// Create a thread that wakes up periodically and scans for open orders.
-		// It fetches the orders and delegates to executor service thread pool
-		scheduledExecutorService = Executors.newScheduledThreadPool(1);
-		scheduledExecutorService.scheduleAtFixedRate(task, 2, 30, TimeUnit.SECONDS);
-		
-		
-		
-	}*/
 
 }

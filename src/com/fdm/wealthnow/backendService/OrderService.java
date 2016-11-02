@@ -58,7 +58,6 @@ public class OrderService{
 		
 		System.out.println("Price executed (in orderService): " + order.getPriceExecuted() + " of " + order.getStockSymbol());
 		double totalAmount = order.getOrderQuantity() * order.getPriceExecuted();
-		System.out.println("Total Amount: " + totalAmount);
 
 		if (totalAmount > UserDAO.getBalance(order.getUserID())) {
 			return false;
@@ -70,7 +69,6 @@ public class OrderService{
 		
 		int ownedQuantity = HoldingDAO.retrieveIndividualHolding(order).getRemainingQuantity();
 
-		System.out.println("Owned quantity: " + ownedQuantity);
 		if (order.getOrderQuantity() > ownedQuantity)
 			return false;
 		else
