@@ -3,12 +3,12 @@
 <%@ page import="com.fdm.wealthnow.dao.WatchListDAO" %>	
 <%@ page import="com.fdm.wealthnow.common.Stock" %>
 <%@ page import="com.fdm.wealthnow.common.StockService" %>
-<%-- <%@ page import="com.fdm.wealthnow.controller.ViewWatchListController" %>	 --%>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.HashMap" %>
 <!DOCTYPE>
 <html>
 <head>
+
 </head>
 <body>
 	<h1>Watchlist - Stocks</h1>
@@ -28,12 +28,13 @@
 						<a href="logout.jsp">Logout</a>
 					</form>
 	</fieldset>
-		<form action="${pageContext.request.contextPath}/ViewWatchListController" method="POST">
+	
+	<form action="${pageContext.request.contextPath}/ViewWatchListController" method="POST">
 	<fieldset>		
 		<% long user = currentUser.getUserId(); %>
 		<input type="hidden" name="userid" value="<%=user%>" />
 		
-		Select Watchlist : <select name="Watchlist" onchange=alert(this.value);>
+		Select Watchlist : <select name="Watchlist">
 			<% WatchListDAO watchlist = new WatchListDAO();
 			 for(String s : watchlist.retrieveWatchlist(user).values()) { %>
 			<tr>
@@ -42,8 +43,6 @@
 			<% } %>
 		</select>
 		<button type="submit">Submit</button> <br><br>
-	</form>
-	
 	
 	<% String w_id = (String) request.getAttribute("watchlistid"); %>
 	
@@ -53,7 +52,6 @@
 	<% HashMap<String,Stock> stockhashmap = StockService.createHashMap(liststock); %>
 
 		<table id="WatchListTable" class="table table-striped" border="1">
-
 			<tr>
 				<th>Stock Name</th>
 				<th>Symbol</th>
@@ -74,11 +72,14 @@
 			<td><%= stockhashmap.get(s).getUpdatedtime() %> </td>	
 			<br>	
 		</tr>	
+		
 			<% } %>
-		</fieldset>	
-	<br>		
+	</fieldset>	
+	</form>	
+	
+	<!-- <p>
 	<a href="WatchListAdd.jsp">WatchList - Add</a> <br>
 	<a href="WatchListAddStocks.jsp">Watchlists - Add Stocks</a>
-	
+	</p> -->
 </body>
 </html>
