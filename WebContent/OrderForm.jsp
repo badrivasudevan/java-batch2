@@ -3,6 +3,8 @@
 <%@ page import="com.fdm.wealthnow.dao.UserDAO"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="com.fdm.wealthnow.backendService.OrderService"%>
+<%@ page import="com.fdm.wealthnow.backendService.Formatter"%>
+
 <!--  -->
 
 <html>
@@ -66,7 +68,8 @@
 <body>
 <% 		User currentUser = (User) (session.getAttribute("loggedInUser"));
 		ArrayList<String> stockSymbols = OrderService.callDAO(currentUser.getUserId());
-%>
+		ArrayList<String> sgxSymbols = Formatter.sgxstock();
+%>	
 	
 	<H1>
 		Welcome
@@ -120,7 +123,13 @@
 		</div> --%>
 		 
 		<div id="buyChecked">
-		<input type="text" id="symbol" name="symbolBuy" value="<symbol>">
+		
+			<select id="symbol" name="symbolBuy">
+			<%for(String stocksList:sgxSymbols){ %>
+			<option name=<%=stocksList%> value="<%=stocksList%>" id=<%=stocksList%>><%=stocksList%></option><% } %> 
+			</select>
+		<%-- <input type="text" id="symbol" name="symbolBuy" value="<symbol>"> --%>
+		
 			<select id="PriceTypeBuy" name="priceTypeBuy">
 				<option name="Market" value="Market">Market Price</option>
 				<option name="Limit" value="Limit" id="limit">Limit</option>

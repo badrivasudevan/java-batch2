@@ -1,7 +1,11 @@
 package com.fdm.wealthnow.backendService;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.fdm.wealthnow.common.OrderStatus;
@@ -75,5 +79,41 @@ public class Formatter {
 		}
 	}
 	
+	
+	public static ArrayList<String> sgxstock() throws IOException {
+
+
+		BufferedReader crunchifyBuffer = null;
+		String crunchifyLine = null;
+		try{
+
+			crunchifyBuffer = new BufferedReader(new FileReader("C:/Users/Oliver.cheok/Documents/sgxstocks.csv"));
+			crunchifyLine = crunchifyBuffer.readLine();
+			ArrayList<String> crunchifyResult = new ArrayList<String>();
+			String[] splitData = crunchifyLine.split("\\s*,\\s*");
+			for (int i = 0; i < splitData.length; i++) {
+				if (!(splitData[i] == null) || !(splitData[i].length() == 0)) {
+					crunchifyResult.add(splitData[i].trim());
+				}
+			}
+
+			/*for (String a : crunchifyResult) {
+				System.out.println(a);
+			}*/
+			return crunchifyResult;
+
+		}
+		finally {
+			try {
+				if (crunchifyBuffer != null) crunchifyBuffer.close();
+			} catch (IOException crunchifyException) {
+				crunchifyException.printStackTrace();
+			}
+		}
+
+	}
+
+	
+
 
 }
