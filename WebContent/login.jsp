@@ -1,7 +1,7 @@
 <html>
    <style>
     html {
-        background: url(http://www.zerohedge.com/sites/default/files/images/user5/imageroot/elon%20musk_0.jpg);
+        background: url(http://oi63.tinypic.com/ivzaio.jpg);
         background-size: cover;
     }
      body {
