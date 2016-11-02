@@ -121,6 +121,7 @@
 		</div> --%>
 		
 		<div id="buyChecked">
+		<input type="text" id="symbol" name="symbol" value="<symbol>">
 			<select id="PriceTypeBuy" name="priceTypeBuy">
 				<option name="Market" value="Market">Market Price</option>
 				<option name="Limit" value="Limit" id="limit">Limit</option>

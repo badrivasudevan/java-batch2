@@ -30,6 +30,33 @@ public class OrderDAO {
 
 		return date;
 	}
+	
+	public static ArrayList<String> fetchStockSymbol(Long userId) throws SQLException{ 
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+
+			ArrayList<String> stocksList = new ArrayList<String>();
+			String query = "Select unique stock_symbol from stock_holding where user_id = ? order by stock_symbol";
+
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(query);
+			ps.setLong(1, userId);
+			rs = ps.executeQuery();
+			while(rs.next()){
+				stocksList.add(rs.getString("stock_symbol"));
+			} 
+			return stocksList;
+
+		}
+		finally{
+			DBUtil.closeConnection(rs, ps, con);
+
+		}
+
+	}
 
 	public static boolean storeOrder(Order order) throws SQLException{
 
