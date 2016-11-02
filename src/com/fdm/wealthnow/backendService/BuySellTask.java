@@ -77,7 +77,8 @@ public class BuySellTask implements Runnable {
 
 		if (OrderService.validateCashBalance(order)) {
 
-			System.out.println("Sufficent funds.");
+			System.out.println("Sufficent funds for" + order.getStockSymbol());
+			
 			if (order.getPriceType() == PriceType.Market) {
 
 				System.out.println("Buy price of " + order.getStockSymbol() + " is "

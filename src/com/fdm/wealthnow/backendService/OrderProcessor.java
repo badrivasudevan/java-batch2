@@ -3,10 +3,12 @@ package com.fdm.wealthnow.backendService;
 
 import com.fdm.wealthnow.common.OrderStatus;
 import com.fdm.wealthnow.common.PriceType;
+import com.fdm.wealthnow.common.StockService;
 import com.fdm.wealthnow.common.Term;
 import com.fdm.wealthnow.common.TransactionType;
 import java.io.IOException;
-
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -55,6 +57,10 @@ public class OrderProcessor extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
 		
+		double priceExecuted = 0;
+		StockService s1 = new StockService();
+		List<String> list = new ArrayList<>();
+		
 		User currentUser = (User) session.getAttribute("loggedInUser");
 		long userID = currentUser.getUserId();
 		TransactionType transacType = Formatter.formatTransacType(request.getParameter("transactionType"));
@@ -63,10 +69,16 @@ public class OrderProcessor extends HttpServlet {
 		PriceType priceType = null;
 		if (request.getParameter("transactionType").equals("Buy")) {
 			priceType = Formatter.formatPriceType(request.getParameter("priceTypeBuy"));
+			
+			list.add(stockSymbol);
+			priceExecuted = s1.stockStorage(s1.getStockFromWeb(list)).get(0).getAskprice();
 
 		}
 		if (request.getParameter("transactionType").equals("Sell")) {
 			priceType = Formatter.formatPriceType(request.getParameter("priceTypeSell"));
+			
+			list.add(stockSymbol);
+			priceExecuted = s1.stockStorage(s1.getStockFromWeb(list)).get(0).getBidprice();
 
 		}
 	
@@ -76,8 +88,7 @@ public class OrderProcessor extends HttpServlet {
 		String stopLoss = request.getParameter("stopLoss");
 	
 		int orderQuantity = Integer.parseInt(request.getParameter("quantity"));
-		
-		double priceExecuted = 0;
+	
 
 		try { 
 		if (limitBuy !="") {
@@ -109,7 +120,33 @@ public class OrderProcessor extends HttpServlet {
 		
 		Order newOrder = new Order(userID, transacType, orderQuantity, stockSymbol, term, priceType, priceExecuted, orderStatus);
 		
+		System.out.println("Price executed: " + newOrder.getPriceExecuted());
+		Boolean enoughCash = false;
+		Boolean enoughQuantity = false;
+		Boolean hasHolding = false;
 		
+		try {
+			enoughCash = OrderService.validateCashBalance(newOrder);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			enoughQuantity = OrderService.validateOwnedQuantity(newOrder);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			hasHolding = OrderService.hasHolding(newOrder);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
 		request.setAttribute("fieldList", newOrder);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/OrderFormConfirmation.jsp");
 		
