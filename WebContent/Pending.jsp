@@ -21,14 +21,26 @@
     }
     </style>
 <body>
+<fieldset id style = "width: 210px">
+		<legend><strong>Trading Platform Quick Links</strong></legend>
+				<form action = post method >
+					<a href="balancePage.jsp">Account Balance</a> <br>
+					<a href="WatchListAdd.jsp">WatchList - Add</a> <br>
+					<a href="WatchListAddStocks.jsp">Watchlists - Add Stocks</a> <br>
+					<a href="PortfolioView.jsp">User Portfolio Viewer</a> <br>
+					<a href="OrderForm.jsp">Order Form</a> <br>
+					<a href="Pending.jsp">Pending Orders</a> <br>
+					<a href="logout.jsp">Logout</a>
+				</form>
+	</fieldset>
 
 <% 		User currentUser = (User) (session.getAttribute("loggedInUser"));
 		List<Order> pendingList = PendingService.callDAO(currentUser.getUserId());
 		//out.println(pendingList);
 %>
 <h3> Pending Orders</h3>
-<table id="portfolio_pending"border="0">
-
+<form method="POST" action="PendingController">
+<table id="portfolio_pending">
 			<tr class = "even">
 				<th>Select</th>
 				<th>Stock Symbol</th>
@@ -48,7 +60,7 @@
 				for (Order pending : pendingList) {
 			%>
 			<tr>
-				<td><input type="checkbox" name ="selected"></td>
+				<td><input type="checkbox" id="pendingCheckbox" name ="pendingCheckbox" value =<%=pending.getOrderID() %>></td>
 				<td ><%=pending.getStockSymbol()%></td>
 				<td><%=pending.getTransacType()%></td>
 				<td ><%=pending.getOrderQuantity()%></td>
@@ -66,7 +78,23 @@
 			<%
 				}
 			%>
+			</table>
+			<br>
+			<input type = "submit" value = "Remove"> 
+</form>
 
+<script>
+
+function SelectedCheck() {
+	alert(pending.getOrderID());
+<%-- 	if(document.getElementById(<%= pending.getOrderID()%>).checked)
+	if(<%= pending.getOrderID()%>.isSelected()) {
+	_do_something_if_selected_ --%>
+	
+	
+}
+
+</script>
 </body>
 </html>
 

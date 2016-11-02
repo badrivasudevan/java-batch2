@@ -190,6 +190,43 @@ public class OrderDAO {
 		}
 	}
 	
+	public static void updatePending(int stockId) throws SQLException{
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		//List<Order> orderList = new ArrayList<>();
+
+		final String fetchOrderSQL = "Delete from " +
+				STOCK_ORDER + " where order_id = ?";
+			
+		try {
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(fetchOrderSQL);
+			ps.setInt(1, stockId);
+			rs = ps.executeQuery();
+			Order order = null;
+			/*while (rs.next()){
+				order = new Order(rs.getLong("order_id"),
+						rs.getLong("user_id"),
+						rs.getDate("order_date"),
+						TransactionType.valueOf(rs.getString("transaction_type")),
+						rs.getInt("purchased_quantity"),
+						rs.getString("stock_symbol"),
+						Term.valueOf(rs.getString("term")),
+						PriceType.valueOf(rs.getString("price_type")),
+						rs.getDouble("price_executed"),
+						OrderStatus.valueOf(rs.getString("order_status")));		
+
+				orderList.add(order);
+			}
+
+			return orderList;	*/
+		} 
+		finally{
+			DBUtil.closeConnection(rs, ps, con);
+		}
+	}
+	
 	public static void updateOrderStatus(Order order) throws SQLException{
 		
 		Connection con = null;
