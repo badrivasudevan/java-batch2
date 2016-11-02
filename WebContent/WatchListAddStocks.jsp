@@ -42,7 +42,7 @@
 	%>
 	<%	if(request.getAttribute("errorMessage4") != null) {	 %>
 	     <!-- out.println(request.getAttribute("errorMessage")); -->
-	   <script>alert("No such Stock in the Singapore Stock Exchange (SGX) to be removed!");</script>
+	   <script>alert("No such Stock in the watchlist! It cannot be removed! Try again!");</script>
 	<%		}
 	%>
 	

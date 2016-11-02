@@ -52,7 +52,7 @@ public class StockController extends HttpServlet {
 		List<String> list = new ArrayList<>();
 		StockService stocksvc = new StockService();
 		String user_errormsg3 = "The stock is not available in the Singapore Stock Exchange (SGX) to be added into the watchlist!";
-		String user_errormsg4 = "The stock is not available in the Singapore Stock Exchange (SGX) to be removed from the watchlist!";
+		String user_errormsg4 = "The stock is not in the watchlist! It cannot be removed! Try again!";
 		String user_addMessage = "The stock is successfully added into the watchlist";
 		String user_rmMessage = "The stock is successfully removed from the watchlist";
 		
