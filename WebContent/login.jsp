@@ -16,11 +16,14 @@
 		<body>
 			<h1>Login Page</h1>
 			
-			<%	if(request.getAttribute("success") != null) {	 %>
+		<%	if(request.getAttribute("success") != null) {	 %>
 	  		   <script>alert("The account is successfully created. You can access the trading platform now!");</script>
 	    <%		}
 		%>
-			
+		<%	if(request.getAttribute("successemail") != null) {	 %>
+	  		   <script>alert("The email is successfully registered with the account. You will receive email notification!");</script>
+	    <%		}
+		%>			
 		<fieldset style = "width: 200px">
 			<form action="LoginController" method="POST"> 
 			   <br> User name 

@@ -20,6 +20,7 @@
 	Full name : <input type="text" name="fullname" /> <br> <br>
 	Password : <input type="password" name="password" /> <br> <br>
 	Confirm Password : <input type="password" name="confirmpassword" /> <br> <br>
+	Email : <input type="email" name="email" /> <br> <br>
 		
 		<%	if(request.getAttribute("errorMessage") != null) {	 %>
 	  		   <script>alert("The passwords do not match! Please try again!");</script>

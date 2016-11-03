@@ -47,11 +47,13 @@ public class RegisterController extends HttpServlet {
 		String fullname = request.getParameter("fullname");
 		String password1 = request.getParameter("password");
 		String password2 = request.getParameter("confirmpassword");
+		String email = request.getParameter("email");
 		String user_errormsg = "The passwords do not match!";
 		String user_errormsg2 = "The username is already in use. Please use other username!";
 		String user_errormsg3 = "The password cannot be empty. Please enter the password!";
 		String user_errormsg4 = "The username and/or full name cannot be empty. Please enter again!";
 		String user_register = "The account is created! You can access the website now!";
+		String user_registeremail = "The email is registered together with your account! You will receive email notifications!";
 		List<String> userlist = new ArrayList<>();
 		try {
 			userlist = UserDAO.retrieveAllUserName();
@@ -72,10 +74,16 @@ public class RegisterController extends HttpServlet {
 				else {
 					if(password1.equals(password2) && !password2.isEmpty()) {		
 						try {
-							UserDAO.newUser(username, fullname, password1);
+							UserDAO.newUser(username, fullname, password1,email);
 							System.out.println("The account is created! You can access the website now!");
 							request.setAttribute("success", user_register);
 							request.getRequestDispatcher("/login.jsp").forward(request, response);				
+							if(!email.isEmpty()){
+								System.out.println("The email is registered! You will receive email notifications whenever you make a order!");
+								request.setAttribute("successemail", user_registeremail);
+								request.getRequestDispatcher("/login.jsp").forward(request, response);				
+							
+							}
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
