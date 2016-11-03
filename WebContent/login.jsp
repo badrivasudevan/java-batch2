@@ -16,6 +16,11 @@
 		<body>
 			<h1>Login Page</h1>
 			
+			<%	if(request.getAttribute("success") != null) {	 %>
+	  		   <script>alert("The account is successfully created. You can access the trading platform now!");</script>
+	    <%		}
+		%>
+			
 		<fieldset style = "width: 200px">
 			<form action="LoginController" method="POST"> 
 			   <br> User name 
@@ -25,10 +30,12 @@
 				<input type="submit" value="Submit">
 				
 			</form>
-		</fieldset>
-		 		<form action="registration.jsp" method="get">
+			
+				<form action="registration.jsp" method="get">
 				<button>New User</button>
 				</form>
+		</fieldset>
+
 			<%
 		    	if(request.getAttribute("errorMessage") != null) { %>
   		      		<!--  out.println(request.getAttribute("errorMessage"));  -->
