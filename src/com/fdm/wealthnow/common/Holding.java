@@ -83,6 +83,8 @@ public class Holding {
 		return currency;
 	}	
 	
+	
+	
 	public void setHoldingsId(long holdingsId) {
 		this.holdingsId = holdingsId;
 	}
@@ -119,12 +121,16 @@ public class Holding {
 		this.currency = currency;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Holding [holdingsId=" + holdingsId + ", userId=" + userId + ", stockSymbol=" + stockSymbol
-				+ ", remainingQuantity=" + remainingQuantity + ", pricePaid=" + pricePaid + ", currency=" + currency
-				+ "]";
+				+ ", remainingQuantity=" + remainingQuantity + ", pricePaid=" + pricePaid + ", moneyRealized="
+				+ moneyRealized + ", currentStockWorth=" + currentStockWorth + ", profitLoss=" + profitLoss
+				+ ", currency=" + currency + "]";
 	}
+
+
 
 
 
