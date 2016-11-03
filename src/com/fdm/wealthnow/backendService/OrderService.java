@@ -38,6 +38,11 @@ public class OrderService{
 		return orderList;
 	}
 	
+	public static List<Order> callOrderDAO(long userId) throws Exception{
+		List<Order> orderList= OrderDAO.fetchAll(userId); 
+		return orderList;
+	}
+
 	public static ArrayList<String> callDAO(long userId) throws Exception{
 		ArrayList<String> stockSymbols = OrderDAO.fetchStockSymbol(userId); 
 		return stockSymbols;
