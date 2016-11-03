@@ -324,6 +324,36 @@ public class OrderDAO {
 		}		
 		
 	}
+	
+	public static int fetchTotalBuyQuantity(Order order)throws SQLException{
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int totalQty = 0;
+		final String fetchOrderSQL = "Select purchased_quantity from " +
+				STOCK_ORDER + " where user_id = ? and stock_symbol = ? and  transaction_type = 'Buy' and order_status = 'Completed";
+
+
+		try {
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(fetchOrderSQL);
+			ps.setLong(1, order.getUserID());
+			rs = ps.executeQuery();
+			while (rs.next()){
+						totalQty = totalQty + rs.getInt("purchased_quantity");
+	
+			}
+
+			return totalQty;	
+		} 
+		finally{
+			DBUtil.closeConnection(rs, ps, con);
+		}
+		
+	}
+	
+	
 
 }
 
