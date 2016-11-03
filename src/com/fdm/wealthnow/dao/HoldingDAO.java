@@ -58,7 +58,7 @@ public class HoldingDAO {
 		ResultSet rs = null;
 		Holding holding = null;
 		List<Holding> holdingList = new ArrayList<>();
-		final String retrieveHoldingSQL = "Select holding_id, stock_symbol, holding_quantity, price_paid, currentStock_Worth, sold_quantity, money_realised, profit_loss, currencyfrom " +
+		final String retrieveHoldingSQL = "Select holding_id, stock_symbol, holding_quantity, price_paid, currentStock_Worth, sold_quantity, money_realised, profit_loss, currency from " +
 										   STOCK_HOLDING + " where user_id = ?";
 
 		try{
