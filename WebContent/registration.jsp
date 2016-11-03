@@ -32,13 +32,14 @@
 	    <%		}
 		%>
 
-		<button type="submit">Submit</button> <br><br>
+		<button type="submit">Submit</button>
+		<button type="reset" value="Reset">Reset</button>
 	</fieldset>	
 	</form>
 	
 		<form action="login.jsp" method="get">
 		<button>Home Page</button>
 		</form>
-	
+		
 </body>
 </html>
