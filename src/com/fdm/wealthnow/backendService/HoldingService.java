@@ -2,6 +2,7 @@ package com.fdm.wealthnow.backendService;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import com.fdm.wealthnow.common.StockService;
 import com.fdm.wealthnow.common.Term;
 import com.fdm.wealthnow.common.TransactionType;
 import com.fdm.wealthnow.dao.HoldingDAO;
+import com.fdm.wealthnow.dao.OrderDAO;
 import com.fdm.wealthnow.dao.UserDAO;
 
 public class HoldingService{
@@ -43,6 +45,11 @@ public class HoldingService{
 		symbolList.add(stockSymbol);
 		return (StockService.stringToDouble(StockService.stockStorage(StockService.getStockFromWeb(symbolList)).get(0).getCurrentmarketprice()));
 	
+	}
+	
+	public static Double getInvestmentAmount(Order order) throws SQLException{
+		
+		return OrderDAO.fetchTotalBuyPrice(order) * OrderDAO.fetchTotalBuyQuantity(order);
 	}
 	
 	
@@ -81,7 +88,7 @@ public class HoldingService{
 		for(Holding holding : holdingList){
 
 			if(order.getStockSymbol().equals(holding.getStockSymbol())){
-					profitLoss = (holding.getCurrentStockWorth() + holding.getMoneyRealized()) - (holding.getHoldingQuantity() * holding.getPricePaid());	
+					profitLoss = (holding.getCurrentStockWorth() + holding.getMoneyRealized()) - (getInvestmentAmount(order));	
 			}
 		}
 		return profitLoss;
