@@ -2,52 +2,48 @@ package com.fdm.wealthnow.common;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.fdm.wealthnow.backendService.HoldingService;
 
 public class Holding {
 	private long holdingsId;
 	private long userId;
 	private String stockSymbol;
-	private int remainingQuantity;
+	private int holdingQuantity;
 	private double pricePaid;
-	private double moneyRealized;
 	private double currentStockWorth;
+	private int soldQuantity;
+	private double moneyRealized;
 	private double profitLoss;
 	private String currency;
 
-
-	public Holding(long userId, String stockSymbol, int remainingQuantity, double pricePaid, double moneyRealized,
-			double currentStockWorth, double profitLoss, String currency) {
+	public Holding(long userId, String stockSymbol, int holdingQuantity, double pricePaid, double currentStockWorth,
+			int soldQuantity, double moneyRealized, double profitLoss, String currency) {
 		super();
 		this.userId = userId;
 		this.stockSymbol = stockSymbol;
-		this.remainingQuantity = remainingQuantity;
+		this.holdingQuantity = holdingQuantity;
 		this.pricePaid = pricePaid;
-		this.moneyRealized = moneyRealized;
 		this.currentStockWorth = currentStockWorth;
+		this.soldQuantity = soldQuantity;
+		this.moneyRealized = moneyRealized;
 		this.profitLoss = profitLoss;
 		this.currency = currency;
 	}
-	
-	
-	public Holding(long holdingsId, long userId, String stockSymbol, int remainingQuantity, double pricePaid,
-			double moneyRealized, double currentStockWorth, double profitLoss, String currency) {
+
+	public Holding(long holdingsId, long userId, String stockSymbol, int holdingQuantity, double pricePaid,
+			double currentStockWorth, int soldQuantity, double moneyRealized, double profitLoss, String currency) {
 		super();
 		this.holdingsId = holdingsId;
 		this.userId = userId;
 		this.stockSymbol = stockSymbol;
-		this.remainingQuantity = remainingQuantity;
+		this.holdingQuantity = holdingQuantity;
 		this.pricePaid = pricePaid;
-		this.moneyRealized = moneyRealized;
 		this.currentStockWorth = currentStockWorth;
+		this.soldQuantity = soldQuantity;
+		this.moneyRealized = moneyRealized;
 		this.profitLoss = profitLoss;
 		this.currency = currency;
 	}
-
-
 
 	public double getCurrentStockWorth() {
 		return currentStockWorth;
@@ -76,9 +72,6 @@ public class Holding {
 	}
 
 
-	public int getRemainingQuantity() {
-		return remainingQuantity;
-	}
 
 
 	public double getPricePaid() {
@@ -105,7 +98,7 @@ public class Holding {
 	}
 
 	public void setCurrentStockWorth() throws MalformedURLException, IOException {
-		this.currentStockWorth = this.remainingQuantity * HoldingService.getCurrentMarketPrice(this.stockSymbol);
+		this.currentStockWorth = this.holdingQuantity * HoldingService.getCurrentMarketPrice(this.stockSymbol);
 	}
 
 	public void setMoneyRealized(double moneyRealized) {
@@ -116,9 +109,6 @@ public class Holding {
 		this.profitLoss = profitLoss;
 	}
 
-	public void setRemainingQuantity(int remainingQuantity) {
-		this.remainingQuantity = remainingQuantity;
-	}
 
 	public void setPricePaid(double pricePaid) {
 		this.pricePaid = pricePaid;
@@ -128,21 +118,29 @@ public class Holding {
 		this.currency = currency;
 	}
 
+	public int getHoldingQuantity() {
+		return holdingQuantity;
+	}
+
+	public int getSoldQuantity() {
+		return soldQuantity;
+	}
+
+	public void setHoldingQuantity(int holdingQuantity) {
+		this.holdingQuantity = holdingQuantity;
+	}
+
+	public void setSoldQuantity(int soldQuantity) {
+		this.soldQuantity = soldQuantity;
+	}
 
 	@Override
 	public String toString() {
 		return "Holding [holdingsId=" + holdingsId + ", userId=" + userId + ", stockSymbol=" + stockSymbol
-				+ ", remainingQuantity=" + remainingQuantity + ", pricePaid=" + pricePaid + ", moneyRealized="
-				+ moneyRealized + ", currentStockWorth=" + currentStockWorth + ", profitLoss=" + profitLoss
-				+ ", currency=" + currency + "]";
+				+ ", holdingQuantity=" + holdingQuantity + ", pricePaid=" + pricePaid + ", currentStockWorth="
+				+ currentStockWorth + ", soldQuantity=" + soldQuantity + ", moneyRealized=" + moneyRealized
+				+ ", profitLoss=" + profitLoss + ", currency=" + currency + "]";
 	}
 
-
-
-
-
-	
-	
-	
 
 }
