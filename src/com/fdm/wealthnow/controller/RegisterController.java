@@ -59,7 +59,7 @@ public class RegisterController extends HttpServlet {
 				 request.getRequestDispatcher("/registration.jsp").forward(request, response);				
 			}
 			else {
-				if(password1.equals(password2)) {		
+				if(password1.equals(password2) /*&& !password2.isEmpty()*/) {		
 					 try {
 						UserDAO.newUser(username, fullname, password1);
 						System.out.println("The account is created! You can access the website now!");
