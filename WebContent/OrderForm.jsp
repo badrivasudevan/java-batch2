@@ -68,7 +68,7 @@
 <body>
 <% 		User currentUser = (User) (session.getAttribute("loggedInUser"));
 		ArrayList<String> stockSymbols = OrderService.callDAO(currentUser.getUserId());
-		ArrayList<String> sgxSymbols = Formatter.sgxstock();
+		//ArrayList<String> sgxSymbols = Formatter.sgxstock();
 %>	
 	
 	<H1>
@@ -116,20 +116,14 @@
 				for="transactionTypeSell">Sell</label>
 		</p>
 		
-<%-- 		<div id="sellChecked">
-		<select id="PriceTypeSell" name="STOCKS">
-			<%for(String stocksList:stockSymbols){ %>
-			<option><%=stocksList%></option><% } %> 
-			</select>
-		</div> --%>
 		 
 		<div id="buyChecked">
 		
-			<select id="symbol" name="symbolBuy">
+		<%-- 	<select id="symbol" name="symbolBuy">
 			<%for(String stocksList:sgxSymbols){ %>
 			<option name=<%=stocksList%> value="<%=stocksList%>" id=<%=stocksList%>><%=stocksList%></option><% } %> 
-			</select>
-		<%-- <input type="text" id="symbol" name="symbolBuy" value="<symbol>"> --%>
+			</select> --%>
+		<input type="text" id="symbol" name="symbolBuy" value="<symbol>">
 		
 			<select id="PriceTypeBuy" name="priceTypeBuy">
 				<option name="Market" value="Market">Market Price</option>

@@ -10,7 +10,7 @@
         color: white;
     }
     </style>
-	<head>
+	<head> 
 			<title>Login Page</title>
 		</head>
 		<body>
