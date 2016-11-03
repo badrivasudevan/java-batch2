@@ -57,6 +57,9 @@ public class OrderProcessor extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
 		
+		
+
+		
 		double priceExecuted = 0;
 		StockService s1 = new StockService();
 		List<String> list = new ArrayList<>(); 
@@ -66,8 +69,27 @@ public class OrderProcessor extends HttpServlet {
 		TransactionType transacType = Formatter.formatTransacType(request.getParameter("transactionType"));
 		if (transacType == TransactionType.Buy)
 		stockSymbol = request.getParameter("symbolBuy");
+		System.out.println("Stock symbol: "+stockSymbol);
 		if (transacType == TransactionType.Sell)
 			stockSymbol = request.getParameter("symbolSell");
+		
+		String user_errormsg3 = "This stock is not available in the Singapore Stock Exchange (SGX)";
+
+		StockService stocksvc = new StockService();
+		
+		list.add(stockSymbol);
+	/*	String w_idp = "";
+	*/
+		List<String> lists = new ArrayList<>();
+		lists = stocksvc.getStockFromWeb(list);
+		if(stocksvc.stringToDouble(stocksvc.stockStorage(lists).get(0).getCurrentmarketprice())== 0.0){
+			 System.out.println("No such stock in the Singapore Stock Exchange (SGX) to purchase. Try again!");
+			 request.setAttribute("InvalidEntry", stockSymbol.toString());
+			 
+			 //request.setAttribute("symbolBuy", stockSymbol);
+			 request.getRequestDispatcher("/OrderForm.jsp").forward(request, response);
+		}
+		
 		Term term = Formatter.formatTerm(request.getParameter("term"));
 		PriceType priceType = null;
 		if (request.getParameter("transactionType").equals("Buy")) {
