@@ -149,5 +149,29 @@ public class UserDAO {
 				DBUtil.closeConnection(rs,  ps, connection);
 			}
 	}
-				
+		
+		public static boolean newUser(String user_name, String full_name, String user_password) throws Exception {
+			Connection connection = null;
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			final String newUserSQL = "Insert into users (user_id, user_name, full_name, user_password) values (user_seq.nextval,?,?,?)";
+			
+			try {
+				connection = DBUtil.getConnection();
+				ps = connection.prepareStatement(newUserSQL);
+				ps.setString(1, user_name);
+				ps.setString(2, full_name);
+				ps.setString(3, full_name);
+				rs = ps.executeQuery();
+				connection.commit();
+		
+				return true;
+			}
+			finally {
+				DBUtil.closeConnection(rs,  ps, connection);
+			}
+	}
+				public static void main(String[] args) throws Exception {
+					newUser("cat","cat dog","cat");
+				}
 }
