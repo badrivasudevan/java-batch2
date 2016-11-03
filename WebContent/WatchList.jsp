@@ -21,6 +21,10 @@
 		td, th {
 		    text-align: center;
 		}
+		
+		th {
+			background-color: #80bfff;
+		}
 	</style>
 </head>
 <body>
