@@ -332,13 +332,14 @@ public class OrderDAO {
 		ResultSet rs = null;
 		int totalQty = 0;
 		final String fetchOrderSQL = "Select purchased_quantity from " +
-				STOCK_ORDER + " where user_id = ? and stock_symbol = ? and  transaction_type = 'Buy' and order_status = 'Completed";
+				STOCK_ORDER + " where user_id = ? and stock_symbol = ? and  transaction_type = 'Buy' and order_status = 'Completed'";
 
 
 		try {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(fetchOrderSQL);
 			ps.setLong(1, order.getUserID());
+			ps.setString(2, order.getStockSymbol());
 			rs = ps.executeQuery();
 			while (rs.next()){
 						totalQty = totalQty + rs.getInt("purchased_quantity");
@@ -346,6 +347,34 @@ public class OrderDAO {
 			}
 
 			return totalQty;	
+		} 
+		finally{
+			DBUtil.closeConnection(rs, ps, con);
+		}
+		
+	}
+	
+	public static double fetchTotalBuyPrice(Order order)throws SQLException{
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		double totalPrice = 0.0d;
+		final String fetchOrderSQL = "Select price_executed from " +
+				STOCK_ORDER + " where user_id = ? and stock_symbol = ? and  transaction_type = 'Buy' and order_status = 'Completed'";
+
+
+		try {
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(fetchOrderSQL);
+			ps.setLong(1, order.getUserID());
+			ps.setString(2, order.getStockSymbol());
+			rs = ps.executeQuery();
+			while (rs.next()){
+				totalPrice = totalPrice + rs.getDouble("price_executed");
+			}
+
+			return totalPrice;	
 		} 
 		finally{
 			DBUtil.closeConnection(rs, ps, con);
