@@ -68,7 +68,7 @@
 <body>
 <% 		User currentUser = (User) (session.getAttribute("loggedInUser"));
 		ArrayList<String> stockSymbols = OrderService.callDAO(currentUser.getUserId());
-		ArrayList<String> sgxSymbols = Formatter.sgxstock();
+		//ArrayList<String> sgxSymbols = Formatter.sgxstock();
 %>	
 	
 	<H1>
