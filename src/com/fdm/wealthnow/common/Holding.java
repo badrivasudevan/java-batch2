@@ -6,38 +6,42 @@ public class Holding {
 	private String stockSymbol;
 	private int remainingQuantity;
 	private double pricePaid;
-	private String currency;
-	private double currentStockWorth;
 	private double moneyRealized;
+	private double currentStockWorth;
 	private double profitLoss;
+	private String currency;
 
-	public Holding(long userId, String stockSymbol, int remainingQuantity,
-			double pricePaid, String currency, double currentStockWorth, double moneyRealized, double profitLoss) {
+
+	public Holding(long userId, String stockSymbol, int remainingQuantity, double pricePaid, double moneyRealized,
+			double currentStockWorth, double profitLoss, String currency) {
+		super();
 		this.userId = userId;
 		this.stockSymbol = stockSymbol;
 		this.remainingQuantity = remainingQuantity;
 		this.pricePaid = pricePaid;
-		this.currency = currency;
-		this.currentStockWorth = currentStockWorth;
 		this.moneyRealized = moneyRealized;
+		this.currentStockWorth = currentStockWorth;
 		this.profitLoss = profitLoss;
+		this.currency = currency;
 	}
 	
-	public Holding(long holdingsId, long userId, String stockSymbol, int remainingQuantity,
-			double pricePaid, String currency, double currentStockWorth, double moneyRealized, double profitLoss) {
+	
+	public Holding(long holdingsId, long userId, String stockSymbol, int remainingQuantity, double pricePaid,
+			double moneyRealized, double currentStockWorth, double profitLoss, String currency) {
+		super();
 		this.holdingsId = holdingsId;
 		this.userId = userId;
 		this.stockSymbol = stockSymbol;
 		this.remainingQuantity = remainingQuantity;
 		this.pricePaid = pricePaid;
-		this.currency = currency;
-		this.currentStockWorth = currentStockWorth;
 		this.moneyRealized = moneyRealized;
+		this.currentStockWorth = currentStockWorth;
 		this.profitLoss = profitLoss;
+		this.currency = currency;
 	}
 
-	
-	
+
+
 	public double getCurrentStockWorth() {
 		return currentStockWorth;
 	}

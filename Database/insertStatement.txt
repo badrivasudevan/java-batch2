@@ -1,15 +1,11 @@
 --Stock Holdings insert statement
-insert into stock_Holding values(holding_id_sequence.nextVal, 1, 'AAPL', 100, 119.37, 'SGD');
-insert into stock_Holding values(holding_id_sequence.nextVal, 1, 'GOOG', 200, 829.556, 'SGD');
-insert into stock_Holding values(holding_id_sequence.nextVal, 2, 'AAPL', 100, 119.372, 'SGD');
-insert into stock_Holding values(holding_id_sequence.nextVal, 2, 'GOOG', 200, 829.55, 'SGD');
-insert into stock_Holding values(holding_id_sequence.nextVal, 3, 'AAPL', 50, 119.37, 'SGD');
-insert into stock_Holding values(holding_id_sequence.nextVal, 4, 'AAPL', 100, 119.37, 'SGD');
+insert into stock_Holding values(holding_id.nextVal, 1, 'S59', 400, 3.66, 0, 1464, 0, 'SGD')
+
 
 --Stock Order insert statement
-insert into stock_order values(order_id_sequence.nextVal, 1, 'AAPL', to_date('20161026','YYYYMMDD'), 'Buy', 100, 'Good for the day', 'limit', 118.25, 'Pending');
-insert into stock_order values(order_id_sequence.nextVal, 1, 'GOOG', to_date('20161026','YYYYMMDD'), 'Buy', 50, 'Good for the day', 'limit', 828.55, 'Pending');
-insert into stock_order values(order_id_sequence.nextVal, 2, 'AAPL', to_date('20161026','YYYYMMDD'), 'Buy', 200, 'Good for the day', 'limit', 118.25, 'Pending');
-insert into stock_order values(order_id_sequence.nextVal, 3, 'GOOG', to_date('20161026','YYYYMMDD'), 'Buy', 100, 'Good for the day', 'limit', 828.55, 'Pending');
+insert into stock_order values(order_id.nextVal, 1, 'AAPL', to_date('20161026','YYYYMMDD'), 'Buy', 100, 'Good for the day', 'limit', 118.25, 'Pending');
+insert into stock_order values(order_id.nextVal, 1, 'GOOG', to_date('20161026','YYYYMMDD'), 'Buy', 50, 'Good for the day', 'limit', 828.55, 'Pending');
+insert into stock_order values(order_id.nextVal, 2, 'AAPL', to_date('20161026','YYYYMMDD'), 'Buy', 200, 'Good for the day', 'limit', 118.25, 'Pending');
+insert into stock_order values(order_id.nextVal, 3, 'GOOG', to_date('20161026','YYYYMMDD'), 'Buy', 100, 'Good for the day', 'limit', 828.55, 'Pending');
 
 

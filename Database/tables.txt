@@ -1,14 +1,17 @@
 create table stock_Holding
-(holding_Id_Sequence number primary key,
+(holding_Id number primary key,
 user_Id number not null,
 stock_Symbol varchar2(128) not null,
 remaining_Quantity number not null,
 price_Paid numeric(9,2) not null,
+money_Realised numeric(9,2) not null,
+currentStock_Worth numeric(9,2) not null,
+profit_loss numeric(9,2) not null,
 Currency varchar2(128) not null
 );
 
 create table stock_Order
-(order_Id_Sequence number primary key,
+(order_Id number primary key,
 user_Id number not null,
 stock_Symbol varchar2(128) not null,
 order_Date date not null,
