@@ -72,7 +72,7 @@ public class OrderService{
 	
 	public static boolean validateOwnedQuantity(Order order) throws Exception{
 		
-		int ownedQuantity = HoldingDAO.retrieveIndividualHolding(order).getRemainingQuantity();
+		int ownedQuantity = HoldingDAO.retrieveIndividualHolding(order).getHoldingQuantity();
 
 		if (order.getOrderQuantity() > ownedQuantity)
 			return false;
