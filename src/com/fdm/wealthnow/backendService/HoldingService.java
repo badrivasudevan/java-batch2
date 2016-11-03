@@ -216,7 +216,7 @@ public class HoldingService{
 						
 						newHolding.setPricePaid(purchasePrice);
 						newHolding.setSoldQuantity(soldQuantity);
-						newHolding.setHoldingQuantity(holdingQuantity - soldQuantity);
+						newHolding.setHoldingQuantity(newHolding.getHoldingQuantity() - newHolding.getSoldQuantity());
 						newHolding.setCurrentStockWorth();
 						newHolding.setMoneyRealized(moneyRealized);
 						newHolding.setProfitLoss(profitLoss);

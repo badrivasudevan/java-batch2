@@ -120,18 +120,19 @@ public class HoldingDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
-		final String updateHoldingSQL = "Update " + STOCK_HOLDING + " set price_paid = ?, sold_quantity = ?, money_realised = ?, currentStock_Worth = ?, profit_loss = ? where user_id = ? and stock_symbol = ?";
+		final String updateHoldingSQL = "Update " + STOCK_HOLDING + " set price_paid = ?, holding_quantity = ?, sold_quantity = ?, money_realised = ?, currentStock_Worth = ?, profit_loss = ? where user_id = ? and stock_symbol = ?";
 
 		try{
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(updateHoldingSQL);
 			ps.setDouble(1, holding.getPricePaid());
-			ps.setInt(2, holding.getSoldQuantity());
-			ps.setDouble(3, holding.getMoneyRealized());
-			ps.setDouble(4, holding.getCurrentStockWorth());
-			ps.setDouble(5, holding.getProfitLoss());
-			ps.setLong(6, holding.getUserId());
-			ps.setString(7, holding.getStockSymbol());
+			ps.setInt(2, holding.getHoldingQuantity());
+			ps.setInt(3, holding.getSoldQuantity());
+			ps.setDouble(4, holding.getMoneyRealized());
+			ps.setDouble(5, holding.getCurrentStockWorth());
+			ps.setDouble(6, holding.getProfitLoss());
+			ps.setLong(7, holding.getUserId());
+			ps.setString(8, holding.getStockSymbol());
 			
 			ps.executeUpdate();
 			con.commit();
