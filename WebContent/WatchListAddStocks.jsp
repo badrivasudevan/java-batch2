@@ -29,6 +29,7 @@
 	
 	
 	<fieldset>
+		<legend><strong>Watchlist Stocks Tool</strong></legend>
 	<form action="${pageContext.request.contextPath}/StockController" method="POST">
 		<% long user = currentUser.getUserId(); %>
 		<input type="hidden" name="userid" value="<%=user%>" /> 
@@ -62,7 +63,7 @@
 	<%		}
 	%>
 	
-		<legend><strong>Watchlist Stocks Tool</strong></legend>
+		
 		Stocks: <input type = "text" name = "stockname">  
 			<select name="addorremovestock">
 				<option value="+">Add to WatchList</option>

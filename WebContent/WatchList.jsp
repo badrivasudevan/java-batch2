@@ -29,6 +29,7 @@
 	
 	<form action="${pageContext.request.contextPath}/ViewWatchListController" method="POST">
 	<fieldset>		
+		<legend><strong>WatchLists</strong></legend>
 		<% long user = currentUser.getUserId(); %>
 		<input type="hidden" name="userid" value="<%=user%>" />
 		
