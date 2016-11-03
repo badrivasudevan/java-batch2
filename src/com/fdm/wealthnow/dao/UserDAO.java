@@ -94,7 +94,7 @@ public class UserDAO {
 		Connection connection = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		final String connectSQL = "SELECT balance FROM users WHERE user_id= ?";
+		final String connectSQL = "SELECT balance FROM " + USER_TABLE + " WHERE user_id= ?";
 		
 		try {
 			connection = DBUtil.getConnection();
@@ -114,7 +114,7 @@ public class UserDAO {
 			Connection connection = null;
 			PreparedStatement ps = null;
 			ResultSet rs = null;
-			final String connectSQL = "Update users SET balance=(balance+?) where user_id = ?";
+			final String connectSQL = "UPDATE "+ USER_TABLE +" SET balance=(balance+?) WHERE user_id = ?";
 			
 			try {
 				connection = DBUtil.getConnection();
@@ -135,7 +135,7 @@ public class UserDAO {
 			Connection connection = null;
 			PreparedStatement ps = null;
 			ResultSet rs = null;
-			final String connectSQL = "Update users SET balance=(balance-?) where user_id = ?";
+			final String connectSQL = "UPDATE " + USER_TABLE + " SET balance=(balance-?) WHERE user_id = ?";
 			
 			try {
 				connection = DBUtil.getConnection();
@@ -152,18 +152,19 @@ public class UserDAO {
 			}
 	}
 		
-		public static boolean newUser(String user_name, String full_name, String user_password) throws Exception {
+		public static boolean newUser(String user_name, String full_name, String user_password,String email) throws Exception {
 			Connection connection = null;
 			PreparedStatement ps = null;
 			ResultSet rs = null;
-			final String newUserSQL = "Insert into users (user_id, user_name, full_name, user_password,balance) values (user_seq.nextval,?,?,?,0)";
+			final String newUserSQL = "INSERT into "+ USER_TABLE +" (user_id, user_name, full_name, user_password,balance,email) VALUES (user_seq.nextval,?,?,?,0,?)";
 			
 			try {
 				connection = DBUtil.getConnection();
 				ps = connection.prepareStatement(newUserSQL);
 				ps.setString(1, user_name);
 				ps.setString(2, full_name);
-				ps.setString(3, user_password);//here
+				ps.setString(3, user_password);
+				ps.setString(4,email);
 				rs = ps.executeQuery();
 				connection.commit();
 		
@@ -179,7 +180,7 @@ public class UserDAO {
 			PreparedStatement ps = null;
 			ResultSet rs = null;		
 			
-			final String retrieveAllUserName = "Select user_name from users";
+			final String retrieveAllUserName = "SELECT user_name FROM "+ USER_TABLE;
 
 			try{
 				con = DBUtil.getConnection();
