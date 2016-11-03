@@ -196,11 +196,16 @@ public class OrderDAO {
 		ResultSet rs = null;
 		String orderStatus = null;
 		List<Order> orderList = new ArrayList<>();
+		
+		final String fetchOrderSQL = "Select * from " +
+				STOCK_ORDER + " where user_id = ? ORDER BY order_id DESC";
 
-		final String fetchOrderSQL = "Select STOCK_SYMBOL,ORDER_ID,USER_ID,ORDER_DATE,TRANSACTION_TYPE,PURCHASED_QUANTITY,TERM,PRICE_TYPE,PRICE_EXECUTED,ORDER_STATUS from " +
-				STOCK_ORDER + " where user_id = ?";
+		/*final String fetchOrderSQL = "Select STOCK_SYMBOL,ORDER_ID,USER_ID,ORDER_DATE,TRANSACTION_TYPE,PURCHASED_QUANTITY,TERM,PRICE_TYPE,PRICE_EXECUTED,ORDER_STATUS from " +
+				STOCK_ORDER + " where user_id = ?";*/
 
-
+/*		select * from stock_order
+		where user_id = 1
+		ORDER by ORDER_ID DeSC*/
 
 	
 		try {

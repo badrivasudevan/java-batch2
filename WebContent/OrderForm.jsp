@@ -75,7 +75,7 @@
 		
 %>
 	<H1>
-		Welcome
+		User:
 		<%= currentUser.getFullName() %></H1>
 	<H2>
 		Balance : $<%= UserDAO.getBalance(currentUser.getUserId()) %></H2>

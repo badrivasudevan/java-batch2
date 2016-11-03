@@ -51,7 +51,7 @@ public class OrderController extends HttpServlet {
 		long userID = Long.parseLong(request.getParameter("userID"));
 		TransactionType transacType = Formatter.formatTransacType(request.getParameter("transacType"));
 		int orderQuantity = Integer.parseInt(request.getParameter("orderQuantity"));
-		String stockSymbol = request.getParameter("stockSymbol");
+		String stockSymbol = request.getParameter("stockSymbol").toUpperCase();
 		System.out.println("Printing term: " + request.getParameter("term"));
 		Term term = Term.valueOf(request.getParameter("term"));
 		PriceType priceType = Formatter.formatPriceType(request.getParameter("priceType"));
@@ -75,7 +75,7 @@ public class OrderController extends HttpServlet {
 			System.out.println("doing catch");
 		}
 		// System.out.println("Executing OrderDAO Store Order.");
-		request.getRequestDispatcher("/homePage.jsp").forward(request, response);
+		request.getRequestDispatcher("/OrderHistory.jsp").forward(request, response);
 
 	}
 

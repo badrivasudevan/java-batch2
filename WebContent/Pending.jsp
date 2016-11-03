@@ -22,6 +22,15 @@
     </style>
 <body>
 
+<% 		User currentUser = (User) (session.getAttribute("loggedInUser"));
+		List<Order> pendingList = PendingService.callDAO(currentUser.getUserId());
+		//out.println(pendingList);
+%>
+	<H1>
+		User:
+		<%= currentUser.getFullName() %></H1>
+	<H2>
+		Balance : $<%= UserDAO.getBalance(currentUser.getUserId()) %></H2>
 	
 	<fieldset id style = "width: 230px">
 			<legend><strong>Trading Platform Quick Links</strong></legend>
@@ -38,10 +47,6 @@
 					</form>
 	</fieldset>
 
-<% 		User currentUser = (User) (session.getAttribute("loggedInUser"));
-		List<Order> pendingList = PendingService.callDAO(currentUser.getUserId());
-		//out.println(pendingList);
-%>
 <h3> Pending Orders</h3>
 <form method="POST" action="PendingController">
 <table id="portfolio_pending">
