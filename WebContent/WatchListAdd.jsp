@@ -14,12 +14,11 @@
 	</style>
 </head>
 <body>
-	<h1>WatchList</h1>
 	<% User currentUser = (User) (session.getAttribute("loggedInUser"));%>
-	<H2>User: <%= currentUser.getFullName() %></H2>
-	<H3>Balance : $<%= UserDAO.getBalance(currentUser.getUserId()) %></H3>
+	<H1>User: <%= currentUser.getFullName() %></H1>
+	<H2>Balance : $<%= UserDAO.getBalance(currentUser.getUserId()) %></H2>
 	
-	<fieldset id style = "width: 210px">
+	<fieldset id style = "width: 230px">
 			<legend><strong>Trading Platform Quick Links</strong></legend>
 					<form action = post method >
 						<a href="balancePage.jsp">Account Balance</a> <br>

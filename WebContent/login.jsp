@@ -22,7 +22,11 @@
 				<input type="text" name="username"/>
 				<br> Password 
 				<input type="password" name="password"/> <br><br>
-				<input type="submit" value="submit">
+				<input type="submit" value="Submit">
+				
+				<form action="Register.jsp" method="get">
+				<button>New User</button>
+				</form>
 			</form>
 		</fieldset>
 			<%

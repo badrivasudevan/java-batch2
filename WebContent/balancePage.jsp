@@ -16,7 +16,7 @@
 		<H2>Balance : $<%= UserDAO.getBalance(currentUser.getUserId()) %></H2>
 	</div>
 	
-	<fieldset id style = "width: 210px">
+	<fieldset id style = "width: 230px">
 			<legend><strong>Trading Platform Quick Links</strong></legend>
 					<form action = post method >
 						<a href="balancePage.jsp">Account Balance</a> <br>

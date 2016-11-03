@@ -11,18 +11,15 @@
 
 </head>
 <body>
-	<h1>Watchlist - Stocks</h1>
 		<% User currentUser = (User) (session.getAttribute("loggedInUser"));%>
-	<H2>User: <%= currentUser.getFullName() %></H2>
-	<H3>Balance : $<%= UserDAO.getBalance(currentUser.getUserId()) %></H3>
+		<H1>User: <%= currentUser.getFullName() %></H1>
+		<H2>Balance : $<%= UserDAO.getBalance(currentUser.getUserId()) %></H2>
 	
-	<fieldset style = "width: 210px">
+	<fieldset style = "width: 230px">
 			<legend><strong>Trading Platform Quick Links</strong></legend>
 					<form action = post method >
 						<a href="balancePage.jsp">Account Balance</a> <br>
 						<a href="WatchList.jsp">View Watchlists</a> <br>
-						<a href="WatchListAdd.jsp">WatchList - Add</a> <br>
-						<a href="WatchListAddStocks.jsp">Watchlists - Add Stocks</a> <br>
 						<a href="PortfolioView.jsp">User Portfolio Viewer</a> <br>
 						<a href="Pending.jsp">Pending Orders</a> <br>
 						<a href="OrderForm.jsp">Order Form</a> <br>
@@ -78,8 +75,13 @@
 	</fieldset>	
 	</form>	
 	
-	<a href="WatchListAdd.jsp">WatchList - Add</a> <br>
-	<a href="WatchListAddStocks.jsp">Watchlists - Add Stocks</a>
+	<form action="WatchListAdd.jsp" method="get">
+	<button>Add WatchLists</button>
+	</form>
+
+	<form action="WatchListAddStocks.jsp" method="get">
+	<button>Add Stocks in WatchLists</button>
+	</form>	<br><br>
 	
 	
 </body>
