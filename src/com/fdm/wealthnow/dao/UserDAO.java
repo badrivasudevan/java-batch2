@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fdm.wealthnow.common.DBUtil;
 import com.fdm.wealthnow.common.User;
@@ -171,7 +173,34 @@ public class UserDAO {
 				DBUtil.closeConnection(rs,  ps, connection);
 			}
 	}
+		
+		public static List<String> retrieveAllUserName() throws SQLException {
+			Connection con = null;
+			PreparedStatement ps = null;
+			ResultSet rs = null;		
+			
+			final String retrieveAllUserName = "Select user_name from users";
+
+			try{
+				con = DBUtil.getConnection();
+				ps = con.prepareStatement(retrieveAllUserName);
+				rs = ps.executeQuery();
+				
+				List<String> username = new ArrayList<>();
+				
+				while(rs.next()){
+					username.add(rs.getString("user_name"));
+				}
+				
+				return username;
+			}
+			finally{
+				DBUtil.closeConnection(rs, ps, con);
+			}		
+		
+		}
+		
 				public static void main(String[] args) throws Exception {
-					newUser("cat","cat dog","cat");
+					System.out.println(retrieveAllUserName());
 				}
 }
