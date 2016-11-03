@@ -29,6 +29,16 @@
 	  		   <script>alert("The username is already in use! Please try again!");</script>
 	    <%		}
 		%>
+		
+		<%	if(request.getAttribute("errorMessage3") != null) {	 %>
+	  		   <script>alert("The password cannot be empty! Please try again!");</script>
+	    <%		}
+		%>
+		
+		<%	if(request.getAttribute("errorMessage4") != null) {	 %>
+	  		   <script>alert("The username cannot be empty! Please try again!");</script>
+	    <%		}
+		%>
 
 		<button type="submit">Submit</button>
 		<button type="reset" value="Reset">Reset</button>

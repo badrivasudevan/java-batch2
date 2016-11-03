@@ -49,17 +49,27 @@ public class RegisterController extends HttpServlet {
 		String password2 = request.getParameter("confirmpassword");
 		String user_errormsg = "The passwords do not match!";
 		String user_errormsg2 = "The username is already in use. Please use other username!";
+		String user_errormsg3 = "The password cannot be empty. Please enter the password!";
+		String user_errormsg4 = "The username cannot be empty. Please enter the username!";
 		String user_register = "The account is created! You can access the website now!";
 		List<String> userlist = new ArrayList<>();
 		try {
 			userlist = UserDAO.retrieveAllUserName();
 			if(userlist.contains(username)){
+				if(!username.isEmpty()){
 				 System.out.println("The username is already exist! Try again!");
 				 request.setAttribute("errorMessage2", user_errormsg2);
 				 request.getRequestDispatcher("/registration.jsp").forward(request, response);				
+				}
+				else {
+					System.out.println("The username cannot be empty! Please enter the username!");
+					request.setAttribute("errorMessage4", user_errormsg4);
+					request.getRequestDispatcher("/registration.jsp").forward(request, response);				
+			
+				}
 			}
 			else {
-				if(password1.equals(password2) /*&& !password2.isEmpty()*/) {		
+				if(password1.equals(password2) && !password2.isEmpty()) {		
 					 try {
 						UserDAO.newUser(username, fullname, password1);
 						System.out.println("The account is created! You can access the website now!");
@@ -70,6 +80,16 @@ public class RegisterController extends HttpServlet {
 						e.printStackTrace();
 					}
 				}
+				else if(password1.equals(password2) && password2.isEmpty()) {		
+					 try {
+						System.out.println("The password cannot be empty! Please enter the password!");
+						request.setAttribute("errorMessage3", user_errormsg3);
+						request.getRequestDispatcher("/registration.jsp").forward(request, response);				
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}				
 				else {
 					 System.out.println("The passwords do not match! Try again!");
 					 request.setAttribute("errorMessage", user_errormsg);
