@@ -43,6 +43,7 @@ public class RegisterController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
+		
 
 		String username = request.getParameter("username");
 		String fullname = request.getParameter("fullname");
