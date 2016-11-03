@@ -83,7 +83,7 @@
 			%>
 			</table>
 			<br>
-			<input type = "submit" value = "Remove"> 
+			<input type = "submit" value = "Cancel"> 
 </form>
 
 <script>
