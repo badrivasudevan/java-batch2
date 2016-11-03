@@ -34,9 +34,13 @@ public class RegistrationController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		long userId = Long.parseLong(request.getParameter("userid"));
-		String allwatchlistforuser = request.getParameter("Watchlist");
-		String w_id = "";
+
+		String username = request.getParameter("username");
+		String fullname = request.getParameter("fullname");
+		String password1 = request.getParameter("password");
+		String password2 = request.getParameter("confirmpassword");
+		
+		
 		
 		try {
 			for(String s : WatchListDAO.retrieveWatchlist(userId).keySet()){

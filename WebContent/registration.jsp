@@ -44,7 +44,6 @@
 
 		<button type="submit">Submit</button> <br><br>
 		</form>
-		</div> <br>
 	</fieldset>
 	
 </body>
