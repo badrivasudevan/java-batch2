@@ -23,7 +23,7 @@
 	<fieldset>
 		<%	if(request.getAttribute("errorMessage") != null) {	 %>
 	  		     <!-- out.println(request.getAttribute("errorMessage")); -->
-	  		   <script>alert("No such watchlist in the database!");</script>
+	  		   <script>alert("The passwords do not match! Please try again!");</script>
 	    <%		}
 		%>
 		<%	if(request.getAttribute("removewatchlist") != null) {	 %>

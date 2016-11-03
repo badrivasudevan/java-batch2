@@ -39,24 +39,18 @@ public class RegistrationController extends HttpServlet {
 		String fullname = request.getParameter("fullname");
 		String password1 = request.getParameter("password");
 		String password2 = request.getParameter("confirmpassword");
+		String user_errormsg = "The passwords do not match!";
+		String user_errormsg2 = "The username is already in use. Please use other username!";
 		
-		
-		
-		try {
-			for(String s : WatchListDAO.retrieveWatchlist(userId).keySet()){
-				 if(WatchListDAO.retrieveWatchlist(userId).get(s).equals(allwatchlistforuser)){
-						w_id = s;
-						System.out.println("watchlistid :" +w_id);
-						request.setAttribute("watchlistid", w_id);
-						break;
-				}
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(password1.equals(password2)) {			
 		}
 		
-		request.getRequestDispatcher("/WatchList.jsp").forward(request, response);
+		else {
+			 System.out.println("The passwords do not match! Try again!");
+			 request.setAttribute("errorMessage", user_errormsg);
+			 request.getRequestDispatcher("/registration.jsp").forward(request, response);
+		}
+	
 
 	}
 
