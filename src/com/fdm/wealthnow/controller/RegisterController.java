@@ -49,7 +49,7 @@ public class RegisterController extends HttpServlet {
 		String password2 = request.getParameter("confirmpassword");
 		String user_errormsg = "The passwords do not match!";
 		String user_errormsg2 = "The username is already in use. Please use other username!";
-		String user_register = "The account is created! You can now access the website now!";
+		String user_register = "The account is created! You can access the website now!";
 		List<String> userlist = new ArrayList<>();
 		try {
 			userlist = UserDAO.retrieveAllUserName();
@@ -62,9 +62,9 @@ public class RegisterController extends HttpServlet {
 				if(password1.equals(password2)) {		
 					 try {
 						UserDAO.newUser(username, fullname, password1);
-						System.out.println("The username is already exist! Try again!");
+						System.out.println("The account is created! You can access the website now!");
 						request.setAttribute("success", user_register);
-						request.getRequestDispatcher("/registration.jsp").forward(request, response);				
+						request.getRequestDispatcher("/login.jsp").forward(request, response);				
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -80,7 +80,6 @@ public class RegisterController extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 request.getRequestDispatcher("/registration.jsp").forward(request, response);
 	}
 
 }
