@@ -1,5 +1,12 @@
 package com.fdm.wealthnow.common;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fdm.wealthnow.backendService.HoldingService;
+
 public class Holding {
 	private long holdingsId;
 	private long userId;
@@ -97,8 +104,8 @@ public class Holding {
 		this.stockSymbol = stockSymbol;
 	}
 
-	public void setCurrentStockWorth(double currentStockWorth) {
-		this.currentStockWorth = currentStockWorth;
+	public void setCurrentStockWorth() throws MalformedURLException, IOException {
+		this.currentStockWorth = this.remainingQuantity * HoldingService.getCurrentMarketPrice(this.stockSymbol);
 	}
 
 	public void setMoneyRealized(double moneyRealized) {
