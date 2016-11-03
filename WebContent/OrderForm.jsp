@@ -62,6 +62,8 @@
 
     }   
     </script>
+    
+    	
 <!--     <link rel="stylesheet" type="text/css" href="./css/testpage1.css">-->
 </head>
 
@@ -69,8 +71,9 @@
 <% 		User currentUser = (User) (session.getAttribute("loggedInUser"));
 		ArrayList<String> stockSymbols = OrderService.callDAO(currentUser.getUserId());
 		//ArrayList<String> sgxSymbols = Formatter.sgxstock();
-%>	
-	
+		//String flag = (String) session.getAttribute("InvalidEntry");
+		
+%>
 	<H1>
 		Welcome
 		<%= currentUser.getFullName() %></H1>
@@ -116,21 +119,22 @@
 				for="transactionTypeSell">Sell</label>
 		</p>
 		
-		 
-		<div id="buyChecked">
+<!-- 		<form method="POST" action="ValidationController">
+ -->		<div id="buyChecked">
 		
 		<%-- 	<select id="symbol" name="symbolBuy">
 			<%for(String stocksList:sgxSymbols){ %>
 			<option name=<%=stocksList%> value="<%=stocksList%>" id=<%=stocksList%>><%=stocksList%></option><% } %> 
 			</select> --%>
-		<input type="text" id="symbol" name="symbolBuy" value="<symbol>">
+		<input type="text" id="symbol" name="symbolBuy" value="<symbol>"> <!-- <input type="submit" value="Validate" /> -->
 		
 			<select id="PriceTypeBuy" name="priceTypeBuy">
 				<option name="Market" value="Market">Market Price</option>
 				<option name="Limit" value="Limit" id="limit">Limit</option>
 			</select>
 		</div>
-		<div id="sellChecked">
+<!-- 		</form>
+ -->		<div id="sellChecked">
 		
 			<select id="symbol" name="symbolSell">
 			<%for(String stocksList:stockSymbols){ %>
@@ -188,7 +192,22 @@
   		      	<script>alert("No such stock in portfolio");</script>
 		  <% 	}
 			%>			
-			
+				    <%
+		    	if(request.getAttribute("InvalidEntry") != null) { %>
+  		      		<% out.println("Printing InvalidEntry: "+request.getAttribute("InvalidEntry")); %> 
+  		      	<script>alert("Invalid stock symbol "+"<%=request.getAttribute("InvalidEntry")%>");</script>
+  		      	<%-- <script>alert("Invalid stock symbol "+<%=request.getParameter("symbolBuy")%>);</script>--%>
+		  <% 	}
+			%>		
+		
+		
+			<%-- 
+		if(("true").equals(request.getAttribute("InvalidEntry"))) {%> 
+		<script>
+		alert("Invalid Stock Symbol"+ <%=request.getAttribute("InvalidEntry")%>);
+		  	</script>
+		<%}
+		%>--%>
     
 
 </body>
