@@ -161,7 +161,7 @@ public class UserDAO {
 				ps = connection.prepareStatement(newUserSQL);
 				ps.setString(1, user_name);
 				ps.setString(2, full_name);
-				ps.setString(3, user_password);
+				ps.setString(3, user_password);//here
 				rs = ps.executeQuery();
 				connection.commit();
 		
