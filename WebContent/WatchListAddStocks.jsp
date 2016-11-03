@@ -66,12 +66,14 @@
 		
 		Stocks: <input type = "text" name = "stockname">  
 			<select name="addorremovestock">
+				<option selected disabled>Please Choose</option>
 				<option value="+">Add to WatchList</option>
 				<option value="-">Remove from WatchList</option>
 			</select>
 			
 			
 		Watchlist: <select name="watchlist">
+			<option selected disabled>Please Choose WatchLists</option>
 			<% WatchListDAO watchlistaorm = new WatchListDAO();
 	 		for(String s : watchlistaorm.retrieveWatchlist(user).values()) { %>
 			<tr>

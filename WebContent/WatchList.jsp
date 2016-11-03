@@ -8,7 +8,20 @@
 <!DOCTYPE>
 <html>
 <head>
-
+	<style>
+		table, td, th {
+		    border: 1px solid black;
+		}
+		
+		table {
+		    
+		    width: 900px;
+		}
+		
+		td, th {
+		    text-align: center;
+		}
+	</style>
 </head>
 <body>
 		<% User currentUser = (User) (session.getAttribute("loggedInUser"));%>
@@ -34,6 +47,7 @@
 		<input type="hidden" name="userid" value="<%=user%>" />
 		
 		Select Watchlist : <select name="Watchlist">
+			<option selected disabled>Please Choose WatchLists</option>
 			<% WatchListDAO watchlist = new WatchListDAO();
 			 for(String s : watchlist.retrieveWatchlist(user).values()) { %>
 			<tr>
@@ -50,7 +64,7 @@
 	<% List<Stock> liststock = StockService.stockStorage(liststockfmyahoo);%>
 	<% HashMap<String,Stock> stockhashmap = StockService.createHashMap(liststock); %>
 
-		<table id="WatchListTable" class="table table-striped" border="1">
+		<table id="WatchListTable" >
 			<tr>
 				<th>Stock Name</th>
 				<th>Symbol</th>
