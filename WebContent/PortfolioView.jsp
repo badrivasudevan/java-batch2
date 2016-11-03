@@ -42,6 +42,9 @@
 				<th>Stock Symbol</th>
 				<th>Quantity</th>
 				<th>Price Paid Per Share</th>
+				<th>Money Realised</th>
+				<th>Current Stock Worth</th>
+				<th>Profit/Loss</th>
 				<th>Currency</th>
 
 			</tr>
