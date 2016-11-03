@@ -36,7 +36,7 @@
 		%>
 		
 		<%	if(request.getAttribute("errorMessage4") != null) {	 %>
-	  		   <script>alert("The username cannot be empty! Please try again!");</script>
+	  		   <script>alert("The username and/or full name cannot be empty! Please try again!");</script>
 	    <%		}
 		%>
 
