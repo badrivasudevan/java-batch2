@@ -24,7 +24,7 @@ public class HoldingDAO {
 		ResultSet rs = null;
 		Holding holding = null;
 		
-		final String retrieveHoldingSQL = "Select holding_id, stock_symbol, remaining_quantity, price_paid, money_realised, currentStock_Worth, profit_loss, currency from " +
+		final String retrieveHoldingSQL = "Select holding_id, stock_symbol, holding_quantity, price_paid, currentStock_Worth, sold_quantity, money_realised, profit_loss, currency from " +
 										   STOCK_HOLDING + " where user_id = ? and stock_symbol in ?";
 
 		try{
@@ -37,10 +37,11 @@ public class HoldingDAO {
 			holding = new Holding(rs.getLong("holding_id"),
 								  order.getUserID(),
 								  rs.getString("stock_symbol"),
-								  rs.getInt("remaining_quantity"),
+								  rs.getInt("holding_quantity"),
 								  rs.getDouble("price_paid"),
-								  rs.getDouble("money_realised"),
 								  rs.getDouble("currentStock_Worth"),
+								  rs.getInt("sold_quantity"),
+								  rs.getDouble("money_realised"),
 								  rs.getDouble("profit_loss"),
 								  rs.getString("currency"));
 			
@@ -57,7 +58,7 @@ public class HoldingDAO {
 		ResultSet rs = null;
 		Holding holding = null;
 		List<Holding> holdingList = new ArrayList<>();
-		final String retrieveHoldingSQL = "Select holding_id, stock_symbol, remaining_quantity, price_paid, currency, profit_loss, currentStock_Worth, money_realised  from " +
+		final String retrieveHoldingSQL = "Select holding_id, stock_symbol, holding_quantity, price_paid, currentStock_Worth, sold_quantity, money_realised, profit_loss, currencyfrom " +
 										   STOCK_HOLDING + " where user_id = ?";
 
 		try{
@@ -69,10 +70,11 @@ public class HoldingDAO {
 				holding = new Holding(rs.getLong("holding_id"),
 									  userId,
 									  rs.getString("stock_symbol"),
-									  rs.getInt("remaining_quantity"),
+									  rs.getInt("holding_quantity"),
 									  rs.getDouble("price_paid"),
-									  rs.getDouble("money_realised"),
 									  rs.getDouble("currentStock_Worth"),
+									  rs.getInt("sold_quantity"),
+									  rs.getDouble("money_realised"),
 									  rs.getDouble("profit_loss"),
 									  rs.getString("currency"));
 				holdingList.add(holding);
@@ -90,13 +92,13 @@ public class HoldingDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
-		final String updateHoldingSQL = "Update " + STOCK_HOLDING + " set price_paid = ?, remaining_quantity = ?, currentStock_Worth = ?, profit_loss = ? where user_id = ? and stock_symbol = ?";
+		final String updateHoldingSQL = "Update " + STOCK_HOLDING + " set price_paid = ?, holding_quantity = ?, currentStock_Worth = ?, profit_loss = ? where user_id = ? and stock_symbol = ?";
 
 		try{
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(updateHoldingSQL);
 			ps.setDouble(1, holding.getPricePaid());
-			ps.setInt(2, holding.getRemainingQuantity());
+			ps.setInt(2, holding.getHoldingQuantity());
 			ps.setDouble(3, holding.getCurrentStockWorth());
 			ps.setDouble(4, holding.getProfitLoss());
 			ps.setLong(5, holding.getUserId());
@@ -118,13 +120,13 @@ public class HoldingDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
-		final String updateHoldingSQL = "Update " + STOCK_HOLDING + " set price_paid = ?, remaining_quantity = ?, money_realised = ?, currentStock_Worth = ?, profit_loss = ? where user_id = ? and stock_symbol = ?";
+		final String updateHoldingSQL = "Update " + STOCK_HOLDING + " set price_paid = ?, sold_quantity = ?, money_realised = ?, currentStock_Worth = ?, profit_loss = ? where user_id = ? and stock_symbol = ?";
 
 		try{
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(updateHoldingSQL);
 			ps.setDouble(1, holding.getPricePaid());
-			ps.setInt(2, holding.getRemainingQuantity());
+			ps.setInt(2, holding.getSoldQuantity());
 			ps.setDouble(3, holding.getMoneyRealized());
 			ps.setDouble(4, holding.getCurrentStockWorth());
 			ps.setDouble(5, holding.getProfitLoss());
@@ -147,19 +149,20 @@ public class HoldingDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
-		final String storeHoldingSQL = "Insert into " + STOCK_HOLDING + " values (holding_id.nextVal, ?, ?, ?, ?, ?, ?, ?, ?)";
+		final String storeHoldingSQL = "Insert into " + STOCK_HOLDING + " values (holding_id.nextVal, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try{
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(storeHoldingSQL);
 			ps.setLong(1, holding.getUserId());
 			ps.setString(2, holding.getStockSymbol());
-			ps.setInt(3, holding.getRemainingQuantity());
+			ps.setInt(3, holding.getHoldingQuantity());
 			ps.setDouble(4, holding.getPricePaid());
-			ps.setDouble(5, holding.getMoneyRealized());
-			ps.setDouble(6, holding.getCurrentStockWorth());
-			ps.setDouble(7, holding.getProfitLoss());
-			ps.setString(8, holding.getCurrency());
+			ps.setDouble(5, holding.getCurrentStockWorth());
+			ps.setInt(6, holding.getSoldQuantity());
+			ps.setDouble(7, holding.getMoneyRealized());
+			ps.setDouble(8, holding.getProfitLoss());
+			ps.setString(9, holding.getCurrency());
 			
 			ps.executeUpdate();
 			con.commit();
