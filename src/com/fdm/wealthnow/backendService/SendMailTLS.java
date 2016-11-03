@@ -1,4 +1,4 @@
-package com.fdm;
+package com.fdm.wealthnow.backendService;
 
 import java.util.Properties;
 
