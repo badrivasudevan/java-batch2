@@ -156,7 +156,7 @@ public class UserDAO {
 			Connection connection = null;
 			PreparedStatement ps = null;
 			ResultSet rs = null;
-			final String newUserSQL = "Insert into users (user_id, user_name, full_name, user_password) values (user_seq.nextval,?,?,?)";
+			final String newUserSQL = "Insert into users (user_id, user_name, full_name, user_password,balance) values (user_seq.nextval,?,?,?,0)";
 			
 			try {
 				connection = DBUtil.getConnection();
