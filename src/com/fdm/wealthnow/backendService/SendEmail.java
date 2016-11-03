@@ -3,14 +3,14 @@ package com.fdm.wealthnow.backendService;
 import java.util.Properties;
 
 import javax.mail.Message;
-//import javax.mail.MessagingException;
+import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class SendMailTLS {
+public class SendEmail {
 	public static void sendmail(String email) {
 		System.out.println("hello");
 		final String username = "Fdmaug16";
@@ -43,9 +43,8 @@ public class SendMailTLS {
 
 			System.out.println("Done");
 
-		} catch (Exception e) {
+		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}
 	}
 }
-

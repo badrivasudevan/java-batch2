@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fdm.wealthnow.backendService.SendEmail;
 import com.fdm.wealthnow.dao.UserDAO;
 
 /**
@@ -80,6 +81,7 @@ public class RegisterController extends HttpServlet {
 							if(!email.isEmpty()){
 								System.out.println("The email is registered! You will receive email notifications whenever you make a order!");
 								request.setAttribute("successemail", user_registeremail);
+								SendEmail.sendmail(email);
 							}
 							request.getRequestDispatcher("/login.jsp").forward(request, response);	
 							
