@@ -24,11 +24,11 @@
 				<input type="password" name="password"/> <br><br>
 				<input type="submit" value="Submit">
 				
-				<form action="Register.jsp" method="get">
-				<button>New User</button>
-				</form>
 			</form>
 		</fieldset>
+		 		<form action="registration.jsp" method="get">
+				<button>New User</button>
+				</form>
 			<%
 		    	if(request.getAttribute("errorMessage") != null) { %>
   		      		<!--  out.println(request.getAttribute("errorMessage"));  -->

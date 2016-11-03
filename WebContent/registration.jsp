@@ -18,33 +18,28 @@
 	Username : <input type="text" name="username" /> <br>
 	Full name : <input type="text" name="fullname" /> <br>
 	Password : <input type="password" name="password" /> <br>
-	Confirm Password : <input type="confirmpassword" name="confirmpassword" /> <br>
+	Confirm Password : <input type="password" name="confirmpassword" /> <br>
 		
-	<fieldset>
 		<%	if(request.getAttribute("errorMessage") != null) {	 %>
 	  		     <!-- out.println(request.getAttribute("errorMessage")); -->
 	  		   <script>alert("The passwords do not match! Please try again!");</script>
 	    <%		}
 		%>
-		<%	if(request.getAttribute("removewatchlist") != null) {	 %>
-	  		     <!-- out.println(request.getAttribute("errorMessage")); -->
-	  		   <script>alert("removewatchlist");</script>
-	    <%		}
-		%>
 		<%	if(request.getAttribute("errorMessage2") != null) {	 %>
 	  		     <!-- out.println(request.getAttribute("errorMessage")); -->
-	  		   <script>alert("The watchlist is already in the database!");</script>
+	  		   <script>alert("The username is already in use! Please try again!");</script>
 	    <%		}
 		%>
-		<%	if(request.getAttribute("addwatchlist") != null) {	 %>
+		<%	if(request.getAttribute("success") != null) {	 %>
 	  		     <!-- out.println(request.getAttribute("errorMessage")); -->
-	  		   <script>alert("addwatchlist");</script>
+	  		   <script>alert("The account is successfully created. You can access the trading platform now!");</script>
 	    <%		}
 		%>
 
 		<button type="submit">Submit</button> <br><br>
-		</form>
-	</fieldset>
+	</form>
+		Back to login page : 
+		<a href="login.jsp">Login</a>
 	
 </body>
 </html>
