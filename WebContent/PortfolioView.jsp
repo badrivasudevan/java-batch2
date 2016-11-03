@@ -53,6 +53,9 @@
 				<td><%=holding.getStockSymbol()%></td>
 				<td><%=holding.getRemainingQuantity()%></td>
 				<td><%=holding.getPricePaid()%></td>
+				<td><%=holding.getMoneyRealized()%></td>
+				<td><%=holding.getCurrentStockWorth()%></td>
+				<td><%=holding.getProfitLoss()%></td>
 				<td><%=holding.getCurrency()%></td>
 			</tr>
 			<%
