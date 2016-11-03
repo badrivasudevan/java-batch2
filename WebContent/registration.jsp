@@ -14,7 +14,7 @@
 	</style>
 </head>
 <body>
-	<form action="${pageContext.request.contextPath}/RegistrationController" method="POST">	
+	<form action="${pageContext.request.contextPath}/RegisterController" method="POST">	
 	Username : <input type="text" name="username" /> <br>
 	Full name : <input type="text" name="fullname" /> <br>
 	Password : <input type="password" name="password" /> <br>
