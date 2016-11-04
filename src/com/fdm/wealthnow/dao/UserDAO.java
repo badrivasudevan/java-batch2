@@ -214,9 +214,14 @@ public class UserDAO {
 				rs = ps.executeQuery();
 				
 				List<String> email = new ArrayList<>();
+				//String front = "";
+				//String back = "";
 				
 				while(rs.next()){
-					email.add(rs.getString("email").toLowerCase());
+				//	front = rs.getString("email").replace("@", "a");
+				//	back = front.replace(".","b");
+				//	email.add(back.toLowerCase());
+					email.add(rs.getString("email"));
 				}
 				
 				return email;

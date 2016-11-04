@@ -57,66 +57,83 @@ public class RegisterController extends HttpServlet {
 		String user_register = "The account is created! You can access the website now!";
 		String user_registeremail = "The email is registered together with your account! You will receive email notifications!";
 		List<String> userlist = new ArrayList<>();
+		List<String> emaillist = new ArrayList<>();
+		boolean a = true;
+		boolean b = true;
+		
 		try {
 			userlist = UserDAO.retrieveAllUserName();
-			if(userlist.contains(username.toLowerCase())){
-				 System.out.println("The username is already exist! Try again!");
-				 request.setAttribute("errorMessage2", user_errormsg2);
-				 request.getRequestDispatcher("/registration.jsp").forward(request, response);				
-			}
-			else {
-				
-				if(username.isEmpty() || fullname.isEmpty()){
-					System.out.println("The username and/or full name cannot be empty! Please try again!");
-					request.setAttribute("errorMessage4", user_errormsg4);
+			for(int i=0;i<userlist.size();i++){
+				if(userlist.get(i).equalsIgnoreCase(username)) {
+					System.out.println("The username is already exist! Try again!");
+					request.setAttribute("errorMessage2", user_errormsg2);
 					request.getRequestDispatcher("/registration.jsp").forward(request, response);				
-			
+					a=false;
+					break;
 				}
+			}	
+				if(a) {
+					if(username.isEmpty() || fullname.isEmpty()){
+						System.out.println("The username and/or full name cannot be empty! Please try again!");
+						request.setAttribute("errorMessage4", user_errormsg4);
+						request.getRequestDispatcher("/registration.jsp").forward(request, response);				
+					}
 				
-				else {
-					if(password1.equals(password2) && !password2.isEmpty()) {		
-						try {
-							UserDAO.newUser(username, fullname, password1,email);
-							if(!email.isEmpty()){
-								if(UserDAO.retrieveAllEmail().contains(email.toLowerCase())) {
-									System.out.println("The email is already registered! Please use another email!");
-									request.setAttribute("errorMessage5", user_errormsg5);
-									request.getRequestDispatcher("/registration.jsp").forward(request, response);	
+					else {
+						if(password1.equals(password2) && !password2.isEmpty()) {		
+							try {
+								UserDAO.newUser(username, fullname, password1, email);
+								if(!email.isEmpty()){
+									emaillist=UserDAO.retrieveAllEmail();
+									for(int j=0;j<emaillist.size();j++){
+										if(emaillist.get(j).equalsIgnoreCase(email)) {
+											System.out.println(emaillist.get(j) + " " +email);
+											System.out.println("The email is already registered! Please use another email!");
+											request.setAttribute("errorMessage5", user_errormsg5);
+											request.getRequestDispatcher("/registration.jsp").forward(request, response);	
+											b=false;
+											break;
+										}
+									}	
+									if(b) {
+										System.out.println("The account is created! You can access the website now!");
+										request.setAttribute("success", user_register);
+										System.out.println("The email is registered! You will receive email notifications whenever you make a order!");
+										request.setAttribute("successemail", user_registeremail);
+										String message = "Dear " +fullname +", your account is successfully created! \n\n Welcome to the next-gen trading platform!";
+										SendEmail.sendmail(email,message);
+										request.getRequestDispatcher("/login.jsp").forward(request, response);	
+									}										
 								}
 								else {
 									System.out.println("The account is created! You can access the website now!");
 									request.setAttribute("success", user_register);
-									System.out.println("The email is registered! You will receive email notifications whenever you make a order!");
-									request.setAttribute("successemail", user_registeremail);
-									String message = "Dear " +fullname +", your account is successfully created! \n\n Welcome to the next-gen trading platform!";
-									SendEmail.sendmail(email,message);
 									request.getRequestDispatcher("/login.jsp").forward(request, response);	
 								}
-							}
 							
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						}
-					}
-					else if(password1.equals(password2) && password2.isEmpty()) {		
-						try {
-							System.out.println("The password cannot be empty! Please enter the password!");
-							request.setAttribute("errorMessage3", user_errormsg3);
-							request.getRequestDispatcher("/registration.jsp").forward(request, response);				
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}				
-					else {
-						System.out.println("The passwords do not match! Try again!");
-						request.setAttribute("errorMessage", user_errormsg);
-						request.getRequestDispatcher("/registration.jsp").forward(request, response);
-					}	
+						else if(password1.equals(password2) && password2.isEmpty()) {		
+							try {
+								System.out.println("The password cannot be empty! Please enter the password!");
+								request.setAttribute("errorMessage3", user_errormsg3);
+								request.getRequestDispatcher("/registration.jsp").forward(request, response);				
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}				
+						else {
+							System.out.println("The passwords do not match! Try again!");
+							request.setAttribute("errorMessage", user_errormsg);
+							request.getRequestDispatcher("/registration.jsp").forward(request, response);
+						}	
 				
-				}
-			}
+					}
+				}	
 		}	catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
