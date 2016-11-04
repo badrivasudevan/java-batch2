@@ -209,6 +209,9 @@ private static int calculateQuantityBought(List<Holding> holdingList, Order orde
 	
 	public static void updatePortfolio(Order order){
 		
+		Holding newHolding = null;
+		
+		
 		double purchasePrice;
 		double moneyRealized;
 		double currentStockWorth;
@@ -220,9 +223,8 @@ private static int calculateQuantityBought(List<Holding> holdingList, Order orde
 		boolean isExist = false;
 
 		try{
-			Holding newHolding = null;
 			List<Holding> holdingList = HoldingService.retrieveHolding(order);
-			System.out.println("HoldingList: " + holdingList + "Size: " + holdingList.size());
+			
 			purchasePrice = HoldingService.calculatePurchasePrice(holdingList, order);
 			holdingQuantity = HoldingService.calculateQuantityHeld(holdingList, order);
 			soldQuantity = HoldingService.calculateQuantitySold(holdingList, order);
