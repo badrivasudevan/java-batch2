@@ -79,9 +79,15 @@ public class RegisterController extends HttpServlet {
 							System.out.println("The account is created! You can access the website now!");
 							request.setAttribute("success", user_register);
 							if(!email.isEmpty()){
-								System.out.println("The email is registered! You will receive email notifications whenever you make a order!");
-								request.setAttribute("successemail", user_registeremail);
-								SendEmail.sendmail(email);
+								if(UserDAO) {
+									System.out.println("The email is registered! You will receive email notifications whenever you make a order!");
+									request.setAttribute("successemail", user_registeremail);
+									SendEmail.sendmail(email);
+								}
+								else {
+									System.out.println("The email is already registered! Please use another email!");
+									
+								}
 							}
 							request.getRequestDispatcher("/login.jsp").forward(request, response);	
 							
