@@ -201,4 +201,30 @@ public class UserDAO {
 		
 		}
 		
+		public static List<String> retrieveAllEmail() throws SQLException {
+			Connection con = null;
+			PreparedStatement ps = null;
+			ResultSet rs = null;		
+			
+			final String retrieveAllEmail = "SELECT email FROM "+ USER_TABLE;
+
+			try{
+				con = DBUtil.getConnection();
+				ps = con.prepareStatement(retrieveAllEmail);
+				rs = ps.executeQuery();
+				
+				List<String> email = new ArrayList<>();
+				
+				while(rs.next()){
+					email.add(rs.getString("email"));
+				}
+				
+				return email;
+			}
+			finally{
+				DBUtil.closeConnection(rs, ps, con);
+			}		
+		
+		}
+		
 }
