@@ -10,19 +10,22 @@ public class Holding {
 	private String stockSymbol;
 	private int holdingQuantity;
 	private double pricePaid;
+	private int boughtQuantity;
 	private double currentStockWorth;
 	private int soldQuantity;
 	private double moneyRealized;
 	private double profitLoss;
 	private String currency;
-
-	public Holding(long userId, String stockSymbol, int holdingQuantity, double pricePaid, double currentStockWorth,
-			int soldQuantity, double moneyRealized, double profitLoss, String currency) {
+	
+	public Holding(long userId, String stockSymbol, int holdingQuantity, double pricePaid,
+			int boughtQuantity, double currentStockWorth, int soldQuantity, double moneyRealized, double profitLoss,
+			String currency) {
 		super();
 		this.userId = userId;
 		this.stockSymbol = stockSymbol;
 		this.holdingQuantity = holdingQuantity;
 		this.pricePaid = pricePaid;
+		this.boughtQuantity = boughtQuantity;
 		this.currentStockWorth = currentStockWorth;
 		this.soldQuantity = soldQuantity;
 		this.moneyRealized = moneyRealized;
@@ -31,13 +34,15 @@ public class Holding {
 	}
 
 	public Holding(long holdingsId, long userId, String stockSymbol, int holdingQuantity, double pricePaid,
-			double currentStockWorth, int soldQuantity, double moneyRealized, double profitLoss, String currency) {
+			int boughtQuantity, double currentStockWorth, int soldQuantity, double moneyRealized, double profitLoss,
+			String currency) {
 		super();
 		this.holdingsId = holdingsId;
 		this.userId = userId;
 		this.stockSymbol = stockSymbol;
 		this.holdingQuantity = holdingQuantity;
 		this.pricePaid = pricePaid;
+		this.boughtQuantity = boughtQuantity;
 		this.currentStockWorth = currentStockWorth;
 		this.soldQuantity = soldQuantity;
 		this.moneyRealized = moneyRealized;
@@ -45,8 +50,36 @@ public class Holding {
 		this.currency = currency;
 	}
 
+	public long getHoldingsId() {
+		return holdingsId;
+	}
+
+	public long getUserId() {
+		return userId;
+	}
+
+	public String getStockSymbol() {
+		return stockSymbol;
+	}
+
+	public int getHoldingQuantity() {
+		return holdingQuantity;
+	}
+
+	public double getPricePaid() {
+		return pricePaid;
+	}
+
+	public int getBoughtQuantity() {
+		return boughtQuantity;
+	}
+
 	public double getCurrentStockWorth() {
 		return currentStockWorth;
+	}
+
+	public int getSoldQuantity() {
+		return soldQuantity;
 	}
 
 	public double getMoneyRealized() {
@@ -57,48 +90,32 @@ public class Holding {
 		return profitLoss;
 	}
 
-	public long getHoldingsId() {
-		return holdingsId;
-	}
-
-
-	public long getUserId() {
-		return userId;
-	}
-
-
-	public String getStockSymbol() {
-		return stockSymbol;
-	}
-
-
-
-
-	public double getPricePaid() {
-		return pricePaid;
-	}
-
-
 	public String getCurrency() {
 		return currency;
-	}	
-	
-	
-	
-	public void setHoldingsId(long holdingsId) {
-		this.holdingsId = holdingsId;
-	}
-
-	public void setUserId(long userId) {
-		this.userId = userId;
 	}
 
 	public void setStockSymbol(String stockSymbol) {
 		this.stockSymbol = stockSymbol;
 	}
 
-	public void setCurrentStockWorth() throws MalformedURLException, IOException {
-		this.currentStockWorth = this.holdingQuantity * HoldingService.getCurrentMarketPrice(this.stockSymbol);
+	public void setHoldingQuantity(int holdingQuantity) {
+		this.holdingQuantity = holdingQuantity;
+	}
+
+	public void setPricePaid(double pricePaid) {
+		this.pricePaid = pricePaid;
+	}
+
+	public void setBoughtQuantity(int boughtQuantity) {
+		this.boughtQuantity = boughtQuantity;
+	}
+
+	public void setCurrentStockWorth(double currentStockWorth) {
+		this.currentStockWorth = currentStockWorth;
+	}
+
+	public void setSoldQuantity(int soldQuantity) {
+		this.soldQuantity = soldQuantity;
 	}
 
 	public void setMoneyRealized(double moneyRealized) {
@@ -109,38 +126,19 @@ public class Holding {
 		this.profitLoss = profitLoss;
 	}
 
-
-	public void setPricePaid(double pricePaid) {
-		this.pricePaid = pricePaid;
-	}
-
 	public void setCurrency(String currency) {
 		this.currency = currency;
-	}
-
-	public int getHoldingQuantity() {
-		return holdingQuantity;
-	}
-
-	public int getSoldQuantity() {
-		return soldQuantity;
-	}
-
-	public void setHoldingQuantity(int holdingQuantity) {
-		this.holdingQuantity = holdingQuantity;
-	}
-
-	public void setSoldQuantity(int soldQuantity) {
-		this.soldQuantity = soldQuantity;
 	}
 
 	@Override
 	public String toString() {
 		return "Holding [holdingsId=" + holdingsId + ", userId=" + userId + ", stockSymbol=" + stockSymbol
-				+ ", holdingQuantity=" + holdingQuantity + ", pricePaid=" + pricePaid + ", currentStockWorth="
-				+ currentStockWorth + ", soldQuantity=" + soldQuantity + ", moneyRealized=" + moneyRealized
-				+ ", profitLoss=" + profitLoss + ", currency=" + currency + "]";
+				+ ", holdingQuantity=" + holdingQuantity + ", pricePaid=" + pricePaid + ", boughtQuantity="
+				+ boughtQuantity + ", currentStockWorth=" + currentStockWorth + ", soldQuantity=" + soldQuantity
+				+ ", moneyRealized=" + moneyRealized + ", profitLoss=" + profitLoss + ", currency=" + currency + "]";
 	}
+
+	
 
 
 }
