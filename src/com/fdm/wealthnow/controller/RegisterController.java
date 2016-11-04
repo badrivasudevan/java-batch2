@@ -77,8 +77,6 @@ public class RegisterController extends HttpServlet {
 					if(password1.equals(password2) && !password2.isEmpty()) {		
 						try {
 							UserDAO.newUser(username, fullname, password1,email);
-							System.out.println("The account is created! You can access the website now!");
-							request.setAttribute("success", user_register);
 							if(!email.isEmpty()){
 								if(UserDAO.retrieveAllEmail().contains(email.toLowerCase())) {
 									System.out.println("The email is already registered! Please use another email!");
@@ -86,6 +84,8 @@ public class RegisterController extends HttpServlet {
 									request.getRequestDispatcher("/registration.jsp").forward(request, response);	
 								}
 								else {
+									System.out.println("The account is created! You can access the website now!");
+									request.setAttribute("success", user_register);
 									System.out.println("The email is registered! You will receive email notifications whenever you make a order!");
 									request.setAttribute("successemail", user_registeremail);
 									String message = "Dear " +fullname +", your account is successfully created! \n\n Welcome to the next-gen trading platform!";
