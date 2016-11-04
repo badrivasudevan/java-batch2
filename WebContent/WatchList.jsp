@@ -87,11 +87,11 @@
 			<td><%= stockhashmap.get(s).getBidprice() %> </td>
 			<td><%= stockhashmap.get(s).getAskprice() %> </td>
 			<td><%= stockhashmap.get(s).getCurrentmarketprice() %> </td>
-			<td><%= stockhashmap.get(s).getUpdatedtime() %> </td>	
-			<br>	
+			<td><%= stockhashmap.get(s).getUpdatedtime() %> </td>		
 		</tr>	
 		
 			<% } %>
+	</table>		
 	</fieldset>	
 	</form>	
 	
