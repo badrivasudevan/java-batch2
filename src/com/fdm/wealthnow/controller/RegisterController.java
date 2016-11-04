@@ -85,7 +85,7 @@ public class RegisterController extends HttpServlet {
 								UserDAO.newUser(username, fullname, password1, email);
 								if(!email.isEmpty()){
 									emaillist=UserDAO.retrieveAllEmail();
-									System.out.println("Size : " +emaillist.size() + " Email : " +email);
+									System.out.println("Size of email list : " +emaillist.size() + " Email : " +email);
 									for(int j=0;j<emaillist.size();j++){
 										if(emaillist.get(j).equalsIgnoreCase(email)) {
 											System.out.println(emaillist.get(j) + " " +email);
