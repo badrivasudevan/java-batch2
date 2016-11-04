@@ -209,10 +209,10 @@ public static void removeHolding(Order order) throws SQLException{
 		System.out.println(holding);*/
 		
 		//Testing storeHolding
-		/*Holding holding = new Holding(6, "APPL", 100, 99.99, "SGD");
+/*		Holding holding = new Holding(31, "S41", 100, 2.18, 100, 216, 0, 0, 0, "SGD");
 		System.out.println(holding);
-		HoldingDAO.storeHolding(holding);*/
-		
+		HoldingDAO.storeHolding(holding);
+		*/
 		//Testing removeHolding
 		/*Order order = new Order(6, TransactionType.Sell, 50, "APPL", Term.GoodForDay, PriceType.Market, 9.99, OrderStatus.Pending);
 		HoldingDAO.removeHolding(order);*/
