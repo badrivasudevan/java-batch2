@@ -83,7 +83,6 @@ public class RegisterController extends HttpServlet {
 					else {
 						if(password1.equals(password2) && !password2.isEmpty()) {		
 							try {
-								UserDAO.newUser(username, fullname, password1, email);
 								if(!email.isEmpty()){
 									emaillist=UserDAO.retrieveAllEmail();
 									System.out.println("Size of email list : " +emaillist.size() +emaillist.get(19) + " Email : " +email);
@@ -98,6 +97,7 @@ public class RegisterController extends HttpServlet {
 										}
 									}	
 									if(b) {
+										UserDAO.newUser(username, fullname, password1, email);
 										System.out.println("The account is created! You can access the website now!");
 										request.setAttribute("success", user_register);
 										System.out.println("The email is registered! You will receive email notifications whenever you make a order!");
@@ -107,7 +107,7 @@ public class RegisterController extends HttpServlet {
 										request.getRequestDispatcher("/login.jsp").forward(request, response);	
 									}										
 								}
-								else {
+								else if(email.isEmpty() || email==null) {
 									System.out.println("The email cannot be empty! Please enter the email!");
 									request.setAttribute("errorMessage6", user_errormsg6);
 									request.getRequestDispatcher("/registration.jsp").forward(request, response);	
