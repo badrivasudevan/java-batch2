@@ -51,9 +51,10 @@ public class RegisterController extends HttpServlet {
 		String email = request.getParameter("email");
 		String user_errormsg = "The passwords do not match!";
 		String user_errormsg2 = "The username is already in use. Please use other username!";
-		String user_errormsg3 = "The password cannot be empty. Please enter the password!";
+		String user_errormsg3 = "The password cannot be empty. Please enter your password!";
 		String user_errormsg4 = "The username and/or full name cannot be empty. Please enter again!";
 		String user_errormsg5 = "The email is already in use. Please use other email";
+		String user_errormsg6 = "The email cannot be empty. Please enter your email";
 		String user_register = "The account is created! You can access the website now!";
 		String user_registeremail = "The email is registered together with your account! You will receive email notifications!";
 		List<String> userlist = new ArrayList<>();
@@ -107,9 +108,9 @@ public class RegisterController extends HttpServlet {
 									}										
 								}
 								else {
-									System.out.println("The account is created! You can access the website now!");
-									request.setAttribute("success", user_register);
-									request.getRequestDispatcher("/login.jsp").forward(request, response);	
+									System.out.println("The email cannot be empty! Please enter the email!");
+									request.setAttribute("errorMessage6", user_errormsg6);
+									request.getRequestDispatcher("/registration.jsp").forward(request, response);	
 								}
 							
 							} catch (Exception e) {
