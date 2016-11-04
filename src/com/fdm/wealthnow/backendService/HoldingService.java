@@ -47,7 +47,7 @@ public class HoldingService{
 	public static Double getInvestmentAmount(List<Holding> holdingList, Order order) throws SQLException{
 		
 		double investmentAmount;
-		investmentAmount =  HoldingService.calculatePurchasePrice(holdingList, order) * OrderDAO.fetchTotalBuyQuantity(order);
+		investmentAmount =  HoldingService.calculatePurchasePrice(holdingList, order) * HoldingService.calculateQuantityBought(holdingList, order);
 		System.out.println("investment amount is: " + investmentAmount);
 		return investmentAmount;
 	}
@@ -124,7 +124,7 @@ public class HoldingService{
 		return purchasePrice;
 	}
 	
-	private static int calculateQuantityBought(List<Holding> holdingList, Order order){
+	private static int calculateQuantityHeld(List<Holding> holdingList, Order order){
 		
 		int holdingQuantity = 0;
 		
@@ -132,10 +132,15 @@ public class HoldingService{
 		
 		for(Holding holding : holdingList){
 			
-			if(order.getStockSymbol().equals(holding.getStockSymbol())){
-				
+			if(order.getStockSymbol().equals(holding.getStockSymbol())){		
 				isExist = true;
-					holdingQuantity = holding.getHoldingQuantity() + order.getOrderQuantity();			
+				
+				if(order.getTransacType() == TransactionType.Buy){
+					holdingQuantity = holding.getHoldingQuantity() + order.getOrderQuantity();
+				}
+				else{
+					holdingQuantity = holding.getHoldingQuantity() - order.getOrderQuantity();
+				}
 			}
 		}
 		
@@ -159,6 +164,31 @@ public class HoldingService{
 		
 		return soldQuantity;
 	}
+	
+private static int calculateQuantityBought(List<Holding> holdingList, Order order){
+
+	int boughtQuantity = 0;
+	boolean isExist = false;
+
+	for(Holding holding : holdingList){
+
+		if(order.getStockSymbol().equals(holding.getStockSymbol())){		
+			isExist = true;
+
+			if(order.getStockSymbol().equals(holding.getStockSymbol())){				
+				boughtQuantity = holding.getSoldQuantity() + order.getOrderQuantity();				
+			}
+		}
+	}
+
+	if(!isExist)
+	{
+		boughtQuantity = order.getOrderQuantity();
+	}
+
+	return boughtQuantity;
+}
+	
 	
 	private static void updateCashBalance(Order order) throws Exception{
 
@@ -185,6 +215,7 @@ public class HoldingService{
 		double profitLoss;
 		int holdingQuantity;
 		int soldQuantity;
+		int boughtQuantity;
 		
 		boolean isExist = false;
 
@@ -193,8 +224,9 @@ public class HoldingService{
 			List<Holding> holdingList = HoldingService.retrieveHolding(order);
 			System.out.println("HoldingList: " + holdingList + "Size: " + holdingList.size());
 			purchasePrice = HoldingService.calculatePurchasePrice(holdingList, order);
-			holdingQuantity = HoldingService.calculateQuantityBought(holdingList, order);
+			holdingQuantity = HoldingService.calculateQuantityHeld(holdingList, order);
 			soldQuantity = HoldingService.calculateQuantitySold(holdingList, order);
+			boughtQuantity = HoldingService.calculateQuantityBought(holdingList, order);
 			moneyRealized = HoldingService.calculateMoneyRealized(holdingList, order);
 			currentStockWorth = holdingQuantity * HoldingService.getCurrentMarketPrice(order.getStockSymbol());
 			profitLoss = HoldingService.calculateProfitLoss(holdingList, order);
@@ -209,6 +241,7 @@ public class HoldingService{
 						newHolding = HoldingDAO.retrieveIndividualHolding(order);
 
 						newHolding.setPricePaid(purchasePrice);
+						newHolding.setBoughtQuantity(boughtQuantity);
 						newHolding.setHoldingQuantity(holdingQuantity);
 						newHolding.setCurrentStockWorth();
 						newHolding.setProfitLoss(profitLoss);
@@ -220,7 +253,7 @@ public class HoldingService{
 				}
 				//System.out.println("isExist Boolean: " + isExist);
 				if(!isExist){
-					newHolding = new Holding(order.getUserID(), order.getStockSymbol(), holdingQuantity, purchasePrice, currentStockWorth, 0, 0.0d, currentStockWorth, "SGD");
+					newHolding = new Holding(order.getUserID(), order.getStockSymbol(), holdingQuantity, purchasePrice, boughtQuantity, currentStockWorth, 0, 0.0d, 0.0d, "SGD");
 					HoldingDAO.storeHolding(newHolding);
 
 				}
@@ -237,7 +270,7 @@ public class HoldingService{
 						
 						newHolding.setPricePaid(purchasePrice);
 						newHolding.setSoldQuantity(soldQuantity);
-						newHolding.setHoldingQuantity(newHolding.getHoldingQuantity() - order.getOrderQuantity());
+						newHolding.setHoldingQuantity(holdingQuantity);
 						newHolding.setCurrentStockWorth();
 						newHolding.setMoneyRealized(moneyRealized);
 						newHolding.setProfitLoss(profitLoss);

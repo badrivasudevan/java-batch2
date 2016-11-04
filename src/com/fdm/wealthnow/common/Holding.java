@@ -110,8 +110,8 @@ public class Holding {
 		this.boughtQuantity = boughtQuantity;
 	}
 
-	public void setCurrentStockWorth(double currentStockWorth) {
-		this.currentStockWorth = currentStockWorth;
+	public void setCurrentStockWorth() throws MalformedURLException, IOException {
+		this.currentStockWorth = HoldingService.getCurrentMarketPrice(this.stockSymbol) * this.holdingQuantity;
 	}
 
 	public void setSoldQuantity(int soldQuantity) {

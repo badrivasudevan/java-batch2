@@ -40,7 +40,8 @@
 
 			<tr>
 				<th rowspan="2">Stock Symbol</th>
-				<th colspan="3">Holding</th>
+				<th colspan="2">Holding</th>
+				<th colspan="2">Bought</th>
 				<th colspan="2">Sold</th>
 				<th rowspan="2">Profit/Loss</th>
 				<th rowspan="2">Currency</th>
@@ -48,9 +49,12 @@
 			</tr>
 			
 			<tr>
-			<td>Price paid</td>
 			<td>Quantity</td>
 			<td>Current Stock Worth</td>
+			
+			<td>Quantity</td>
+			<td>Price paid</td>
+			
 			<td>Quantity</td>
 			<td>Money Realised</td>
 			</tr>
@@ -60,9 +64,12 @@
 			%>
 			<tr>
 				<td><%=holding.getStockSymbol()%></td>
-				<td><%=holding.getPricePaid()%></td>
+				
 				<td><%=holding.getHoldingQuantity()%></td>
 				<td><%=holding.getCurrentStockWorth()%></td>
+				
+				<td><%=holding.getBoughtQuantity()%></td>
+				<td><%=holding.getPricePaid()%></td>
 				
 				<td><%=holding.getSoldQuantity()%></td>
 				<td><%=holding.getMoneyRealized()%></td>
