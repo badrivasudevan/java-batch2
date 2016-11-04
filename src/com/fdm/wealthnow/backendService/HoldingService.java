@@ -20,12 +20,6 @@ import com.fdm.wealthnow.dao.UserDAO;
 public class HoldingService{
 	
 	private static final double TRANSACTION_FEE = 9.99;
-	private static double purchasePrice;
-	private static double moneyRealized;
-	private static double currentStockWorth;
-	private static double profitLoss;
-	private static int holdingQuantity;
-	private static int soldQuantity;
 	
 	
 	private static List<Holding> retrieveHolding(Order order) throws Exception{
@@ -41,15 +35,21 @@ public class HoldingService{
 	
 	public static Double getCurrentMarketPrice(String stockSymbol) throws MalformedURLException, IOException{
 		
+		double marketPrice;
 		List<String> symbolList = new ArrayList<>();
 		symbolList.add(stockSymbol);
-		return (StockService.stringToDouble(StockService.stockStorage(StockService.getStockFromWeb(symbolList)).get(0).getCurrentmarketprice()));
+		marketPrice = StockService.stringToDouble(StockService.stockStorage(StockService.getStockFromWeb(symbolList)).get(0).getCurrentmarketprice());
+		System.out.println("marketprice is: " + marketPrice);
+		return marketPrice;
 	
 	}
 	
-	public static Double getInvestmentAmount(Order order) throws SQLException{
+	public static Double getInvestmentAmount(List<Holding> holdingList, Order order) throws SQLException{
 		
-		return OrderDAO.fetchTotalBuyPrice(order) * OrderDAO.fetchTotalBuyQuantity(order);
+		double investmentAmount;
+		investmentAmount =  HoldingService.calculatePurchasePrice(holdingList, order) * OrderDAO.fetchTotalBuyQuantity(order);
+		System.out.println("investment amount is: " + investmentAmount);
+		return investmentAmount;
 	}
 	
 	
@@ -63,6 +63,7 @@ public class HoldingService{
 					moneyRealized = holding.getMoneyRealized() + (order.getPriceExecuted() * order.getOrderQuantity());					
 			}
 		}
+		System.out.println("moneyrealised is: " + moneyRealized);
 		return moneyRealized;
 	}
 	
@@ -88,13 +89,15 @@ public class HoldingService{
 		for(Holding holding : holdingList){
 
 			if(order.getStockSymbol().equals(holding.getStockSymbol())){
-					profitLoss = (holding.getCurrentStockWorth() + holding.getMoneyRealized()) - (getInvestmentAmount(order));	
+					profitLoss = (holding.getCurrentStockWorth() + holding.getMoneyRealized()) - (getInvestmentAmount(holdingList, order));	
 			}
 		}
 		return profitLoss;
 	}
 	
 	private static double calculatePurchasePrice(List<Holding> holdingList, Order order){
+		
+		double purchasePrice = 0.0d;
 		
 		boolean isExist = false;
 		
@@ -123,6 +126,8 @@ public class HoldingService{
 	
 	private static int calculateQuantityBought(List<Holding> holdingList, Order order){
 		
+		int holdingQuantity = 0;
+		
 		boolean isExist = false;
 		
 		for(Holding holding : holdingList){
@@ -142,6 +147,8 @@ public class HoldingService{
 	}
 	
 	private static int calculateQuantitySold(List<Holding> holdingList, Order order){
+		
+		int soldQuantity = 0;
 		
 		for(Holding holding : holdingList){
 			
@@ -171,6 +178,13 @@ public class HoldingService{
 	}
 	
 	public static void updatePortfolio(Order order){
+		
+		double purchasePrice;
+		double moneyRealized;
+		double currentStockWorth;
+		double profitLoss;
+		int holdingQuantity;
+		int soldQuantity;
 		
 		boolean isExist = false;
 
