@@ -68,6 +68,8 @@
 	<% List<String> liststockfmyahoo = (List<String>) StockService.getStockFromWeb(listsymbol); %>
 	<% List<Stock> liststock = StockService.stockStorage(liststockfmyahoo);%>
 	<% HashMap<String,Stock> stockhashmap = StockService.createHashMap(liststock); %>
+	<% HashMap<String,String> watchlisthashmap = WatchListDAO.retrieveWatchlist(user); %>
+	Current Watchlist : <%= (watchlisthashmap.get(w_id)==null)?"NONE":watchlisthashmap.get(w_id) %>
 
 		<table id="WatchListTable" >
 			<tr>
