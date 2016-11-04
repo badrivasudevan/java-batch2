@@ -221,7 +221,10 @@ public class UserDAO {
 				//	front = rs.getString("email").replace("@", "a");
 				//	back = front.replace(".","b");
 				//	email.add(back.toLowerCase());
+					System.out.println("email:" + rs.getString("email"));
 					email.add(rs.getString("email"));
+					
+					
 				}
 		
 				return email;
