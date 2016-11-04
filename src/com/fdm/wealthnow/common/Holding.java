@@ -16,10 +16,9 @@ public class Holding {
 	private double moneyRealized;
 	private double profitLoss;
 	private String currency;
-	
-	public Holding(long userId, String stockSymbol, int holdingQuantity, double pricePaid,
-			int boughtQuantity, double currentStockWorth, int soldQuantity, double moneyRealized, double profitLoss,
-			String currency) {
+
+	public Holding(long userId, String stockSymbol, int holdingQuantity, double pricePaid, int boughtQuantity,
+			double currentStockWorth, int soldQuantity, double moneyRealized, double profitLoss, String currency) {
 		super();
 		this.userId = userId;
 		this.stockSymbol = stockSymbol;
@@ -93,37 +92,65 @@ public class Holding {
 	public String getCurrency() {
 		return currency;
 	}
+	
+	public Double getInvestmentAmount(){
+		
+		double investedAmt = this.pricePaid * this.boughtQuantity;
+		
+		return investedAmt;
+	}
 
 	public void setStockSymbol(String stockSymbol) {
 		this.stockSymbol = stockSymbol;
 	}
 
-	public void setHoldingQuantity(int holdingQuantity) {
-		this.holdingQuantity = holdingQuantity;
-	}
+	public void setHoldingQuantity(Order order) {
 
-	public void setPricePaid(double pricePaid) {
-		this.pricePaid = pricePaid;
-	}
+		if (order.getTransacType() == TransactionType.Buy) {
+			this.holdingQuantity = this.holdingQuantity + order.getOrderQuantity();
+		} else {
+			this.holdingQuantity = this.holdingQuantity - order.getOrderQuantity();
+		}
 
-	public void setBoughtQuantity(int boughtQuantity) {
-		this.boughtQuantity = boughtQuantity;
 	}
 
 	public void setCurrentStockWorth() throws MalformedURLException, IOException {
 		this.currentStockWorth = HoldingService.getCurrentMarketPrice(this.stockSymbol) * this.holdingQuantity;
 	}
 
-	public void setSoldQuantity(int soldQuantity) {
-		this.soldQuantity = soldQuantity;
+	public void setBoughtQuantity(Order order) {
+
+		if (order.getTransacType() == TransactionType.Buy)
+			this.boughtQuantity = this.boughtQuantity + order.getOrderQuantity();
 	}
 
-	public void setMoneyRealized(double moneyRealized) {
-		this.moneyRealized = moneyRealized;
+	public void setPricePaid(Order order) {
+
+		if (order.getTransacType() == TransactionType.Buy) {
+			this.pricePaid = ((order.getOrderQuantity() * order.getPriceExecuted())
+					+ (this.holdingQuantity * this.pricePaid)) / (order.getOrderQuantity() + this.holdingQuantity);
+		}
+
 	}
 
-	public void setProfitLoss(double profitLoss) {
-		this.profitLoss = profitLoss;
+	public void setSoldQuantity(Order order) {
+
+		if (order.getTransacType() == TransactionType.Sell)
+			this.soldQuantity = this.soldQuantity + order.getOrderQuantity();
+	}
+
+	public void setMoneyRealized(Order order) {
+		if (order.getTransacType() == TransactionType.Sell)
+			this.moneyRealized = this.moneyRealized + (order.getOrderQuantity() * order.getPriceExecuted());
+	}
+
+	public void setProfitLoss() {
+		this.profitLoss = this.currentStockWorth + this.moneyRealized - this.getInvestmentAmount();
+		System.out.println("Current Stock Worth " + this.currentStockWorth);
+		System.out.println("Money Realized " + this.moneyRealized);
+		System.out.println("Invested Amount" + this.getInvestmentAmount());
+		
+		System.out.println("Profit loss: " + this.profitLoss);
 	}
 
 	public void setCurrency(String currency) {
@@ -137,8 +164,5 @@ public class Holding {
 				+ boughtQuantity + ", currentStockWorth=" + currentStockWorth + ", soldQuantity=" + soldQuantity
 				+ ", moneyRealized=" + moneyRealized + ", profitLoss=" + profitLoss + ", currency=" + currency + "]";
 	}
-
-	
-
 
 }

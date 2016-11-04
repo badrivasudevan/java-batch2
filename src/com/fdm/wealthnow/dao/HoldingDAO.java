@@ -200,27 +200,27 @@ public static void removeHolding(Order order) throws SQLException{
 		
 	}
 
-	public static void main(String[] args) throws Exception{
+/*	public static void main(String[] args) throws Exception{
 		
-		/*Order order = new Order(1, TransactionType.Sell, 50, "S59", Term.GoodForDay, PriceType.Market, 3.66, OrderStatus.Pending);
+		Order order = new Order(1, TransactionType.Sell, 50, "S59", Term.GoodForDay, PriceType.Market, 3.66, OrderStatus.Pending);
 		
 		//Testing retrieveIndividualHolding
 		Holding holding = HoldingDAO.retrieveIndividualHolding(order);
-		System.out.println(holding);*/
+		System.out.println(holding);
 		
 		//Testing storeHolding
-/*		Holding holding = new Holding(31, "S41", 100, 2.18, 100, 216, 0, 0, 0, "SGD");
+		Holding holding = new Holding(31, "S41", 100, 2.18, 100, 216, 0, 0, 0, "SGD");
 		System.out.println(holding);
 		HoldingDAO.storeHolding(holding);
-		*/
+		
 		//Testing removeHolding
-		/*Order order = new Order(6, TransactionType.Sell, 50, "APPL", Term.GoodForDay, PriceType.Market, 9.99, OrderStatus.Pending);
-		HoldingDAO.removeHolding(order);*/
+		Order order = new Order(6, TransactionType.Sell, 50, "APPL", Term.GoodForDay, PriceType.Market, 9.99, OrderStatus.Pending);
+		HoldingDAO.removeHolding(order);
 		
 		//Testing updateHolding
-		/*Holding holding = new Holding(10, "AAPL", 222, 99.99, "SGD");
+		Holding holding = new Holding(10, "AAPL", 222, 99.99, "SGD");
 		System.out.println(holding);
-		HoldingDAO.updateHolding(holding);*/
-	}
+		HoldingDAO.updateHolding(holding);
+	}*/
 
 }

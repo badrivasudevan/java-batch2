@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fdm.wealthnow.common.DBUtil;
-import com.fdm.wealthnow.common.Holding;
 import com.fdm.wealthnow.common.Order;
 import com.fdm.wealthnow.common.OrderStatus;
 import com.fdm.wealthnow.common.PriceType;
@@ -153,7 +152,6 @@ public class OrderDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String orderStatus = null;
 		List<Order> orderList = new ArrayList<>();
 
 		final String fetchOrderSQL = "Select STOCK_SYMBOL,ORDER_ID,USER_ID,ORDER_DATE,TRANSACTION_TYPE,PURCHASED_QUANTITY,TERM,PRICE_TYPE,PRICE_EXECUTED,ORDER_STATUS from " +
@@ -194,7 +192,6 @@ public class OrderDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String orderStatus = null;
 		List<Order> orderList = new ArrayList<>();
 		
 		final String fetchOrderSQL = "Select * from " +
@@ -252,23 +249,6 @@ public class OrderDAO {
 			ps = con.prepareStatement(fetchOrderSQL);
 			ps.setInt(1, stockId);
 			rs = ps.executeQuery();
-			Order order = null;
-			/*while (rs.next()){
-				order = new Order(rs.getLong("order_id"),
-						rs.getLong("user_id"),
-						rs.getDate("order_date"),
-						TransactionType.valueOf(rs.getString("transaction_type")),
-						rs.getInt("purchased_quantity"),
-						rs.getString("stock_symbol"),
-						Term.valueOf(rs.getString("term")),
-						PriceType.valueOf(rs.getString("price_type")),
-						rs.getDouble("price_executed"),
-						OrderStatus.valueOf(rs.getString("order_status")));		
-
-				orderList.add(order);
-			}
-
-			return orderList;	*/
 		} 
 		finally{
 			DBUtil.closeConnection(rs, ps, con);
