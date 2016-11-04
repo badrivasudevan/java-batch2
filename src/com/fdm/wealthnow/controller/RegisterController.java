@@ -102,7 +102,7 @@ public class RegisterController extends HttpServlet {
 										request.setAttribute("success", user_register);
 										System.out.println("The email is registered! You will receive email notifications whenever you make a order!");
 										request.setAttribute("successemail", user_registeremail);
-										String message = "Dear " +fullname +", \n\n your account is successfully created! \n\n Welcome to the next-gen trading platform!";
+										String message = "Dear " +fullname +", \n\n Your account is successfully created! \n\n Welcome to the next-gen trading platform! \n\n Your account username is : " +username + " \n\n This is a computer generated email. Please do not reply to this email.";
 										SendEmail.sendmail(email,message);
 										request.getRequestDispatcher("/login.jsp").forward(request, response);	
 									}										
