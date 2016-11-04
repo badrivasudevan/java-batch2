@@ -41,6 +41,11 @@
 	    <%		}
 		%>
 
+		<%	if(request.getAttribute("errorMessage5") != null) {	 %>
+	  		   <script>alert("The email is already in use! Please try again!");</script>
+	    <%		}
+		%>
+		
 		<button type="submit">Submit</button>
 		<button type="reset" value="Reset">Reset</button>
 	</fieldset>	

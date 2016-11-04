@@ -11,7 +11,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class SendEmail {
-	public static void sendmail(String email) {
+	public static void sendmail(String email, String email_message) {
 		System.out.println("hello");
 		final String username = "Fdmaug16";
 		final String password = "Fdmaug2016";
@@ -36,8 +36,7 @@ public class SendEmail {
 			message.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse(email));
 			message.setSubject("New Account Created");
-			message.setText("Dear User,"
-				+ "\n\n Welcome to the next-gen trading platform!");
+			message.setText(email_message);
 
 			Transport.send(message);
 

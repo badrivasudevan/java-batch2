@@ -53,6 +53,7 @@ public class RegisterController extends HttpServlet {
 		String user_errormsg2 = "The username is already in use. Please use other username!";
 		String user_errormsg3 = "The password cannot be empty. Please enter the password!";
 		String user_errormsg4 = "The username and/or full name cannot be empty. Please enter again!";
+		String user_errormsg5 = "The email is already in use. Please use other email";
 		String user_register = "The account is created! You can access the website now!";
 		String user_registeremail = "The email is registered together with your account! You will receive email notifications!";
 		List<String> userlist = new ArrayList<>();
@@ -79,17 +80,19 @@ public class RegisterController extends HttpServlet {
 							System.out.println("The account is created! You can access the website now!");
 							request.setAttribute("success", user_register);
 							if(!email.isEmpty()){
-								if(UserDAO) {
-									System.out.println("The email is registered! You will receive email notifications whenever you make a order!");
-									request.setAttribute("successemail", user_registeremail);
-									SendEmail.sendmail(email);
+								if(UserDAO.retrieveAllEmail().contains(email)) {
+									System.out.println("The email is already registered! Please use another email!");
+									request.setAttribute("errorMessage5", user_errormsg5);
+									request.getRequestDispatcher("/registration.jsp").forward(request, response);	
 								}
 								else {
-									System.out.println("The email is already registered! Please use another email!");
-									
+									System.out.println("The email is registered! You will receive email notifications whenever you make a order!");
+									request.setAttribute("successemail", user_registeremail);
+									String message = "Dear " +fullname +", your account is successfully created! \n\n Welcome to the next-gen trading platform!";
+									SendEmail.sendmail(email,message);
+									request.getRequestDispatcher("/login.jsp").forward(request, response);	
 								}
 							}
-							request.getRequestDispatcher("/login.jsp").forward(request, response);	
 							
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
