@@ -160,8 +160,7 @@
 			<label for="Stop-loss">Stop Loss</label> <input type="number"
 				id="stopLoss" name="stopLoss">
 		</div>
-		<label for="quantity">Quantity</label> <input id="quantity"
-			type="number" style="width: 50px;" name="quantity">
+		<label for="quantity">Quantity</label> <input type="number" style="width: 50px;" name="quantity" min="1">
 		<p>
 			<label for="Term">Term</label> <select name="term">
 				<option value="GoodTilCanceled" name="goodTilCanceled">
