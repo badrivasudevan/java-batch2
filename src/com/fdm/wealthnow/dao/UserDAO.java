@@ -190,7 +190,7 @@ public class UserDAO {
 				List<String> username = new ArrayList<>();
 				
 				while(rs.next()){
-					username.add(rs.getString("user_name"));
+					username.add(rs.getString("user_name").toLowerCase());
 				}
 				
 				return username;
@@ -216,7 +216,7 @@ public class UserDAO {
 				List<String> email = new ArrayList<>();
 				
 				while(rs.next()){
-					email.add(rs.getString("email"));
+					email.add(rs.getString("email").toLowerCase());
 				}
 				
 				return email;

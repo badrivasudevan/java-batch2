@@ -59,7 +59,7 @@ public class RegisterController extends HttpServlet {
 		List<String> userlist = new ArrayList<>();
 		try {
 			userlist = UserDAO.retrieveAllUserName();
-			if(userlist.contains(username)){
+			if(userlist.contains(username.toLowerCase())){
 				 System.out.println("The username is already exist! Try again!");
 				 request.setAttribute("errorMessage2", user_errormsg2);
 				 request.getRequestDispatcher("/registration.jsp").forward(request, response);				
@@ -80,7 +80,7 @@ public class RegisterController extends HttpServlet {
 							System.out.println("The account is created! You can access the website now!");
 							request.setAttribute("success", user_register);
 							if(!email.isEmpty()){
-								if(UserDAO.retrieveAllEmail().contains(email)) {
+								if(UserDAO.retrieveAllEmail().contains(email.toLowerCase())) {
 									System.out.println("The email is already registered! Please use another email!");
 									request.setAttribute("errorMessage5", user_errormsg5);
 									request.getRequestDispatcher("/registration.jsp").forward(request, response);	
