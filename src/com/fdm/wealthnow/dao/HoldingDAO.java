@@ -10,10 +10,6 @@ import java.util.List;
 import com.fdm.wealthnow.common.DBUtil;
 import com.fdm.wealthnow.common.Holding;
 import com.fdm.wealthnow.common.Order;
-import com.fdm.wealthnow.common.OrderStatus;
-import com.fdm.wealthnow.common.PriceType;
-import com.fdm.wealthnow.common.Term;
-import com.fdm.wealthnow.common.TransactionType;
 
 public class HoldingDAO {
 	private static final String STOCK_HOLDING = "stock_holding";
@@ -24,7 +20,7 @@ public class HoldingDAO {
 		ResultSet rs = null;
 		Holding holding = null;
 		
-		final String retrieveHoldingSQL = "Select holding_id, stock_symbol, holding_quantity, price_paid, currentStock_Worth, sold_quantity, money_realised, profit_loss, currency from " +
+		final String retrieveHoldingSQL = "Select holding_id, stock_symbol, holding_quantity, price_paid, bought_Quantity, currentStock_Worth, sold_quantity, money_realised, profit_loss, currency from " +
 										   STOCK_HOLDING + " where user_id = ? and stock_symbol in ?";
 
 		try{
@@ -39,6 +35,7 @@ public class HoldingDAO {
 								  rs.getString("stock_symbol"),
 								  rs.getInt("holding_quantity"),
 								  rs.getDouble("price_paid"),
+								  rs.getInt("bought_Quantity"),
 								  rs.getDouble("currentStock_Worth"),
 								  rs.getInt("sold_quantity"),
 								  rs.getDouble("money_realised"),
@@ -58,7 +55,7 @@ public class HoldingDAO {
 		ResultSet rs = null;
 		Holding holding = null;
 		List<Holding> holdingList = new ArrayList<>();
-		final String retrieveHoldingSQL = "Select holding_id, stock_symbol, holding_quantity, price_paid, currentStock_Worth, sold_quantity, money_realised, profit_loss, currency from " +
+		final String retrieveHoldingSQL = "Select holding_id, stock_symbol, holding_quantity, price_paid, bought_Quantity, currentStock_Worth, sold_quantity, money_realised, profit_loss, currency from " +
 										   STOCK_HOLDING + " where user_id = ?";
 
 		try{
@@ -72,11 +69,13 @@ public class HoldingDAO {
 									  rs.getString("stock_symbol"),
 									  rs.getInt("holding_quantity"),
 									  rs.getDouble("price_paid"),
+									  rs.getInt("bought_Quantity"),
 									  rs.getDouble("currentStock_Worth"),
 									  rs.getInt("sold_quantity"),
 									  rs.getDouble("money_realised"),
 									  rs.getDouble("profit_loss"),
 									  rs.getString("currency"));
+				
 				holdingList.add(holding);
 			}
 			return holdingList;
@@ -92,17 +91,18 @@ public class HoldingDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
-		final String updateHoldingSQL = "Update " + STOCK_HOLDING + " set price_paid = ?, holding_quantity = ?, currentStock_Worth = ?, profit_loss = ? where user_id = ? and stock_symbol = ?";
+		final String updateHoldingSQL = "Update " + STOCK_HOLDING + " set price_paid = ?, holding_quantity = ?, bought_Quantity = ?,  currentStock_Worth = ?, profit_loss = ? where user_id = ? and stock_symbol = ?";
 
 		try{
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(updateHoldingSQL);
 			ps.setDouble(1, holding.getPricePaid());
 			ps.setInt(2, holding.getHoldingQuantity());
-			ps.setDouble(3, holding.getCurrentStockWorth());
-			ps.setDouble(4, holding.getProfitLoss());
-			ps.setLong(5, holding.getUserId());
-			ps.setString(6, holding.getStockSymbol());
+			ps.setInt(3, holding.getBoughtQuantity());
+			ps.setDouble(4, holding.getCurrentStockWorth());
+			ps.setDouble(5, holding.getProfitLoss());
+			ps.setLong(6, holding.getUserId());
+			ps.setString(7, holding.getStockSymbol());
 			
 			ps.executeUpdate();
 			con.commit();
@@ -150,7 +150,7 @@ public class HoldingDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
-		final String storeHoldingSQL = "Insert into " + STOCK_HOLDING + " values (holding_id.nextVal, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		final String storeHoldingSQL = "Insert into " + STOCK_HOLDING + " values (holding_id.nextVal, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try{
 			con = DBUtil.getConnection();
@@ -159,11 +159,12 @@ public class HoldingDAO {
 			ps.setString(2, holding.getStockSymbol());
 			ps.setInt(3, holding.getHoldingQuantity());
 			ps.setDouble(4, holding.getPricePaid());
-			ps.setDouble(5, holding.getCurrentStockWorth());
-			ps.setInt(6, holding.getSoldQuantity());
-			ps.setDouble(7, holding.getMoneyRealized());
-			ps.setDouble(8, holding.getProfitLoss());
-			ps.setString(9, holding.getCurrency());
+			ps.setInt(5, holding.getBoughtQuantity());
+			ps.setDouble(6, holding.getCurrentStockWorth());
+			ps.setInt(7, holding.getSoldQuantity());
+			ps.setDouble(8, holding.getMoneyRealized());
+			ps.setDouble(9, holding.getProfitLoss());
+			ps.setString(10, holding.getCurrency());
 			
 			ps.executeUpdate();
 			con.commit();
