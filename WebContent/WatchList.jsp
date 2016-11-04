@@ -70,7 +70,7 @@
 	<% HashMap<String,Stock> stockhashmap = StockService.createHashMap(liststock); %>
 	<% HashMap<String,String> watchlisthashmap = WatchListDAO.retrieveWatchlist(user); %>
 	Current Watchlist : <%= (watchlisthashmap.get(w_id)==null)?"NONE":watchlisthashmap.get(w_id) %>
-
+	<br><br>
 		<table id="WatchListTable" >
 			<tr>
 				<th>Stock Name</th>
