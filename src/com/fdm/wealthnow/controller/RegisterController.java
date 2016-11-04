@@ -107,7 +107,7 @@ public class RegisterController extends HttpServlet {
 										request.getRequestDispatcher("/login.jsp").forward(request, response);	
 									}										
 								}
-								else if(email.isEmpty() || email==null) {
+								else {
 									System.out.println("The email cannot be empty! Please enter the email!");
 									request.setAttribute("errorMessage6", user_errormsg6);
 									request.getRequestDispatcher("/registration.jsp").forward(request, response);	
